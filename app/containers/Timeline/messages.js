@@ -11,6 +11,18 @@ export const scope = 'app.containers.Timeline';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'This is the Timeline container!',
+    defaultMessage: 'Timeline',
+  },
+  kick: {
+    id: `${scope}.kick`,
+    defaultMessage: 'Kick',
+  },
+  snare: {
+    id: `${scope}.snare`,
+    defaultMessage: 'Snare',
+  },
+  hat: {
+    id: `${scope}.hat`,
+    defaultMessage: 'Hat',
   },
 });
