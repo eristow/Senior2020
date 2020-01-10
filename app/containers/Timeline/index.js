@@ -11,7 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import Button from 'components/Button';
+import H1 from 'components/H1';
+import Note from 'components/Note';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -20,22 +21,41 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+import Keyboard from './Keyboard';
+import WhiteNotes from './WhiteNotes';
+import BlackNotes from './BlackNotes';
+
 export function Timeline() {
   useInjectReducer({ key: 'timeline', reducer });
   useInjectSaga({ key: 'timeline', saga });
 
-  // TODO: create dataStruc of buttons with diff names passed in to them as props
   return (
     <div>
-      <h1>
+      <H1>
         <FormattedMessage {...messages.header} />
-      </h1>
-      {/* <Button name={messages.kick} note="C4" />
-      <Button name={messages.snare} note="Db4" />
-      <Button name={messages.hat} note="D4" /> */}
-      <Button name="kick" note="C4" />
-      <Button name="snare" note="Db4" />
-      <Button name="hat" note="D4" />
+      </H1>
+      {/* <Note name={messages.kick} note="C4" />
+      <Note name={messages.snare} note="Db4" />
+      <Note name={messages.hat} note="D4" /> */}
+      {/* TODO: move keyboard/black/white to own component? */}
+      <Keyboard>
+        <BlackNotes>
+          <Note name="Db4" note="Db4" color="black" />
+          <Note name="Eb4" note="Eb4" color="black" />
+          <Note name="Gb4" note="Gb4" color="black" />
+          <Note name="Ab4" note="Ab4" color="black" />
+          <Note name="Bb4" note="Bb4" color="black" />
+        </BlackNotes>
+        <WhiteNotes>
+          <Note name="C4" note="C4" color="white" />
+          <Note name="D4" note="D4" color="white" />
+          <Note name="E4" note="E4" color="white" />
+          <Note name="F4" note="F4" color="white" />
+          <Note name="G4" note="G4" color="white" />
+          <Note name="A4" note="A4" color="white" />
+          <Note name="B4" note="B4" color="white" />
+        </WhiteNotes>
+      </Keyboard>
     </div>
   );
 }
