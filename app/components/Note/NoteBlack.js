@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
-const NoteWhite = styled.button`
+const NoteBlack = styled.button`
   display: inline-block;
   box-sizing: border-box;
-  padding: 0.25em 1em;
+  height: 50px;
+  width: 50px;
+  padding: 0.25em 0.75em;
   margin: 0em 0.2em;
   text-decoration: none;
   border-radius: 4px;
@@ -25,4 +27,4 @@ const NoteWhite = styled.button`
   }
 `;
 
-export default NoteWhite;
+export default NoteBlack;

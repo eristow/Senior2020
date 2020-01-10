@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const NoteWhite = styled.button`
   display: inline-block;
   box-sizing: border-box;
+  height: 50px;
+  width: 50px;
   padding: 0.25em 1em;
   margin: 0em 0.1em;
   text-decoration: none;

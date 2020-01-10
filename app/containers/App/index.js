@@ -31,11 +31,8 @@ const AppWraper = styled.div`
 export default function App() {
   return (
     <AppWraper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
+      <Helmet titleTemplate="%s - Web DAW" defaultTitle="Web DAW">
+        <meta name="description" content="A web-based DAW" />
       </Helmet>
       <Header />
       <Switch>
