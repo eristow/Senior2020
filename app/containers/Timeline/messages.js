@@ -15,22 +15,10 @@ export default defineMessages({
   },
   piano: {
     id: `${scope}.piano`,
-    defaultMessage: 'Piano: Type letter on key, or click on key to play.',
+    defaultMessage: 'Piano',
   },
   drums: {
     id: `${scope}.drums`,
-    defaultMessage: 'Drums:',
-  },
-  kick: {
-    id: `${scope}.kick`,
-    defaultMessage: 'Kick',
-  },
-  snare: {
-    id: `${scope}.snare`,
-    defaultMessage: 'Snare',
-  },
-  hat: {
-    id: `${scope}.hat`,
-    defaultMessage: 'Hat',
+    defaultMessage: 'Drums',
   },
 });

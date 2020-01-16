@@ -1,6 +1,6 @@
 /**
  *
- * Timeline
+ * Drums
  *
  */
 
@@ -11,41 +11,48 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import H1 from 'components/H1';
-import HeaderLink from 'components/Header/HeaderLink';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectTimeline from './selectors';
+
+import H2 from 'components/H2';
+import DrumPad from 'components/DrumPad';
+
+import makeSelectDrums from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export function Timeline() {
-  useInjectReducer({ key: 'timeline', reducer });
-  useInjectSaga({ key: 'timeline', saga });
+import DrumsContainer from './DrumsContainer';
+
+export function Drums() {
+  useInjectReducer({ key: 'drums', reducer });
+  useInjectSaga({ key: 'drums', saga });
 
   return (
     <div>
-      <H1>
-        <FormattedMessage {...messages.header} />
-      </H1>
-      <HeaderLink to="/piano">
-        <FormattedMessage {...messages.piano} />
-      </HeaderLink>
-      <HeaderLink to="/drums">
+      <H2>
         <FormattedMessage {...messages.drums} />
-      </HeaderLink>
+      </H2>
+      <DrumsContainer>
+        <DrumPad
+          name="Kick"
+          src="https://senior-project-20.s3.us-east-2.amazonaws.com/kick.wav"
+        />
+        <DrumPad
+          name="Snare"
+          src="https://senior-project-20.s3.us-east-2.amazonaws.com/snare2.wav"
+        />
+      </DrumsContainer>
     </div>
   );
 }
 
-Timeline.propTypes = {
+Drums.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  timeline: makeSelectTimeline(),
+  drums: makeSelectDrums(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -59,4 +66,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(Timeline);
+export default compose(withConnect)(Drums);

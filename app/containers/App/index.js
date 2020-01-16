@@ -15,6 +15,8 @@ import { Switch, Route } from 'react-router-dom';
 import Header from 'components/Header';
 import HomePage from 'containers/HomePage/Loadable';
 import Timeline from 'containers/Timeline/Loadable';
+import Piano from 'containers/Piano/Loadable';
+import Drums from 'containers/Drums/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -38,6 +40,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/timeline" component={Timeline} />
+        <Route exact path="/piano" component={Piano} />
+        <Route exact path="/drums" component={Drums} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
