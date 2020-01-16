@@ -15,6 +15,7 @@ import Tone from 'tone';
 import H1 from 'components/H1';
 import H2 from 'components/H2';
 import Note from 'components/Note';
+import DrumPad from 'components/DrumPad';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -26,10 +27,11 @@ import messages from './messages';
 import Keyboard from './Keyboard';
 import WhiteNotes from './WhiteNotes';
 import BlackNotes from './BlackNotes';
+import Drums from './Drums';
 
 const synth = new Tone.Synth().toMaster();
 
-// TODO: change to saved sample
+// TODO: move this to Note?
 function onClickNote(note) {
   synth.triggerAttackRelease(note, '16n');
 }
@@ -165,12 +167,11 @@ export function Timeline() {
       <H1>
         <FormattedMessage {...messages.header} />
       </H1>
-      {/* <Note name={messages.kick} note="C4" />
-      <Note name={messages.snare} note="Db4" />
-      <Note name={messages.hat} note="D4" /> */}
       {/* TODO: move keyboard/black/white to own component? */}
       {/* TODO: better way to create keys? */}
-      <H2>Type letter on key, or click on key to play.</H2>
+      <H2>
+        <FormattedMessage {...messages.piano} />
+      </H2>
       <Keyboard>
         <BlackNotes>
           <Note name="S" note="C#4" color="black" onClick={onClickNote} />
@@ -219,6 +220,19 @@ export function Timeline() {
           <Note name="U" note="B5" color="white" onClick={onClickNote} />
         </WhiteNotes>
       </Keyboard>
+      <H2>
+        <FormattedMessage {...messages.drums} />
+      </H2>
+      <Drums>
+        <DrumPad
+          name="Kick"
+          src="https://senior-project-20.s3.us-east-2.amazonaws.com/kick.wav"
+        />
+        <DrumPad
+          name="Snare"
+          src="https://senior-project-20.s3.us-east-2.amazonaws.com/snare2.wav"
+        />
+      </Drums>
     </div>
   );
 }
