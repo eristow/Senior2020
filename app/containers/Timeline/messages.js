@@ -13,6 +13,14 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'Timeline',
   },
+  piano: {
+    id: `${scope}.piano`,
+    defaultMessage: 'Piano: Type letter on key, or click on key to play.',
+  },
+  drums: {
+    id: `${scope}.drums`,
+    defaultMessage: 'Drums:',
+  },
   kick: {
     id: `${scope}.kick`,
     defaultMessage: 'Kick',
