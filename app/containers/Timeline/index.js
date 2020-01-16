@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import H1 from 'components/H1';
-import HeaderLink from 'components/Header/HeaderLink';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -30,12 +29,6 @@ export function Timeline() {
       <H1>
         <FormattedMessage {...messages.header} />
       </H1>
-      <HeaderLink to="/piano">
-        <FormattedMessage {...messages.piano} />
-      </HeaderLink>
-      <HeaderLink to="/drums">
-        <FormattedMessage {...messages.drums} />
-      </HeaderLink>
     </div>
   );
 }

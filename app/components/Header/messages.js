@@ -17,4 +17,12 @@ export default defineMessages({
     id: `${scope}.timeline`,
     defaultMessage: 'Timeline',
   },
+  piano: {
+    id: `${scope}.piano`,
+    defaultMessage: 'Piano',
+  },
+  drums: {
+    id: `${scope}.drums`,
+    defaultMessage: 'Drums',
+  },
 });

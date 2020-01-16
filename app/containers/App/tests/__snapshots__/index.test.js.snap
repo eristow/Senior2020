@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> should render and match the snapshot 1`] = `
-<div>
+<ForwardRef>
+  <HelmetWrapper
+    defaultTitle="Web DAW"
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="%s - Web DAW"
+  >
+    <meta
+      content="A web-based DAW"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Header />
   <Switch>
     <Route
       component={[Function]}
@@ -10,8 +22,23 @@ exports[`<App /> should render and match the snapshot 1`] = `
     />
     <Route
       component={[Function]}
+      exact={true}
+      path="/timeline"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/piano"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/drums"
+    />
+    <Route
+      component={[Function]}
     />
   </Switch>
   <GlobalStyleComponent />
-</div>
+</ForwardRef>
 `;
