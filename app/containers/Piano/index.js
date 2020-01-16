@@ -27,138 +27,139 @@ import Keyboard from './Keyboard';
 import BlackNotes from './BlackNotes';
 import WhiteNotes from './WhiteNotes';
 
-const synth = new Tone.Synth().toMaster();
-
-// TODO: move this to Note?
-function onClickNote(note) {
-  synth.triggerAttackRelease(note, '16n');
-}
-
-// TODO: put keymaps somewhere else?
-document.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'z':
-      return synth.triggerAttack('C4');
-    case 's':
-      return synth.triggerAttack('C#4');
-    case 'x':
-      return synth.triggerAttack('D4');
-    case 'd':
-      return synth.triggerAttack('D#4');
-    case 'c':
-      return synth.triggerAttack('E4');
-    case 'v':
-      return synth.triggerAttack('F4');
-    case 'g':
-      return synth.triggerAttack('F#4');
-    case 'b':
-      return synth.triggerAttack('G4');
-    case 'h':
-      return synth.triggerAttack('G#4');
-    case 'n':
-      return synth.triggerAttack('A4');
-    case 'j':
-      return synth.triggerAttack('A#4');
-    case 'm':
-      return synth.triggerAttack('B4');
-    case ',':
-    case 'q':
-      return synth.triggerAttack('C5');
-    case 'l':
-    case '2':
-      return synth.triggerAttack('C#5');
-    case '.':
-    case 'w':
-      return synth.triggerAttack('D5');
-    case ';':
-    case '3':
-      return synth.triggerAttack('D#5');
-    case '/':
-    case 'e':
-      return synth.triggerAttack('E5');
-    case 'r':
-      return synth.triggerAttack('F5');
-    case '5':
-      return synth.triggerAttack('F#5');
-    case 't':
-      return synth.triggerAttack('G5');
-    case '6':
-      return synth.triggerAttack('G#5');
-    case 'y':
-      return synth.triggerAttack('A5');
-    case '7':
-      return synth.triggerAttack('A#5');
-    case 'u':
-      return synth.triggerAttack('B5');
-    case 'i':
-      return synth.triggerAttack('C6');
-    case '9':
-      return synth.triggerAttack('C#6');
-    case 'o':
-      return synth.triggerAttack('D6');
-    case '0':
-      return synth.triggerAttack('D#6');
-    case 'p':
-      return synth.triggerAttack('E6');
-    case '[':
-      return synth.triggerAttack('F6');
-    case '=':
-      return synth.triggerAttack('F#6');
-    case ']':
-      return synth.triggerAttack('G6');
-    default:
-      return synth;
-  }
-});
-
-document.addEventListener('keyup', e => {
-  switch (e.key) {
-    case 'z':
-    case 's':
-    case 'x':
-    case 'd':
-    case 'c':
-    case 'v':
-    case 'g':
-    case 'b':
-    case 'h':
-    case 'n':
-    case 'j':
-    case 'm':
-    case ',':
-    case 'q':
-    case 'l':
-    case '2':
-    case '.':
-    case 'w':
-    case ';':
-    case '3':
-    case '/':
-    case 'e':
-    case 'r':
-    case '5':
-    case 't':
-    case '6':
-    case 'y':
-    case '7':
-    case 'u':
-    case 'i':
-    case '9':
-    case 'o':
-    case '0':
-    case 'p':
-    case '[':
-    case '=':
-    case ']':
-      synth.triggerRelease();
-      break;
-    default:
-  }
-});
-
 export function Piano() {
   useInjectReducer({ key: 'piano', reducer });
   useInjectSaga({ key: 'piano', saga });
+
+  // TODO: destroy this on unmount of component
+  const synth = new Tone.Synth().toMaster();
+
+  // TODO: move this to Note?
+  function onClickNote(note) {
+    synth.triggerAttackRelease(note, '16n');
+  }
+
+  // TODO: put keymaps somewhere else?
+  document.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'z':
+        return synth.triggerAttack('C4');
+      case 's':
+        return synth.triggerAttack('C#4');
+      case 'x':
+        return synth.triggerAttack('D4');
+      case 'd':
+        return synth.triggerAttack('D#4');
+      case 'c':
+        return synth.triggerAttack('E4');
+      case 'v':
+        return synth.triggerAttack('F4');
+      case 'g':
+        return synth.triggerAttack('F#4');
+      case 'b':
+        return synth.triggerAttack('G4');
+      case 'h':
+        return synth.triggerAttack('G#4');
+      case 'n':
+        return synth.triggerAttack('A4');
+      case 'j':
+        return synth.triggerAttack('A#4');
+      case 'm':
+        return synth.triggerAttack('B4');
+      case ',':
+      case 'q':
+        return synth.triggerAttack('C5');
+      case 'l':
+      case '2':
+        return synth.triggerAttack('C#5');
+      case '.':
+      case 'w':
+        return synth.triggerAttack('D5');
+      case ';':
+      case '3':
+        return synth.triggerAttack('D#5');
+      case '/':
+      case 'e':
+        return synth.triggerAttack('E5');
+      case 'r':
+        return synth.triggerAttack('F5');
+      case '5':
+        return synth.triggerAttack('F#5');
+      case 't':
+        return synth.triggerAttack('G5');
+      case '6':
+        return synth.triggerAttack('G#5');
+      case 'y':
+        return synth.triggerAttack('A5');
+      case '7':
+        return synth.triggerAttack('A#5');
+      case 'u':
+        return synth.triggerAttack('B5');
+      case 'i':
+        return synth.triggerAttack('C6');
+      case '9':
+        return synth.triggerAttack('C#6');
+      case 'o':
+        return synth.triggerAttack('D6');
+      case '0':
+        return synth.triggerAttack('D#6');
+      case 'p':
+        return synth.triggerAttack('E6');
+      case '[':
+        return synth.triggerAttack('F6');
+      case '=':
+        return synth.triggerAttack('F#6');
+      case ']':
+        return synth.triggerAttack('G6');
+      default:
+        return synth;
+    }
+  });
+
+  document.addEventListener('keyup', e => {
+    switch (e.key) {
+      case 'z':
+      case 's':
+      case 'x':
+      case 'd':
+      case 'c':
+      case 'v':
+      case 'g':
+      case 'b':
+      case 'h':
+      case 'n':
+      case 'j':
+      case 'm':
+      case ',':
+      case 'q':
+      case 'l':
+      case '2':
+      case '.':
+      case 'w':
+      case ';':
+      case '3':
+      case '/':
+      case 'e':
+      case 'r':
+      case '5':
+      case 't':
+      case '6':
+      case 'y':
+      case '7':
+      case 'u':
+      case 'i':
+      case '9':
+      case 'o':
+      case '0':
+      case 'p':
+      case '[':
+      case '=':
+      case ']':
+        synth.triggerRelease();
+        break;
+      default:
+    }
+  });
 
   return (
     <div>
