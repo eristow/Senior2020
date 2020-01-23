@@ -9,6 +9,9 @@
     <a href="https://coveralls.io/github/eristow/senior2020?branch=master">
         <img src="https://coveralls.io/repos/github/eristow/senior2020/badge.svg?branch=master" alt="Coveralls Status" />
     </a>
+    <a href="https://github.com/pussinboots/heroku-badge">
+        <img src="https://heroku-badge.herokuapp.com/?app=senior-project-2020" />
+    </a>
 </div>
 
 ## Setup
