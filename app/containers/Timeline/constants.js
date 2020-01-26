@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Timeline/DEFAULT_ACTION';
+export const CHANGE_DROPDOWN = 'app/Timeline/CHANGE_DROPDOWN';

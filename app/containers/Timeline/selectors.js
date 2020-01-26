@@ -11,6 +11,12 @@ const selectTimelineDomain = state => state.timeline || initialState;
  * Other specific selectors
  */
 
+const makeSelectDropdownValue = () =>
+  createSelector(
+    selectTimelineDomain,
+    substate => substate.dropdownValue,
+  );
+
 /**
  * Default selector used by Timeline
  */
@@ -22,4 +28,4 @@ const makeSelectTimeline = () =>
   );
 
 export default makeSelectTimeline;
-export { selectTimelineDomain };
+export { selectTimelineDomain, makeSelectDropdownValue };
