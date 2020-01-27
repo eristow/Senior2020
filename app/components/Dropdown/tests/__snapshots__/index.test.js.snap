@@ -2,7 +2,7 @@
 
 exports[`<Dropdown /> Should render and match the snapshot 1`] = `
 <select
-  class="Dropdown-r9xuee-0 ftyvap"
+  class="Dropdown-sc-1lo2juv-0 gWmuJI"
   width="10em"
 />
 `;

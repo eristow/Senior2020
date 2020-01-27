@@ -3,7 +3,7 @@
 exports[`<DrumPad /> Should render and match the snapshot 1`] = `
 <div>
   <button
-    class="Pad-sc-1phofyu-0 hRCFSm"
+    class="Pad-sc-1ad3ed0-0 cMOtpk"
   />
 </div>
 `;

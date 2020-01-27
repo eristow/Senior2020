@@ -19,7 +19,7 @@ import Button from 'components/Button';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectTimeline, { makeSelectDropdownValue } from './selectors';
+import { makeSelectDropdownValue } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { changeDropdown } from './actions';
@@ -80,10 +80,7 @@ Timeline.propTypes = {
   index: PropTypes.any,
 };
 
-Timeline.defaultProps = {};
-
 const mapStateToProps = createStructuredSelector({
-  timeline: makeSelectTimeline(),
   dropdownValue: makeSelectDropdownValue(),
 });
 

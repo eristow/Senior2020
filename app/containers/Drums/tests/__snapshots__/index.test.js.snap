@@ -3,25 +3,25 @@
 exports[`<Drums /> Should render and match the snapshot 1`] = `
 <div>
   <h2
-    class="H2-egphza-0 iyZTuY"
+    class="H2-a2hfac-0 hIKbpW"
   >
     <span>
       Drums:
     </span>
   </h2>
   <div
-    class="DrumsContainer-agzqps-0 drQIYQ"
+    class="DrumsContainer-sc-9wrhlb-0 bfTf"
   >
     <div>
       <button
-        class="Pad-sc-1phofyu-0 hRCFSm"
+        class="Pad-sc-1ad3ed0-0 cMOtpk"
       >
         Kick
       </button>
     </div>
     <div>
       <button
-        class="Pad-sc-1phofyu-0 hRCFSm"
+        class="Pad-sc-1ad3ed0-0 cMOtpk"
       >
         Snare
       </button>

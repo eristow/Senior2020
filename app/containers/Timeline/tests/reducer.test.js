@@ -18,10 +18,9 @@ describe('timelineReducer', () => {
 
   it('should handle the changeDropdown action correctly', () => {
     const expectedResult = produce(state, draft => {
-      // TODO: I don't think this is correct... This action isn't working properly.
-      draft.dropdownValue = undefined;
+      draft.dropdownValue = 2;
     });
 
-    expect(timelineReducer(state, changeDropdown())).toEqual(expectedResult);
+    expect(timelineReducer(state, changeDropdown(2))).toEqual(expectedResult);
   });
 });

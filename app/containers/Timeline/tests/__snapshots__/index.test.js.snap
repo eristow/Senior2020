@@ -3,7 +3,7 @@
 exports[`<Timeline /> Should render and match the snapshot 1`] = `
 <div>
   <h1
-    class="H1-tncdg6-0 hlthMJ"
+    class="H1-sc-3vkdoq-0 kuxxbb"
   >
     <span>
       Timeline
@@ -113,7 +113,7 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
       Number Input
     </p>
     <input
-      class="InputNumber-sc-1vm18vt-0 dLrMQV"
+      class="InputNumber-fuyjcw-0 iCGUAJ"
       placeholder="0"
       type="number"
       width="5em"
@@ -122,7 +122,7 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
       Dropdown/select
     </p>
     <select
-      class="Dropdown-r9xuee-0 ftyvap"
+      class="Dropdown-sc-1lo2juv-0 gWmuJI"
       width="10em"
     >
       <option
@@ -147,7 +147,7 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
     </p>
     <div>
       <button
-        class="StyledButton-t20ntd-0 braiqR"
+        class="StyledButton-sc-1vlwaww-0 cxCfee"
         width="4em"
       >
         Play

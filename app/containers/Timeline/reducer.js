@@ -15,7 +15,7 @@ const timelineReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case CHANGE_DROPDOWN:
-        draft.dropdownValue = action.dropdownValue;
+        draft.dropdownValue = action.value;
         break;
     }
   });
