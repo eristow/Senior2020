@@ -11,10 +11,11 @@ import PropTypes from 'prop-types';
 import Pad from './Pad';
 
 function DrumPad(props) {
-  const audio = new Audio(props.src);
-
+  // TODO: can this be a prop/moved to caller?
   const handleClick = () => {
+    let audio = new Audio(props.src);
     audio.play();
+    audio = null;
   };
 
   return (

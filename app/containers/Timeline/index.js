@@ -72,6 +72,7 @@ export function Timeline({ onChangeDropdown, dropdownValue }) {
 }
 
 Timeline.propTypes = {
+  dispatch: PropTypes.func,
   onChangeDropdown: PropTypes.func,
   dropdownValue: PropTypes.string,
   value: PropTypes.any,

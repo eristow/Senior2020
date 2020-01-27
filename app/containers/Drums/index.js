@@ -48,7 +48,7 @@ export function Drums() {
 }
 
 Drums.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

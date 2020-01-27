@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Note /> Should render and match the snapshot 1`] = `
+<div>
+  <button
+    class="NoteBlack-blkt7b-0 bRZtNd"
+  />
+</div>
+`;
