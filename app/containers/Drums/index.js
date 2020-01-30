@@ -36,11 +36,11 @@ export function Drums() {
       <DrumsContainer>
         <DrumPad
           name="Kick"
-          src="https://senior-project-20.s3.us-east-2.amazonaws.com/kick.wav"
+          src="https://web-daw.s3.us-east-2.amazonaws.com/kick.wav"
         />
         <DrumPad
           name="Snare"
-          src="https://senior-project-20.s3.us-east-2.amazonaws.com/snare2.wav"
+          src="https://web-daw.s3.us-east-2.amazonaws.com/snare2.wav"
         />
       </DrumsContainer>
     </div>
