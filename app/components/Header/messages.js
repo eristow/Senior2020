@@ -13,6 +13,10 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'Home',
   },
+  machine: {
+    id: `${scope}.machine`,
+    defaultMessage: 'Machine',
+  },
   timeline: {
     id: `${scope}.timeline`,
     defaultMessage: 'Timeline',

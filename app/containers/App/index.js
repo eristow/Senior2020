@@ -14,6 +14,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Header from 'components/Header';
 import HomePage from 'containers/HomePage/Loadable';
+import DrumMachine from 'containers/DrumMachine/Loadable';
 import Timeline from 'containers/Timeline/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
@@ -39,6 +40,7 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/timeline" component={Timeline} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />

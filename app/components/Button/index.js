@@ -10,7 +10,7 @@ import StyledButton from './StyledButton';
 
 function Button(props) {
   return (
-    <div>
+    <div style={{ display: 'inline' }}>
       <StyledButton
         onClick={props.onClick}
         width={props.width}

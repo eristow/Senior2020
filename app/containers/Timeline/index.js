@@ -12,10 +12,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import H1 from 'components/H1';
+import P from 'components/P';
 import Slider from 'components/Slider';
 import InputNumber from 'components/InputNumber';
 import Dropdown from 'components/Dropdown';
 import Button from 'components/Button';
+import Checkbox from 'components/Checkbox';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -45,15 +47,16 @@ export function Timeline({ onChangeDropdown, dropdownValue }) {
         <FormattedMessage {...messages.header} />
       </H1>
       <div>
-        <p>Volume Slider</p>
+        <P>Volume Slider</P>
         <Slider hasTooltip={false} onChange={log} />
-        <p>Volume Slider With Tooltip</p>
+        <P>Volume Slider With Tooltip</P>
         <Slider hasTooltip onChange={log} />
-        <p>Slider With Fixed Values</p>
+        <P>Slider With Fixed Values</P>
         <Slider min={0} max={10} onChange={log} />
-        <p>Number Input</p>
+        <P>Number Input</P>
         <InputNumber placeholder={0} />
-        <p>Dropdown/select</p>
+        <br />
+        <P>Dropdown/select</P>
         <Dropdown value={dropdownValue} onChange={onChangeDropdown}>
           <option value="1" disabled>
             Select
@@ -61,11 +64,13 @@ export function Timeline({ onChangeDropdown, dropdownValue }) {
           <option value="2">Test</option>
           <option value="3">Test2</option>
         </Dropdown>
-        <p>Button</p>
+        <br />
+        <P>Button</P>
         <Button text="Play" width="4em" onClick={logButton} />
-        <p>Checkbox</p>
-        <p>Timeline button to select when drums play</p>
-        <p>Timeline Indicator</p>
+        <Checkbox text="Checkbox" />
+        <P>Timeline button to select when drums play</P>
+        <br />
+        <P>Timeline Indicator</P>
       </div>
     </div>
   );

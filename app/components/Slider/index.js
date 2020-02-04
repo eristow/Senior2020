@@ -33,7 +33,7 @@ function Slider({ min, max, hasTooltip, width, onChange }) {
     margin: 10,
   };
   return (
-    <div>
+    <div style={{ display: 'inline' }}>
       {hasTooltip ? (
         <RCSlider
           style={style}
