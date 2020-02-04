@@ -1,4 +1,4 @@
-# Senior Project 2020
+# Web-DAW
 <div align="center">
     <a href="https://travis-ci.com/eristow/senior2020">
         <img src="https://travis-ci.com/eristow/senior2020.svg?branch=master" alt="TravisCI Status" />
