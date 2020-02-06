@@ -11,15 +11,22 @@ const selectDrumMachineDomain = state => state.drumMachine || initialState;
  * Other specific selectors
  */
 
-/**
- * Default selector used by DrumMachine
- */
-
-const makeSelectDrumMachine = () =>
+const makeSelectDropdownValue = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate,
+    substate => substate.dropdownValue,
   );
 
-export default makeSelectDrumMachine;
-export { selectDrumMachineDomain };
+const makeSelectVol = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.vol,
+  );
+
+const makeSelectTempo = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.tempo,
+  );
+
+export { selectDrumMachineDomain, makeSelectDropdownValue, makeSelectVol, makeSelectTempo, };

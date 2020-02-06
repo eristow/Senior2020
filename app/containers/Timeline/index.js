@@ -48,7 +48,7 @@ export function Timeline({ onChangeDropdown, dropdownValue }) {
       </H1>
       <div>
         <P>Volume Slider</P>
-        <Slider hasTooltip={false} onChange={log} />
+        <Slider onChange={log} />
         <P>Volume Slider With Tooltip</P>
         <Slider hasTooltip onChange={log} />
         <P>Slider With Fixed Values</P>

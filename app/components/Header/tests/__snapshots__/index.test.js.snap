@@ -5,7 +5,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
   class="NavBar-sc-1a70pn8-0 fBbJXM"
 >
   <a
-    class="HeaderLink-sc-5k2h0m-0 fcQMtx"
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
     href="/"
   >
     <span>
@@ -13,7 +13,15 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
     </span>
   </a>
   <a
-    class="HeaderLink-sc-5k2h0m-0 fcQMtx"
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    href="/machine"
+  >
+    <span>
+      Machine
+    </span>
+  </a>
+  <a
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
     href="/timeline"
   >
     <span>
@@ -21,7 +29,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
     </span>
   </a>
   <a
-    class="HeaderLink-sc-5k2h0m-0 fcQMtx"
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
     href="/piano"
   >
     <span>
@@ -29,7 +37,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
     </span>
   </a>
   <a
-    class="HeaderLink-sc-5k2h0m-0 fcQMtx"
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
     href="/drums"
   >
     <span>

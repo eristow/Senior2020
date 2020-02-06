@@ -4,20 +4,18 @@
  *
  */
 
-import React from 'react';
+import styled from 'styled-components';
 // import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
-function Block() {
-  return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
-  );
-}
+const Block = styled.button`
+  margin-bottom: 1em;
+  margin-left: 0.35em;
+  margin-right: 0.35em;
+  padding: 0em;
+  width: 4em;
+  height: 4em;
+  font-size: 10px;
+`;
 
 Block.propTypes = {};
 

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
+<div>
+  <span>
+    This is the DrumMachine container!
+  </span>
+</div>
+`;

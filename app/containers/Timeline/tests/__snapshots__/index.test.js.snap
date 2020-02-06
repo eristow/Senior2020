@@ -10,10 +10,14 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
     </span>
   </h1>
   <div>
-    <p>
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Volume Slider
     </p>
-    <div>
+    <div
+      style="display: inline;"
+    >
       <div
         class="rc-slider"
         style="width: 200px; margin: 10px;"
@@ -43,10 +47,14 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
         />
       </div>
     </div>
-    <p>
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Volume Slider With Tooltip
     </p>
-    <div>
+    <div
+      style="display: inline;"
+    >
       <div
         class="rc-slider"
         style="width: 200px; margin: 10px;"
@@ -76,10 +84,14 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
         />
       </div>
     </div>
-    <p>
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Slider With Fixed Values
     </p>
-    <div>
+    <div
+      style="display: inline;"
+    >
       <div
         class="rc-slider"
         style="width: 200px; margin: 10px;"
@@ -109,7 +121,9 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
         />
       </div>
     </div>
-    <p>
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Number Input
     </p>
     <input
@@ -118,7 +132,10 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
       type="number"
       width="5em"
     />
-    <p>
+    <br />
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Dropdown/select
     </p>
     <select
@@ -142,10 +159,15 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
         Test2
       </option>
     </select>
-    <p>
+    <br />
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Button
     </p>
-    <div>
+    <div
+      style="display: inline;"
+    >
       <button
         class="StyledButton-sc-1vlwaww-0 cxCfee"
         width="4em"
@@ -153,13 +175,26 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
         Play
       </button>
     </div>
-    <p>
-      Checkbox
-    </p>
-    <p>
+    <div>
+      <input
+        class="StyledCheckbox-sc-1n8d2c3-0 nyjIO"
+        type="checkbox"
+      />
+      <p
+        class="P-sc-1c3t6r-0 jiFTib"
+      >
+        Checkbox
+      </p>
+    </div>
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Timeline button to select when drums play
     </p>
-    <p>
+    <br />
+    <p
+      class="P-sc-1c3t6r-0 jiFTib"
+    >
       Timeline Indicator
     </p>
   </div>

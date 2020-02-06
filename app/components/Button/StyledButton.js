@@ -5,9 +5,10 @@ const StyledButton = styled.button.attrs(props => ({
   width: props.width || '8em',
   height: props.height || '3em',
 }))`
-  display: inline-block;
+  display: block;
   box-sizing: border-box;
   padding: 0.25em 0.5em;
+  margin: 0.5em;
   text-decoration: none;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased;
