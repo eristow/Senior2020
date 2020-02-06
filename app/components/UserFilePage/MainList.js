@@ -4,7 +4,7 @@
 //put in for demo purposes. 
 
 
-/*import React, {Component} from 'react';
+import React, {Component} from 'react';
 import List from './List';
 
 class Main extends Component
@@ -72,4 +72,4 @@ class Main extends Component
   }
 }
 
-export default Main;*/
+export default Main;
