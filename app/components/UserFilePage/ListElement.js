@@ -1,24 +1,27 @@
 import React, {Component} from 'react';
-import ListElement from './ListElement';
 
-class List extends Component
+class ListElement extends Component
 {
   render()
   {
-    return(
-      <div>
-        <div>
-          <h1>Your Files:</h1>
+    const file = this.props.file;
+    return (
+      <div class="file-container">
+      <div class="file-listing">
+        <input class="checkbox" type="checkbox"/>
+        <p class="file-name">{this.props.file.name}</p>
+        <div class="file-button-div">
+        <button class="file-button">Edit</button>
+        <button class="file-button" onClick={() => this.props.onRemoveFile(file)}>Delete</button>
+        <button class="file-button">Export</button>
         </div>
-        <div className="file-list">
-          {this.props.fileList.map((file, index) => <ListElement key={index} file={file} onRemoveFile={this.props.onRemoveFile}/>)}
-        </div>
-        <div className="button-div">
-          <button className="button-big" id="delete-all"><p className ="button-text">Deleted Selected</p></button>
-          <button className="button-big" id="export-all"><p className ="button-text">Export Selected</p></button>
-        </div>
-      </div>);
+      </div>
+      <div class="info-container">
+      <b>Duration:</b> <i>{this.props.file.length}</i>
+      <b> Date-Created:</b> <i>{this.props.file.dateCreated}</i>
+      </div>
+    </div>);
   }
 }
 
-export default List;
+export default ListElement;
