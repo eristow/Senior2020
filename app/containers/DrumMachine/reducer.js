@@ -5,7 +5,7 @@
  */
 import produce from 'immer';
 import {
-  CHANGE_DROPDOWN,
+  SELECT_KIT,
   PLAY,
   STOP,
   TOGGLE_BLOCK,
@@ -14,28 +14,33 @@ import {
 } from './constants';
 
 export const initialState = {
-  dropdownValue: '1',
+  selectedKit: '1',
   vol: 70,
-  tempo: 80,
+  tempo: '80',
+  playing: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const drumMachineReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case CHANGE_DROPDOWN:
-        draft.dropdownValue = action.value;
+      case SELECT_KIT:
+        draft.selectedKit = action.value;
         break;
-      // TODO: implement these
       case PLAY:
+        draft.playing = true;
         break;
       case STOP:
+        draft.playing = false;
         break;
+      // TODO: implement
       case TOGGLE_BLOCK:
         break;
       case CHANGE_VOL:
+        draft.vol = action.value;
         break;
       case CHANGE_TEMPO:
+        draft.tempo = action.value;
         break;
     }
   });

@@ -127,7 +127,8 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
       Number Input
     </p>
     <input
-      class="InputNumber-fuyjcw-0 iCGUAJ"
+      class="InputNumber-fuyjcw-0 iDATYf"
+      pattern="[0-9]*"
       placeholder="0"
       type="number"
       width="5em"
@@ -139,7 +140,7 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
       Dropdown/select
     </p>
     <select
-      class="Dropdown-sc-1lo2juv-0 gWmuJI"
+      class="Dropdown-sc-1lo2juv-0 gkNMSm"
       width="10em"
     >
       <option
@@ -165,16 +166,12 @@ exports[`<Timeline /> Should render and match the snapshot 1`] = `
     >
       Button
     </p>
-    <div
-      style="display: inline;"
+    <button
+      class="StyledButton-sc-1vlwaww-0 jTvsUn"
+      width="4em"
     >
-      <button
-        class="StyledButton-sc-1vlwaww-0 cxCfee"
-        width="4em"
-      >
-        Play
-      </button>
-    </div>
+      Play
+    </button>
     <div>
       <input
         class="StyledCheckbox-sc-1n8d2c3-0 nyjIO"

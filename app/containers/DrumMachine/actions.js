@@ -5,7 +5,7 @@
  */
 
 import {
-  CHANGE_DROPDOWN,
+  SELECT_KIT,
   PLAY,
   STOP,
   TOGGLE_BLOCK,
@@ -14,15 +14,15 @@ import {
 } from './constants';
 
 /**
- * Changes the currently selected item in dropdown
+ * Changes the currently selected kit in dropdown
  *
- * @param {string} value The new selected item
+ * @param {string} value The new selected kit
  *
  * @return {object} An action object with a type of CHANGE_SELECT
  */
-export function changeDropdown(value) {
+export function selectKit(value) {
   return {
-    type: CHANGE_DROPDOWN,
+    type: SELECT_KIT,
     value,
   };
 }
@@ -34,12 +34,9 @@ export function changeDropdown(value) {
  *
  * @return {object} An action object with a type of PLAY
  */
-export function play(value) {
-  console.log(`PLAY: ${value}`);
-  console.log(value);
+export function play() {
   return {
     type: PLAY,
-    value,
   };
 }
 
@@ -50,12 +47,9 @@ export function play(value) {
  *
  * @return {object} An action object with a type of STOP
  */
-export function stop(value) {
-  console.log(`STOP: ${value}`);
-  console.log(value);
+export function stop() {
   return {
     type: STOP,
-    value,
   };
 }
 

@@ -1,13 +1,16 @@
-// import produce from 'immer';
+import produce from 'immer';
 import drumMachineReducer from '../reducer';
-// import { someAction } from '../actions';
+import { selectKit, changeVol, changeTempo } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('drumMachineReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      // default state params here
+      selectedKit: '1',
+      vol: 70,
+      tempo: '80',
+      playing: false,
     };
   });
 
@@ -16,17 +19,27 @@ describe('drumMachineReducer', () => {
     expect(drumMachineReducer(undefined, {})).toEqual(expectedResult);
   });
 
-  /**
-   * Example state change comparison
-   *
-   * it('should handle the someAction action correctly', () => {
-   *   const expectedResult = produce(state, draft => {
-   *     draft.loading = true;
-   *     draft.error = false;
-   *     draft.userData.nested = false;
-   *   });
-   *
-   *   expect(appReducer(state, someAction())).toEqual(expectedResult);
-   * });
-   */
+  it('should handle the selectKit action correctly', () => {
+    const expectedResult = produce(state, draft => {
+      draft.selectedKit = 2;
+    });
+
+    expect(drumMachineReducer(state, selectKit(2))).toEqual(expectedResult);
+  });
+
+  it('should handle the changeVol action correctly', () => {
+    const expectedResult = produce(state, draft => {
+      draft.vol = 2;
+    });
+
+    expect(drumMachineReducer(state, changeVol(2))).toEqual(expectedResult);
+  });
+
+  it('should handle the changeTempo action correctly', () => {
+    const expectedResult = produce(state, draft => {
+      draft.tempo = '2';
+    });
+
+    expect(drumMachineReducer(state, changeTempo('2'))).toEqual(expectedResult);
+  });
 });

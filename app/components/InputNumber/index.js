@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 const InputNumber = styled.input.attrs(props => ({
   type: 'number',
+  pattern: '[0-9]*',
   padding: props.padding || '0.5em',
   width: props.width || '5em',
 }))`

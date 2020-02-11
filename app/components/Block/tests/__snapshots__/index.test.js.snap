@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Block /> Should render and match the snapshot 1`] = `
-<div>
-  <span>
-    This is the Block component!
-  </span>
-</div>
+<button
+  class="Block-rqdz70-0 ebrLIB"
+/>
 `;

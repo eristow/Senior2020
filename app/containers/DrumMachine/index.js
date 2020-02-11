@@ -17,20 +17,21 @@ import Slider from 'components/Slider';
 import InputNumber from 'components/InputNumber';
 import Dropdown from 'components/Dropdown';
 import Block from 'components/Block';
-import TimePosition from 'components/TimePosition';
+// import TimePosition from 'components/TimePosition';
 import Button from 'components/Button';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import {
-  makeSelectDropdownValue,
+  makeSelectSelectedKit,
   makeSelectVol,
   makeSelectTempo,
+  makeSelectPlaying,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {
-  changeDropdown,
+  selectKit,
   play,
   stop,
   toggleBlock,
@@ -46,11 +47,22 @@ import Grid from './Grid';
 const key = 'drumMachine';
 
 // TODO: Update onChange/Click functions. Fix in-line styles.
-export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
+export function DrumMachine({
+  onChangeKit,
+  onChangeVol,
+  onChangeTempo,
+  onClickPlay,
+  onClickStop,
+  selectedKit,
+  vol,
+  tempo,
+  playing,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   const blockValues = [];
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < 16; i++) {
     blockValues.push(i);
   }
@@ -61,6 +73,7 @@ export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
   };
 
   const StepNums = () => {
+    // TODO: move to a styled-component
     const style = {
       width: '3.75em',
       height: '15px',
@@ -71,7 +84,8 @@ export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
     };
     // TODO: figure out this error
     const items = blockValues.map(val => (
-      <div key={val.toString()} style={style} onClick={toggleBlock}>
+      // <div key={val.toString()} style={style} onClick={toggleBlock}>
+      <div key={val.toString()} style={style}>
         {val + 1}
       </div>
     ));
@@ -87,30 +101,26 @@ export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
     <Container>
       <H2>
         <FormattedMessage {...messages.title} />
+        {playing ? '\tPlaying' : ''}
       </H2>
       <Settings>
         <div style={{ textAlign: 'center' }}>
           <P marginTop="0.25em" marginBottom="0em">
             <FormattedMessage {...messages.masterVol} />
           </P>
-          <Slider onChange={changeVol} defaultValue={vol} width={110} />
+          <Slider onChange={onChangeVol} defaultValue={vol} width={110} />
         </div>
         <div style={{ textAlign: 'center' }}>
           <P marginTop="0.25em" marginBottom="0em">
             <FormattedMessage {...messages.tempo} />
           </P>
-          <InputNumber value={tempo} width="4em" onChange={changeTempo} />
+          <InputNumber value={tempo} width="4em" onChange={onChangeTempo} />
         </div>
         <div style={{ textAlign: 'center' }}>
           <P marginTop="0.25em" marginBottom="0em">
             <FormattedMessage {...messages.drumKits} />
           </P>
-          {/* TODO: add kits to state. Init to 1. Use map to create options */}
-          <Dropdown
-            width="5em"
-            value={dropdownValue}
-            onChange={onChangeDropdown}
-          >
+          <Dropdown width="5em" value={selectedKit} onChange={onChangeKit}>
             <option value="1">Kit 1</option>
             <option value="2">Kit 2</option>
             <option value="3">Kit 3</option>
@@ -118,16 +128,15 @@ export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
         </div>
         <div style={{ textAlign: 'center' }}>
           <P marginTop="0.25em" marginBottom="0em">
-            Play
             <FormattedMessage {...messages.play} />
           </P>
-          <Button text="Play" width="4em" onClick={play} />
+          <Button text="Play" width="4em" onClick={onClickPlay} />
         </div>
         <div style={{ textAlign: 'center' }}>
           <P marginTop="0.25em" marginBottom="0em">
             <FormattedMessage {...messages.stop} />
           </P>
-          <Button text="Stop" width="4em" onClick={stop} />
+          <Button text="Stop" width="4em" onClick={onClickStop} />
         </div>
       </Settings>
       <Grid>
@@ -152,33 +161,40 @@ export function DrumMachine({ onChangeDropdown, dropdownValue, vol, tempo }) {
 
 DrumMachine.propTypes = {
   dispatch: PropTypes.func,
-  onChangeDropdown: PropTypes.func,
-  dropdownValue: PropTypes.string,
-  tempo: PropTypes.number,
+  onChangeKit: PropTypes.func,
+  onChangeVol: PropTypes.func,
+  onChangeTempo: PropTypes.func,
+  onClickPlay: PropTypes.func,
+  onClickStop: PropTypes.func,
+  selectedKit: PropTypes.string,
+  tempo: PropTypes.string,
+  vol: PropTypes.number,
+  playing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
-  dropdownValue: makeSelectDropdownValue(),
+  selectedKit: makeSelectSelectedKit(),
   vol: makeSelectVol(),
   tempo: makeSelectTempo(),
+  playing: makeSelectPlaying(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeDropdown: evt => {
-      dispatch(changeDropdown(evt.target.value));
+    onChangeKit: evt => {
+      dispatch(selectKit(evt.target.value));
     },
-    onClickPlay: evt => {
-      dispatch(play(evt.target.value));
+    onClickPlay: () => {
+      dispatch(play());
     },
-    onClickStop: evt => {
-      dispatch(stop(evt.target.value));
+    onClickStop: () => {
+      dispatch(stop());
     },
     onClickBlock: evt => {
       dispatch(toggleBlock(evt.target.value));
     },
     onChangeVol: evt => {
-      dispatch(changeVol(evt.target.value));
+      dispatch(changeVol(evt));
     },
     onChangeTempo: evt => {
       dispatch(changeTempo(evt.target.value));

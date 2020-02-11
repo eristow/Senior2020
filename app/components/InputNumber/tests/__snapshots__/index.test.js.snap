@@ -2,7 +2,8 @@
 
 exports[`<InputNumber /> Should render and match the snapshot 1`] = `
 <input
-  class="InputNumber-fuyjcw-0 iCGUAJ"
+  class="InputNumber-fuyjcw-0 iDATYf"
+  pattern="[0-9]*"
   type="number"
   width="5em"
 />

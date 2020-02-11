@@ -11,10 +11,10 @@ const selectDrumMachineDomain = state => state.drumMachine || initialState;
  * Other specific selectors
  */
 
-const makeSelectDropdownValue = () =>
+const makeSelectSelectedKit = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.dropdownValue,
+    substate => substate.selectedKit,
   );
 
 const makeSelectVol = () =>
@@ -29,4 +29,16 @@ const makeSelectTempo = () =>
     substate => substate.tempo,
   );
 
-export { selectDrumMachineDomain, makeSelectDropdownValue, makeSelectVol, makeSelectTempo, };
+const makeSelectPlaying = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.playing,
+  );
+
+export {
+  selectDrumMachineDomain,
+  makeSelectSelectedKit,
+  makeSelectVol,
+  makeSelectTempo,
+  makeSelectPlaying,
+};
