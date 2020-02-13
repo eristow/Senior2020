@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
+import Checkbox from './Checkbox';
 
 class ListElement extends Component
 {
   render()
   {
-    const file = this.props.file;
+    var file = this.props.file;
     return (
       <div class="file-container">
       <div class="file-listing">
-        <input class="checkbox" type="checkbox"/>
+        <Checkbox file={this.props.file} onBoxChange={this.props.onBoxChange}/>
         <p class="file-name">{this.props.file.name}</p>
         <div class="file-button-div">
         <button class="file-button">Edit</button>
