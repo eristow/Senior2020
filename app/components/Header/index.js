@@ -25,6 +25,9 @@ function Header() {
       <HeaderLink to="/drums">
         <FormattedMessage {...messages.drums} />
       </HeaderLink>
+      <HeaderLink to="/fileList">
+        <FormattedMessage {...messages.fileList} />
+      </HeaderLink>
     </NavBar>
   );
 }
