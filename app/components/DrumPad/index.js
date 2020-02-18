@@ -14,6 +14,7 @@ function DrumPad(props) {
   // TODO: can this be a prop/moved to caller?
   const handleClick = () => {
     let audio = new Audio(props.src);
+    audio.load();
     audio.play();
     audio = null;
   };

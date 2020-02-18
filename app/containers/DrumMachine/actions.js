@@ -6,11 +6,12 @@
 
 import {
   SELECT_KIT,
-  PLAY,
-  STOP,
-  TOGGLE_BLOCK,
+  TOGGLE_PLAY,
+  TOGGLE_STEP,
   CHANGE_VOL,
   CHANGE_TEMPO,
+  CHANGE_CURRENT_STEP,
+  CHANGE_BUFFERS,
 } from './constants';
 
 /**
@@ -28,43 +29,26 @@ export function selectKit(value) {
 }
 
 /**
- * Start playing the drum machine.
+ * Start or stop playing the drum machine.
  *
- * @param {string} value
- *
- * @return {object} An action object with a type of PLAY
+ * @return {object} An action object with a type of TOGGLE_PLAY
  */
-export function play() {
+export function togglePlay() {
   return {
-    type: PLAY,
+    type: TOGGLE_PLAY,
   };
 }
 
 /**
- * Stop playing the drum machine.
+ * Toggle the status of a step.
  *
- * @param {string} value
- *
- * @return {object} An action object with a type of STOP
+ * @return {object} An action object with a type of TOGGLE_STEP
  */
-export function stop() {
+export function toggleStep(sound, index) {
   return {
-    type: STOP,
-  };
-}
-
-/**
- * Toggle the status of a block.
- *
- * @param {string} value
- *
- * @return {object} An action object with a type of TOGGLE_BLOCK
- */
-export function toggleBlock(value) {
-  console.log(`TOGGLE_BLOCK: ${value}`);
-  return {
-    type: TOGGLE_BLOCK,
-    value,
+    type: TOGGLE_STEP,
+    sound,
+    index,
   };
 }
 
@@ -76,7 +60,6 @@ export function toggleBlock(value) {
  * @return {object} An action object with a type of CHANGE_VOL
  */
 export function changeVol(value) {
-  console.log(`CHANGE_VOL: ${value}`);
   return {
     type: CHANGE_VOL,
     value,
@@ -91,10 +74,22 @@ export function changeVol(value) {
  * @return {object} An action object with a type of CHANGE_TEMPO
  */
 export function changeTempo(value) {
-  console.log('CHANGE_TEMPO:');
-  console.dir(value);
   return {
     type: CHANGE_TEMPO,
+    value,
+  };
+}
+
+export function changeCurrentStep(value) {
+  return {
+    type: CHANGE_CURRENT_STEP,
+    value,
+  };
+}
+
+export function changeBuffers(value) {
+  return {
+    type: CHANGE_BUFFERS,
     value,
   };
 }

@@ -6,11 +6,12 @@
 import produce from 'immer';
 import {
   SELECT_KIT,
-  PLAY,
-  STOP,
-  TOGGLE_BLOCK,
+  TOGGLE_PLAY,
+  TOGGLE_STEP,
   CHANGE_VOL,
   CHANGE_TEMPO,
+  CHANGE_CURRENT_STEP,
+  CHANGE_BUFFERS,
 } from './constants';
 
 export const initialState = {
@@ -18,6 +19,12 @@ export const initialState = {
   vol: 70,
   tempo: '80',
   playing: false,
+  stepState: {
+    kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  },
+  currentStep: 0,
+  buffers: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -27,14 +34,13 @@ const drumMachineReducer = (state = initialState, action) =>
       case SELECT_KIT:
         draft.selectedKit = action.value;
         break;
-      case PLAY:
-        draft.playing = true;
+      case TOGGLE_PLAY:
+        draft.playing = !draft.playing;
         break;
-      case STOP:
-        draft.playing = false;
-        break;
-      // TODO: implement
-      case TOGGLE_BLOCK:
+      case TOGGLE_STEP:
+        draft.stepState[action.sound][action.index] = !draft.stepState[
+          action.sound
+        ][action.index];
         break;
       case CHANGE_VOL:
         draft.vol = action.value;
@@ -42,6 +48,11 @@ const drumMachineReducer = (state = initialState, action) =>
       case CHANGE_TEMPO:
         draft.tempo = action.value;
         break;
+      case CHANGE_CURRENT_STEP:
+        draft.currentStep = action.value;
+        break;
+      case CHANGE_BUFFERS:
+        draft.buffers = action.value;
     }
   });
 

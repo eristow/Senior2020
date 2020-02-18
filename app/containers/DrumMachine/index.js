@@ -1,213 +1,115 @@
-/**
- *
- * DrumMachine
- *
- */
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import Tone from 'tone';
 
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
+import useBPM from './useBPM';
+import useStart from './useStart';
+import StepContext from './StepContext';
+import Transport from './Transport';
+import TracksContainer from './TracksContainer';
 
-import H2 from 'components/H2';
-import P from 'components/P';
-import Slider from 'components/Slider';
-import InputNumber from 'components/InputNumber';
-import Dropdown from 'components/Dropdown';
-import Block from 'components/Block';
-// import TimePosition from 'components/TimePosition';
-import Button from 'components/Button';
+const Container = styled.div`
+  max-width: 800px;
+  background: linear-gradient(to bottom right, #666, #888);
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+`;
 
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
-import {
-  makeSelectSelectedKit,
-  makeSelectVol,
-  makeSelectTempo,
-  makeSelectPlaying,
-} from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import {
-  selectKit,
-  play,
-  stop,
-  toggleBlock,
-  changeVol,
-  changeTempo,
-} from './actions';
+const Logo = styled.h1`
+  font-size: 28px;
+  color: #25ccf7;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 20px;
+  margin: 0;
+  text-transform: uppercase;
+  display: inline-block;
+`;
 
-import messages from './messages';
-import Container from './Container';
-import Settings from './Settings';
-import Grid from './Grid';
-
-const key = 'drumMachine';
-
-// TODO: Update onChange/Click functions. Fix in-line styles.
-export function DrumMachine({
-  onChangeKit,
-  onChangeVol,
-  onChangeTempo,
-  onClickPlay,
-  onClickStop,
-  selectedKit,
-  vol,
-  tempo,
-  playing,
-}) {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
-
-  const blockValues = [];
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < 16; i++) {
-    blockValues.push(i);
-  }
-  const Blocks = () => {
-    const items = blockValues.map(val => <Block key={val.toString()} />);
-
-    return <div>{items}</div>;
-  };
-
-  const StepNums = () => {
-    // TODO: move to a styled-component
-    const style = {
-      width: '3.75em',
-      height: '15px',
-      float: 'left',
-      margin: '3px 1px 1px',
-      textAlign: 'center',
-      fontSize: '12px',
-    };
-    // TODO: figure out this error
-    const items = blockValues.map(val => (
-      // <div key={val.toString()} style={style} onClick={toggleBlock}>
-      <div key={val.toString()} style={style}>
-        {val + 1}
-      </div>
-    ));
-
-    return (
-      <div style={{ display: 'inline-block', marginBottom: '0.5em' }}>
-        {items}
-      </div>
-    );
-  };
-
-  return (
-    <Container>
-      <H2>
-        <FormattedMessage {...messages.title} />
-        {playing ? '\tPlaying' : ''}
-      </H2>
-      <Settings>
-        <div style={{ textAlign: 'center' }}>
-          <P marginTop="0.25em" marginBottom="0em">
-            <FormattedMessage {...messages.masterVol} />
-          </P>
-          <Slider onChange={onChangeVol} defaultValue={vol} width={110} />
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <P marginTop="0.25em" marginBottom="0em">
-            <FormattedMessage {...messages.tempo} />
-          </P>
-          <InputNumber value={tempo} width="4em" onChange={onChangeTempo} />
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <P marginTop="0.25em" marginBottom="0em">
-            <FormattedMessage {...messages.drumKits} />
-          </P>
-          <Dropdown width="5em" value={selectedKit} onChange={onChangeKit}>
-            <option value="1">Kit 1</option>
-            <option value="2">Kit 2</option>
-            <option value="3">Kit 3</option>
-          </Dropdown>
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <P marginTop="0.25em" marginBottom="0em">
-            <FormattedMessage {...messages.play} />
-          </P>
-          <Button text="Play" width="4em" onClick={onClickPlay} />
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <P marginTop="0.25em" marginBottom="0em">
-            <FormattedMessage {...messages.stop} />
-          </P>
-          <Button text="Stop" width="4em" onClick={onClickStop} />
-        </div>
-      </Settings>
-      <Grid>
-        <StepNums />
-        {/* TODO: figure out toggle of blocks */}
-        <div style={{ display: 'inline' }}>
-          <P marginTop="0em" marginBottom="0em">
-            <FormattedMessage {...messages.snare} />
-          </P>
-          <Blocks />
-        </div>
-        <div style={{ display: 'inline' }}>
-          <P marginTop="0em" marginBottom="0em">
-            <FormattedMessage {...messages.kick} />
-          </P>
-          <Blocks />
-        </div>
-      </Grid>
-    </Container>
-  );
-}
-
-DrumMachine.propTypes = {
-  dispatch: PropTypes.func,
-  onChangeKit: PropTypes.func,
-  onChangeVol: PropTypes.func,
-  onChangeTempo: PropTypes.func,
-  onClickPlay: PropTypes.func,
-  onClickStop: PropTypes.func,
-  selectedKit: PropTypes.string,
-  tempo: PropTypes.string,
-  vol: PropTypes.number,
-  playing: PropTypes.bool,
+const config = {
+  tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
+  samples: {
+    Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
+    Snare: 'https://web-daw.s3.us-east-2.amazonaws.com/snare2.wav',
+    HiHat: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
+    HiHatOpen: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
+  },
 };
 
-const mapStateToProps = createStructuredSelector({
-  selectedKit: makeSelectSelectedKit(),
-  vol: makeSelectVol(),
-  tempo: makeSelectTempo(),
-  playing: makeSelectPlaying(),
-});
+const initialStepState = {
+  Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  HiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  HiHatOpen: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onChangeKit: evt => {
-      dispatch(selectKit(evt.target.value));
-    },
-    onClickPlay: () => {
-      dispatch(play());
-    },
-    onClickStop: () => {
-      dispatch(stop());
-    },
-    onClickBlock: evt => {
-      dispatch(toggleBlock(evt.target.value));
-    },
-    onChangeVol: evt => {
-      dispatch(changeVol(evt));
-    },
-    onChangeTempo: evt => {
-      dispatch(changeTempo(evt.target.value));
-    },
-  };
+export default function DrumMachine() {
+  const [stepState, setSteps] = useState(initialStepState);
+  const [buffers, setBuffers] = useState({});
+  const [currentStep, setCurrentStepState] = useState(0);
+
+  const [start, startButton] = useStart();
+  const [bpm, bpmSelector] = useBPM(65);
+
+  const buffersRef = useRef(buffers);
+  buffersRef.current = buffers;
+  console.log(buffersRef.current);
+  const stepsRef = useRef(stepState);
+  stepsRef.current = stepState;
+  const currentStepRef = useRef(currentStep);
+  currentStepRef.current = currentStep;
+
+  useEffect(() => {
+    Tone.Transport.scheduleRepeat(time => {
+      Object.keys(buffersRef.current).forEach(b => {
+        const targetStep = stepsRef.current[b][currentStepRef.current];
+        const targetBuffer = buffersRef.current[b];
+
+        if (targetStep === 1) {
+          targetBuffer.start(time);
+        } else if (targetStep === 2) {
+          targetBuffer.start();
+          targetBuffer.start('+64n');
+          targetBuffer.start('+32n');
+        }
+      });
+
+      setCurrentStepState(step => (step > 14 ? 0 : step + 1));
+    }, '16n');
+  }, [config]);
+
+  useEffect(() => {
+    Tone.Transport.bpm.value = bpm;
+  }, [bpm]);
+
+  useEffect(() => {
+    if (start) {
+      Tone.Transport.start();
+    } else {
+      Tone.Transport.stop();
+      setCurrentStepState(0);
+    }
+  }, [start]);
+
+  return (
+    <StepContext.Provider value={{ state: stepState, setSteps }}>
+      <Container>
+        <Transport>
+          <Logo>Drum Machine</Logo>
+          {bpmSelector}
+          {startButton}
+        </Transport>
+        {/* <React.Suspense fallback={<p>loading</p>}> */}
+        <TracksContainer
+          config={config}
+          currentStep={currentStepRef.current}
+          playing={start}
+          setBuffers={setBuffers}
+        />
+        {/* </React.Suspense> */}
+      </Container>
+    </StepContext.Provider>
+  );
 }
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(
-  withConnect,
-  memo,
-)(DrumMachine);

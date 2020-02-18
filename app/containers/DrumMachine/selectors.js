@@ -35,10 +35,31 @@ const makeSelectPlaying = () =>
     substate => substate.playing,
   );
 
+const makeSelectStepState = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.stepState,
+  );
+
+const makeSelectCurrentStep = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.currentStep,
+  );
+
+const makeSelectBuffers = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.buffers,
+  );
+
 export {
   selectDrumMachineDomain,
   makeSelectSelectedKit,
   makeSelectVol,
   makeSelectTempo,
   makeSelectPlaying,
+  makeSelectStepState,
+  makeSelectCurrentStep,
+  makeSelectBuffers,
 };

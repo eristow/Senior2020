@@ -1,13 +1,13 @@
 /**
  *
- * Block
+ * Step
  *
  */
 
 import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 
-const Block = styled.button`
+const Step = styled.button`
   margin-bottom: 1em;
   margin-left: 0.35em;
   margin-right: 0.35em;
@@ -17,6 +17,6 @@ const Block = styled.button`
   font-size: 10px;
 `;
 
-Block.propTypes = {};
+Step.propTypes = {};
 
-export default Block;
+export default Step;
