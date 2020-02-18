@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { bufferResource } from './bufferResource';
 
+import { bufferResource } from './bufferResource';
 import Track from './Track';
 
 const Wrapper = styled.div`
@@ -39,6 +39,7 @@ export default function TracksContainer({
   currentStep,
   setBuffers,
 }) {
+
   return (
     <Wrapper>
       <IndicatorWrapper>

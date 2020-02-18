@@ -44,7 +44,9 @@ const makeSelectStepState = () =>
 const makeSelectCurrentStep = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.currentStep,
+    substate => {
+      return substate.currentStep;
+    },
   );
 
 const makeSelectBuffers = () =>

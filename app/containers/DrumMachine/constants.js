@@ -10,4 +10,5 @@ export const TOGGLE_STEP = 'app/DrumMachine/TOGGLE_STEP';
 export const CHANGE_VOL = 'app/DrumMachine/CHANGE_VOL';
 export const CHANGE_TEMPO = 'app/DrumMachine/CHANGE_TEMPO';
 export const CHANGE_CURRENT_STEP = 'app/DrumMachine/CHANGE_CURRENT_STEP';
+export const CHANGE_STEPS = 'app/DrumMachine/CHANGE_STEPS';
 export const CHANGE_BUFFERS = 'app/DrumMachine/CHANGE_BUFFERS';

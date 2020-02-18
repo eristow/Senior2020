@@ -11,6 +11,7 @@ import {
   CHANGE_VOL,
   CHANGE_TEMPO,
   CHANGE_CURRENT_STEP,
+  CHANGE_STEPS,
   CHANGE_BUFFERS,
 } from './constants';
 
@@ -83,6 +84,13 @@ export function changeTempo(value) {
 export function changeCurrentStep(value) {
   return {
     type: CHANGE_CURRENT_STEP,
+    value,
+  };
+}
+
+export function changeSteps(value) {
+  return {
+    type: CHANGE_STEPS,
     value,
   };
 }

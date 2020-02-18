@@ -1,12 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
 
+import { useInjectSaga } from 'utils/injectSaga';
+import { useInjectReducer } from 'utils/injectReducer';
+import { makeSelectStepState, makeSelectCurrentStep } from './selectors';
+import { changeCurrentStep } from './actions';
+import reducer from './reducer';
+import saga from './saga';
+
 import useBPM from './useBPM';
 import useStart from './useStart';
-import StepContext from './StepContext';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
+
+const key = 'drumMachine';
 
 const Container = styled.div`
   max-width: 800px;
@@ -38,28 +50,22 @@ const config = {
   },
 };
 
-const initialStepState = {
-  Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  HiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  HiHatOpen: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-};
+export function DrumMachine({ setCurrentStepState, stepState, currentStep }) {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
-export default function DrumMachine() {
-  const [stepState, setSteps] = useState(initialStepState);
   const [buffers, setBuffers] = useState({});
-  const [currentStep, setCurrentStepState] = useState(0);
 
   const [start, startButton] = useStart();
   const [bpm, bpmSelector] = useBPM(65);
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
-  console.log(buffersRef.current);
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
+
 
   useEffect(() => {
     Tone.Transport.scheduleRepeat(time => {
@@ -76,7 +82,10 @@ export default function DrumMachine() {
         }
       });
 
-      setCurrentStepState(step => (step > 14 ? 0 : step + 1));
+      // eslint-disable-next-line no-unused-expressions
+      currentStepRef.current > 14
+        ? setCurrentStepState(0)
+        : setCurrentStepState(currentStepRef.current + 1);
     }, '16n');
   }, [config]);
 
@@ -94,22 +103,44 @@ export default function DrumMachine() {
   }, [start]);
 
   return (
-    <StepContext.Provider value={{ state: stepState, setSteps }}>
-      <Container>
-        <Transport>
-          <Logo>Drum Machine</Logo>
-          {bpmSelector}
-          {startButton}
-        </Transport>
-        <React.Suspense fallback={<p>loading</p>}>
-          <TracksContainer
-            config={config}
-            currentStep={currentStepRef.current}
-            playing={start}
-            setBuffers={setBuffers}
-          />
-        </React.Suspense>
-      </Container>
-    </StepContext.Provider>
+    <Container>
+      <Transport>
+        <Logo>Drum Machine</Logo>
+        {bpmSelector}
+        {startButton}
+      </Transport>
+      <React.Suspense fallback={<p>loading</p>}>
+        <TracksContainer
+          config={config}
+          currentStep={currentStepRef.current}
+          playing={start}
+          setBuffers={setBuffers}
+        />
+      </React.Suspense>
+    </Container>
   );
 }
+
+DrumMachine.propTypes = {
+  setCurrentStepState: PropTypes.func,
+  stepState: PropTypes.object,
+  currentStep: PropTypes.number,
+};
+
+const mapStateToProps = createStructuredSelector({
+  stepState: makeSelectStepState(),
+  currentStep: makeSelectCurrentStep(),
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentStepState: value => {
+    dispatch(changeCurrentStep(value));
+  },
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(DrumMachine);

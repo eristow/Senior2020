@@ -11,6 +11,7 @@ import {
   CHANGE_VOL,
   CHANGE_TEMPO,
   CHANGE_CURRENT_STEP,
+  CHANGE_STEPS,
   CHANGE_BUFFERS,
 } from './constants';
 
@@ -20,8 +21,10 @@ export const initialState = {
   tempo: '80',
   playing: false,
   stepState: {
-    kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    HiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    HiHatOpen: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   currentStep: 0,
   buffers: {},
@@ -50,6 +53,9 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case CHANGE_CURRENT_STEP:
         draft.currentStep = action.value;
+        break;
+      case CHANGE_STEPS:
+        draft.stepState = action.value;
         break;
       case CHANGE_BUFFERS:
         draft.buffers = action.value;
