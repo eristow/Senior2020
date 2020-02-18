@@ -101,14 +101,14 @@ export default function DrumMachine() {
           {bpmSelector}
           {startButton}
         </Transport>
-        {/* <React.Suspense fallback={<p>loading</p>}> */}
-        <TracksContainer
-          config={config}
-          currentStep={currentStepRef.current}
-          playing={start}
-          setBuffers={setBuffers}
-        />
-        {/* </React.Suspense> */}
+        <React.Suspense fallback={<p>loading</p>}>
+          <TracksContainer
+            config={config}
+            currentStep={currentStepRef.current}
+            playing={start}
+            setBuffers={setBuffers}
+          />
+        </React.Suspense>
       </Container>
     </StepContext.Provider>
   );
