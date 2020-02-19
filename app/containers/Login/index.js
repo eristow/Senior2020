@@ -25,14 +25,6 @@ export function Login() {
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
-  // function validateForm() {
-  //   return email.length > 0 && password.length > 0;
-  // }
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  // }
-
   return (
     <div>
       <Helmet>
@@ -42,6 +34,7 @@ export function Login() {
       <H2>
         <FormattedMessage {...messages.header} />
       </H2>
+
       <LoginForm />
     </div>
   );
