@@ -1,13 +1,14 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { changeDropdown } from '../actions';
+import { CHANGE_DROPDOWN } from '../constants';
 
 describe('Timeline actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('changeDropdown', () => {
+    it('has a type of CHANGE_DROPDOWN and value that was passed in', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: CHANGE_DROPDOWN,
+        value: 2,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(changeDropdown(2)).toEqual(expected);
     });
   });
 });

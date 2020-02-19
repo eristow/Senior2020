@@ -11,10 +11,8 @@ import PropTypes from 'prop-types';
 import NoteWhite from './NoteWhite';
 import NoteBlack from './NoteBlack';
 // import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 // TODO: how to get FormattedMessage from props.name
-// TODO: how to get audio from props.name
 function Note(props) {
   return (
     <div>

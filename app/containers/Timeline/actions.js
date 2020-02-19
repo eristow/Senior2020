@@ -4,10 +4,19 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { CHANGE_DROPDOWN } from './constants';
 
-export function defaultAction() {
+/**
+ * Changes the currently selected item in dropdown
+ *
+ * @param {string} value The new selected item
+ *
+ * @return {object} An action object with a type of CHANGE_SELECT
+ */
+
+export function changeDropdown(value) {
   return {
-    type: DEFAULT_ACTION,
+    type: CHANGE_DROPDOWN,
+    value,
   };
 }

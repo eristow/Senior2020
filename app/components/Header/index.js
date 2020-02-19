@@ -16,6 +16,9 @@ function Header() {
       <HeaderLink to="/">
         <FormattedMessage {...messages.home} />
       </HeaderLink>
+      <HeaderLink to="/machine">
+        <FormattedMessage {...messages.machine} />
+      </HeaderLink>
       <HeaderLink to="/timeline">
         <FormattedMessage {...messages.timeline} />
       </HeaderLink>
