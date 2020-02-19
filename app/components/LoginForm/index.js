@@ -11,9 +11,7 @@ import PropTypes from 'prop-types';
 import Form from './Form';
 import StyledInput from './StyledInput';
 
-const handleClick = () => {
-  
-};
+const handleClick = () => {};
 
 function LoginForm() {
   return (

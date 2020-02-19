@@ -25,13 +25,13 @@ export function Login() {
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
+  // function validateForm() {
+  //   return email.length > 0 && password.length > 0;
+  // }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  // }
 
   return (
     <div>
