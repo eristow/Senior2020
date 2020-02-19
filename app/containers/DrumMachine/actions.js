@@ -9,7 +9,7 @@ import {
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
-  CHANGE_TEMPO,
+  CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
   CHANGE_BUFFERS,
@@ -67,16 +67,9 @@ export function changeVol(value) {
   };
 }
 
-/**
- * Change tempo.
- *
- * @param {string} value
- *
- * @return {object} An action object with a type of CHANGE_TEMPO
- */
-export function changeTempo(value) {
+export function changeBpm(value) {
   return {
-    type: CHANGE_TEMPO,
+    type: CHANGE_BPM,
     value,
   };
 }

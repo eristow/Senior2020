@@ -8,13 +8,18 @@ import Tone from 'tone';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectStepState, makeSelectCurrentStep } from './selectors';
+import {
+  makeSelectStepState,
+  makeSelectCurrentStep,
+  makeSelectBpm,
+  makeSelectPlaying,
+} from './selectors';
 import { changeCurrentStep } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
-import useBPM from './useBPM';
-import useStart from './useStart';
+import BPMInput from './BPMInput';
+import PlayButton from './PlayButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
 
@@ -50,14 +55,17 @@ const config = {
   },
 };
 
-export function DrumMachine({ setCurrentStepState, stepState, currentStep }) {
+export function DrumMachine({
+  setCurrentStepState,
+  stepState,
+  currentStep,
+  bpm,
+  playing,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   const [buffers, setBuffers] = useState({});
-
-  const [start, startButton] = useStart();
-  const [bpm, bpmSelector] = useBPM(65);
 
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
@@ -65,7 +73,6 @@ export function DrumMachine({ setCurrentStepState, stepState, currentStep }) {
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
-
 
   useEffect(() => {
     Tone.Transport.scheduleRepeat(time => {
@@ -94,26 +101,26 @@ export function DrumMachine({ setCurrentStepState, stepState, currentStep }) {
   }, [bpm]);
 
   useEffect(() => {
-    if (start) {
+    if (playing) {
       Tone.Transport.start();
     } else {
       Tone.Transport.stop();
       setCurrentStepState(0);
     }
-  }, [start]);
+  }, [playing]);
 
   return (
     <Container>
       <Transport>
         <Logo>Drum Machine</Logo>
-        {bpmSelector}
-        {startButton}
+        <BPMInput />
+        <PlayButton />
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer
           config={config}
           currentStep={currentStepRef.current}
-          playing={start}
+          playing={playing}
           setBuffers={setBuffers}
         />
       </React.Suspense>
@@ -125,11 +132,15 @@ DrumMachine.propTypes = {
   setCurrentStepState: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
+  bpm: PropTypes.number,
+  playing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   stepState: makeSelectStepState(),
   currentStep: makeSelectCurrentStep(),
+  bpm: makeSelectBpm(),
+  playing: makeSelectPlaying(),
 });
 
 const mapDispatchToProps = dispatch => ({

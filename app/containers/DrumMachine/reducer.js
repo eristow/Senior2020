@@ -9,7 +9,7 @@ import {
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
-  CHANGE_TEMPO,
+  CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
   CHANGE_BUFFERS,
@@ -18,7 +18,7 @@ import {
 export const initialState = {
   selectedKit: '1',
   vol: 70,
-  tempo: '80',
+  bpm: 80,
   playing: false,
   stepState: {
     Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,8 +48,8 @@ const drumMachineReducer = (state = initialState, action) =>
       case CHANGE_VOL:
         draft.vol = action.value;
         break;
-      case CHANGE_TEMPO:
-        draft.tempo = action.value;
+      case CHANGE_BPM:
+        draft.bpm = action.value;
         break;
       case CHANGE_CURRENT_STEP:
         draft.currentStep = action.value;

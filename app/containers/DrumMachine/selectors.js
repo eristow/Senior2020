@@ -23,10 +23,10 @@ const makeSelectVol = () =>
     substate => substate.vol,
   );
 
-const makeSelectTempo = () =>
+const makeSelectBpm = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.tempo,
+    substate => substate.bpm,
   );
 
 const makeSelectPlaying = () =>
@@ -59,7 +59,7 @@ export {
   selectDrumMachineDomain,
   makeSelectSelectedKit,
   makeSelectVol,
-  makeSelectTempo,
+  makeSelectBpm,
   makeSelectPlaying,
   makeSelectStepState,
   makeSelectCurrentStep,

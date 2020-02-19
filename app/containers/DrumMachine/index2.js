@@ -23,8 +23,8 @@ import Button from 'components/Button';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import useStart from './useStart';
-import useBPM from './useBPM';
+import useStart from './PlayButton';
+import useBPM from './BPMInput';
 import {
   makeSelectSelectedKit,
   makeSelectVol,
