@@ -19,6 +19,7 @@ import Timeline from 'containers/Timeline/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
 import Login from 'containers/Login/Loadable';
+import Register from 'containers/Register/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -46,6 +47,7 @@ export default function App() {
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

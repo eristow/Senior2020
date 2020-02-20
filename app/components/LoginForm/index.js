@@ -28,11 +28,14 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [pass, setPass] = useState('');
 
+  // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const targetUrl = 'http://localhost:8080/api/auth/login';
+
   const handleSubmit = evt => {
     evt.preventDefault();
-    alert(`Submitting Name ${username}`);
+    // alert(`Submitting Name ${username}`);
 
-    fetch('http://localhost:8080/api/auth/login', {
+    fetch(targetUrl, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -67,12 +70,15 @@ function LoginForm() {
       {/* <h2>Login</h2>
       <StyledInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Username" />
       <StyledInput type="password" value={this.state.value} onChange={this.handleChange} placeholder="Password" /> */}
-
       {/* This doesn't work because there is nothing handling the input */}
-
       {/* <StyledInput type="text" placeholder="Username" />
       <StyledInput type="password" placeholder="Password" /> */}
       {/* <Button onClick={handleSubmit} text="Login" /> */}
+      <br />
+      <p>
+        Don't have an account? Click&nbsp;
+        <a href="/register">here</a>
+      </p>
     </form>
   );
 }
