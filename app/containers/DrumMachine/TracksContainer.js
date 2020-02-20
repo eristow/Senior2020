@@ -39,7 +39,6 @@ export default function TracksContainer({
   currentStep,
   setBuffers,
 }) {
-
   return (
     <Wrapper>
       <IndicatorWrapper>

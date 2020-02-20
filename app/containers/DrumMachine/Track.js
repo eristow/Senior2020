@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import { useInjectReducer } from 'utils/injectReducer';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import Slider from 'components/Slider';
+import { makeSelectTrackVol } from './selectors';
+import { changeTrackVol } from './actions';
+import reducer from './reducer';
 
 import Steps from './Steps';
 
@@ -24,17 +33,39 @@ const Name = styled.h2`
   line-height: 50px;
 `;
 
-export default function Track({ buffer, name, setBuffers }) {
+const key = 'drumMachine';
+
+export function Track({
+  onChangeTrackVol,
+  buffer,
+  name,
+  setBuffers,
+  trackVol,
+}) {
+  useInjectReducer({ key, reducer });
+
+  useEffect(() => {
+    buffer.volume.value = trackVol[name];
+  }, [trackVol]);
+
   useEffect(() => {
     setBuffers(buffers => ({
       ...buffers,
       [name]: buffer,
     }));
   }, [buffer]);
+
   return (
     <Wrapper>
       <Info>
         <Name>{name}</Name>
+        <Slider
+          onChange={e => onChangeTrackVol(name, e)}
+          min={-55}
+          max={0}
+          defaultValue={trackVol[name]}
+          width={120}
+        />
       </Info>
       <Steps name={name} />
     </Wrapper>
@@ -42,7 +73,26 @@ export default function Track({ buffer, name, setBuffers }) {
 }
 
 Track.propTypes = {
+  onChangeTrackVol: PropTypes.func,
   buffer: PropTypes.object,
   name: PropTypes.string,
   setBuffers: PropTypes.func,
+  trackVol: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  trackVol: makeSelectTrackVol(),
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChangeTrackVol: (name, evt) => {
+    dispatch(changeTrackVol(name, evt));
+  },
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(Track);

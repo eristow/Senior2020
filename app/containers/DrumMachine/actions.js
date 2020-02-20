@@ -3,6 +3,7 @@ import {
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
+  CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
@@ -33,6 +34,14 @@ export function toggleStep(sound, index) {
 export function changeVol(value) {
   return {
     type: CHANGE_VOL,
+    value,
+  };
+}
+
+export function changeTrackVol(track, value) {
+  return {
+    type: CHANGE_TRACK_VOL,
+    track,
     value,
   };
 }

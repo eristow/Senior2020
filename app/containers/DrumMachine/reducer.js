@@ -4,6 +4,7 @@ import {
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
+  CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
@@ -11,8 +12,8 @@ import {
 } from './constants';
 
 export const initialState = {
-  selectedKit: '1',
-  vol: 70,
+  selectedKit: 'config1',
+  vol: 0,
   bpm: '80',
   playing: false,
   stepState: {
@@ -20,6 +21,12 @@ export const initialState = {
     Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     HiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     HiHatOpen: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  },
+  trackVol: {
+    Kick: 0,
+    Snare: 0,
+    HiHat: 0,
+    HiHatOpen: 0,
   },
   currentStep: 0,
   buffers: {},
@@ -43,6 +50,9 @@ const drumMachineReducer = (state = initialState, action) =>
       case CHANGE_VOL:
         draft.vol = action.value;
         break;
+      case CHANGE_TRACK_VOL:
+        draft.trackVol[action.track] = action.value;
+        break;
       case CHANGE_BPM:
         draft.bpm = action.value;
         break;
@@ -53,8 +63,6 @@ const drumMachineReducer = (state = initialState, action) =>
         draft.stepState = action.value;
         break;
       case CHANGE_BUFFERS:
-        // console.log('reducer');
-        // console.log(action.value);
         draft.buffers = action.value;
     }
   });

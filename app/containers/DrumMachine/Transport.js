@@ -15,5 +15,5 @@ export default function Transport({ children }) {
 }
 
 Transport.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 };

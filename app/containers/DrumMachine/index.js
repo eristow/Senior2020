@@ -47,7 +47,14 @@ const Logo = styled.h1`
   display: inline-block;
 `;
 
-const config = {
+const SliderText = styled.p`
+  padding: 10px;
+  margin: 0;
+  color: #25ccf7;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+`;
+
+const config1 = {
   tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
   samples: {
     Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
@@ -100,11 +107,15 @@ export function DrumMachine({
         ? setCurrentStepState(0)
         : setCurrentStepState(currentStepRef.current + 1);
     }, '16n');
-  }, [config]);
+  }, [config1]);
 
   useEffect(() => {
     Tone.Transport.bpm.value = bpm;
   }, [bpm]);
+
+  useEffect(() => {
+    Tone.Master.volume.value = vol;
+  }, [vol]);
 
   useEffect(() => {
     if (playing) {
@@ -120,12 +131,21 @@ export function DrumMachine({
       <Transport>
         <Logo>Drum Machine</Logo>
         <BPMInput />
-        <Slider onChange={onChangeVol} defaultValue={vol} width={110} />
+        <div>
+          <SliderText>Master Volume</SliderText>
+          <Slider
+            onChange={onChangeVol}
+            min={-60}
+            max={0}
+            defaultValue={vol}
+            width={110}
+          />
+        </div>
         <PlayButton />
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer
-          config={config}
+          config={config1}
           currentStep={currentStepRef.current}
           playing={playing}
           setBuffers={setBuffers}

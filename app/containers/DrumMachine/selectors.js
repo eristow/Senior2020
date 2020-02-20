@@ -16,6 +16,12 @@ export const makeSelectVol = () =>
     substate => substate.vol,
   );
 
+export const makeSelectTrackVol = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.trackVol,
+  );
+
 export const makeSelectBpm = () =>
   createSelector(
     selectDrumMachineDomain,
@@ -44,9 +50,4 @@ export const makeSelectBuffers = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.buffers,
-    // substate => {
-    //   console.log('selector');
-    //   console.log(substate.buffers);
-    //   return substate.buffers;
-    // },
   );
