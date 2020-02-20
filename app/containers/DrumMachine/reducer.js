@@ -1,8 +1,3 @@
-/*
- *
- * DrumMachine reducer
- *
- */
 import produce from 'immer';
 import {
   SELECT_KIT,
@@ -18,7 +13,7 @@ import {
 export const initialState = {
   selectedKit: '1',
   vol: 70,
-  bpm: 80,
+  bpm: '80',
   playing: false,
   stepState: {
     Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -58,6 +53,8 @@ const drumMachineReducer = (state = initialState, action) =>
         draft.stepState = action.value;
         break;
       case CHANGE_BUFFERS:
+        // console.log('reducer');
+        // console.log(action.value);
         draft.buffers = action.value;
     }
   });

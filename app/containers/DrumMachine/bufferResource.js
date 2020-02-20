@@ -1,6 +1,6 @@
 import Tone from 'tone';
+// TODO: can i use another library instead of react-cache?
 // eslint-disable-next-line camelcase
-// TODO: can i use another library
 import { unstable_createResource } from 'react-cache';
 
 export const bufferResource = unstable_createResource(

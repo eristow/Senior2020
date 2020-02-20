@@ -18,8 +18,6 @@ const Info = styled.div`
 const Name = styled.h2`
   color: white;
   font-size: 14px;
-  margin-left: 20px;
-  line-height: 100%;
   margin: 0;
   vertical-align: middle;
   padding: 0px 10px;

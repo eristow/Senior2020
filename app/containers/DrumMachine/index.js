@@ -132,7 +132,7 @@ DrumMachine.propTypes = {
   setCurrentStepState: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
-  bpm: PropTypes.number,
+  bpm: PropTypes.string,
   playing: PropTypes.bool,
 };
 

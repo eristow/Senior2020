@@ -1,67 +1,52 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the drumMachine state domain
- */
+export const selectDrumMachineDomain = state =>
+  state.drumMachine || initialState;
 
-const selectDrumMachineDomain = state => state.drumMachine || initialState;
-
-/**
- * Other specific selectors
- */
-
-const makeSelectSelectedKit = () =>
+export const makeSelectSelectedKit = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.selectedKit,
   );
 
-const makeSelectVol = () =>
+export const makeSelectVol = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.vol,
   );
 
-const makeSelectBpm = () =>
+export const makeSelectBpm = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.bpm,
   );
 
-const makeSelectPlaying = () =>
+export const makeSelectPlaying = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.playing,
   );
 
-const makeSelectStepState = () =>
+export const makeSelectStepState = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.stepState,
   );
 
-const makeSelectCurrentStep = () =>
+export const makeSelectCurrentStep = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => {
-      return substate.currentStep;
-    },
+    substate => substate.currentStep,
   );
 
-const makeSelectBuffers = () =>
+export const makeSelectBuffers = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.buffers,
+    // substate => {
+    //   console.log('selector');
+    //   console.log(substate.buffers);
+    //   return substate.buffers;
+    // },
   );
-
-export {
-  selectDrumMachineDomain,
-  makeSelectSelectedKit,
-  makeSelectVol,
-  makeSelectBpm,
-  makeSelectPlaying,
-  makeSelectStepState,
-  makeSelectCurrentStep,
-  makeSelectBuffers,
-};

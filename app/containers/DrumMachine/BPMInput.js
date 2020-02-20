@@ -31,7 +31,7 @@ export function BPMInput({ bpm, setBpm }) {
 }
 
 BPMInput.propTypes = {
-  bpm: PropTypes.number,
+  bpm: PropTypes.string,
   setBpm: PropTypes.func,
 };
 
