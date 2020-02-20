@@ -5,16 +5,18 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+
+import Slider from 'components/Slider';
 import {
   makeSelectStepState,
   makeSelectCurrentStep,
   makeSelectBpm,
   makeSelectPlaying,
+  makeSelectVol,
 } from './selectors';
-import { changeCurrentStep } from './actions';
+import { changeCurrentStep, changeVol } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -57,16 +59,20 @@ const config = {
 
 export function DrumMachine({
   setCurrentStepState,
+  onChangeVol,
   stepState,
   currentStep,
   bpm,
   playing,
+  vol,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  // Couldn't figure out how to make this work in redux
   const [buffers, setBuffers] = useState({});
 
+  // I think these are fine here/don't need to be moved to redux
   const buffersRef = useRef(buffers);
   buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
@@ -114,6 +120,7 @@ export function DrumMachine({
       <Transport>
         <Logo>Drum Machine</Logo>
         <BPMInput />
+        <Slider onChange={onChangeVol} defaultValue={vol} width={110} />
         <PlayButton />
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
@@ -130,10 +137,12 @@ export function DrumMachine({
 
 DrumMachine.propTypes = {
   setCurrentStepState: PropTypes.func,
+  onChangeVol: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
   playing: PropTypes.bool,
+  vol: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -141,11 +150,15 @@ const mapStateToProps = createStructuredSelector({
   currentStep: makeSelectCurrentStep(),
   bpm: makeSelectBpm(),
   playing: makeSelectPlaying(),
+  vol: makeSelectVol(),
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentStepState: value => {
     dispatch(changeCurrentStep(value));
+  },
+  onChangeVol: evt => {
+    dispatch(changeVol(evt));
   },
 });
 

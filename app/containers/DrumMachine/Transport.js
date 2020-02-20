@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   flex: 0 1 auto;
@@ -9,6 +10,10 @@ const Wrapper = styled.div`
   align-items: space-between;
 `;
 
-export default function StepSequencer(props) {
-  return <Wrapper>{props.children}</Wrapper>;
+export default function Transport({ children }) {
+  return <Wrapper>{children}</Wrapper>;
 }
+
+Transport.propTypes = {
+  children: PropTypes.object,
+};
