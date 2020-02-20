@@ -5,6 +5,7 @@
  */
 
 import React, { useState } from 'react';
+import pianoReducer from 'containers/Piano/reducer';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
@@ -45,8 +46,24 @@ function LoginForm() {
         username,
         pass,
       }),
-    });
-  };
+    }).then(results => {
+      return results.json();
+    }).then(data => {
+      // let res = data.results.map((token) => {
+      //   return(
+      //     <div key={token.results}>
+      //       <p src={token.res.token} />
+
+      //     </div>
+      //   )
+      // })
+      console.log(data);
+      if(data.token)
+        alert(`Login Successful!`);
+      else
+        alert(`Either the Username or Password is Wrong`);
+    })
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -58,14 +75,16 @@ function LoginForm() {
           onChange={e => setUsername(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Password:
         <input
-          type="text"
+          type="password"
           value={pass}
           onChange={e => setPass(e.target.value)}
         />
       </label>
+      <br />
       <input type="submit" value="Submit" />
       {/* <h2>Login</h2>
       <StyledInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Username" />
