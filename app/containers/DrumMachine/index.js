@@ -24,6 +24,7 @@ import saga from './saga';
 
 import BPMInput from './BPMInput';
 import PlayButton from './PlayButton';
+import SaveButton from './SaveButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
 
@@ -170,7 +171,10 @@ export function DrumMachine({
             width={110}
           />
         </div>
-        <PlayButton />
+        <div>
+          <SaveButton />
+          <PlayButton />
+        </div>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer

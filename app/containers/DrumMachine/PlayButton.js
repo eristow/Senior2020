@@ -11,15 +11,16 @@ import { togglePlay } from './actions';
 import reducer from './reducer';
 
 const Play = styled.button`
-  color: ${props => (props.on === false ? '#25CCF7' : '#FD7272')};
-  border: 2px solid ${props => (props.on === false ? '#25CCF7' : '#FD7272')};
-  background: #eee;
+  border: 2px solid ${props => (props.on === false ? '#0BA134' : '#FD7272')};
+  border: 2px solid #ddd;
+  color: #fff;
+  background: ${props => (props.on === false ? '#0BA134' : '#FD7272')};
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
   border-radius: 2;
   margin: 2px 4px;
-  margin-right: 20px;
+  margin-left: 10px;
   align-self: center;
   min-width: 100px;
 `;
