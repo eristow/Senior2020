@@ -9,14 +9,16 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import Slider from 'components/Slider';
+import Dropdown from 'components/Dropdown';
 import {
   makeSelectStepState,
   makeSelectCurrentStep,
   makeSelectBpm,
   makeSelectPlaying,
   makeSelectVol,
+  makeSelectConfig,
 } from './selectors';
-import { changeCurrentStep, changeVol } from './actions';
+import { changeCurrentStep, changeVol, selectConfig } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -54,24 +56,46 @@ const SliderText = styled.p`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
-const config1 = {
-  tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
-  samples: {
-    Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
-    Snare: 'https://web-daw.s3.us-east-2.amazonaws.com/snare2.wav',
-    HiHat: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
-    HiHatOpen: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
+const configs = {
+  config1: {
+    tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
+    samples: {
+      Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
+      Snare: 'https://web-daw.s3.us-east-2.amazonaws.com/snare1.wav',
+      HiHat: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
+      HiHatOpen: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
+    },
+  },
+  config2: {
+    tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
+    samples: {
+      Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/kick2.wav',
+      Snare: 'https://web-daw.s3.us-east-2.amazonaws.com/snareRock.wav',
+      HiHat: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed2.wav',
+      HiHatOpen: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen2.wav',
+    },
+  },
+  config3: {
+    tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
+    samples: {
+      Kick: 'https://web-daw.s3.us-east-2.amazonaws.com/Kick (2).wav',
+      Snare: 'https://web-daw.s3.us-east-2.amazonaws.com/snare3.wav',
+      HiHat: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed3.wav',
+      HiHatOpen: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen3.wav',
+    },
   },
 };
 
 export function DrumMachine({
   setCurrentStepState,
   onChangeVol,
+  onChangeConfig,
   stepState,
   currentStep,
   bpm,
   playing,
   vol,
+  config,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -107,7 +131,7 @@ export function DrumMachine({
         ? setCurrentStepState(0)
         : setCurrentStepState(currentStepRef.current + 1);
     }, '16n');
-  }, [config1]);
+  }, [configs]);
 
   useEffect(() => {
     Tone.Transport.bpm.value = bpm;
@@ -131,6 +155,11 @@ export function DrumMachine({
       <Transport>
         <Logo>Drum Machine</Logo>
         <BPMInput />
+        <Dropdown width="5em" value={config} onChange={onChangeConfig}>
+          <option value="config1">EDM</option>
+          <option value="config2">Rock</option>
+          <option value="config3">Trap</option>
+        </Dropdown>
         <div>
           <SliderText>Master Volume</SliderText>
           <Slider
@@ -145,7 +174,7 @@ export function DrumMachine({
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer
-          config={config1}
+          config={configs[config]}
           currentStep={currentStepRef.current}
           playing={playing}
           setBuffers={setBuffers}
@@ -158,11 +187,13 @@ export function DrumMachine({
 DrumMachine.propTypes = {
   setCurrentStepState: PropTypes.func,
   onChangeVol: PropTypes.func,
+  onChangeConfig: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
   playing: PropTypes.bool,
   vol: PropTypes.number,
+  config: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -171,6 +202,7 @@ const mapStateToProps = createStructuredSelector({
   bpm: makeSelectBpm(),
   playing: makeSelectPlaying(),
   vol: makeSelectVol(),
+  config: makeSelectConfig(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -179,6 +211,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onChangeVol: evt => {
     dispatch(changeVol(evt));
+  },
+  onChangeConfig: evt => {
+    dispatch(selectConfig(evt.target.value));
   },
 });
 

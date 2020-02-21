@@ -4,10 +4,10 @@ import { initialState } from './reducer';
 export const selectDrumMachineDomain = state =>
   state.drumMachine || initialState;
 
-export const makeSelectSelectedKit = () =>
+export const makeSelectConfig = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.selectedKit,
+    substate => substate.config,
   );
 
 export const makeSelectVol = () =>

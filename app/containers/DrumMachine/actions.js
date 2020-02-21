@@ -1,5 +1,5 @@
 import {
-  SELECT_KIT,
+  SELECT_CONFIG,
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
@@ -10,9 +10,9 @@ import {
   CHANGE_BUFFERS,
 } from './constants';
 
-export function selectKit(value) {
+export function selectConfig(value) {
   return {
-    type: SELECT_KIT,
+    type: SELECT_CONFIG,
     value,
   };
 }

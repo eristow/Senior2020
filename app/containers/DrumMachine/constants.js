@@ -1,4 +1,4 @@
-export const SELECT_KIT = 'app/DrumMachine/SELECT_KIT';
+export const SELECT_CONFIG = 'app/DrumMachine/SELECT_CONFIG';
 export const TOGGLE_PLAY = 'app/DrumMachine/TOGGLE_PLAY';
 export const TOGGLE_STEP = 'app/DrumMachine/TOGGLE_STEP';
 export const CHANGE_VOL = 'app/DrumMachine/CHANGE_VOL';

@@ -1,6 +1,6 @@
 import produce from 'immer';
 import {
-  SELECT_KIT,
+  SELECT_CONFIG,
   TOGGLE_PLAY,
   TOGGLE_STEP,
   CHANGE_VOL,
@@ -12,7 +12,7 @@ import {
 } from './constants';
 
 export const initialState = {
-  selectedKit: 'config1',
+  config: 'config1',
   vol: 0,
   bpm: '80',
   playing: false,
@@ -36,8 +36,8 @@ export const initialState = {
 const drumMachineReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case SELECT_KIT:
-        draft.selectedKit = action.value;
+      case SELECT_CONFIG:
+        draft.config = action.value;
         break;
       case TOGGLE_PLAY:
         draft.playing = !draft.playing;
