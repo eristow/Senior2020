@@ -46,24 +46,22 @@ function LoginForm() {
         username,
         pass,
       }),
-    }).then(results => {
-      return results.json();
-    }).then(data => {
-      // let res = data.results.map((token) => {
-      //   return(
-      //     <div key={token.results}>
-      //       <p src={token.res.token} />
-
-      //     </div>
-      //   )
-      // })
-      console.log(data);
-      if(data.token)
-        alert(`Login Successful!`);
-      else
-        alert(`Either the Username or Password is Wrong`);
     })
-  }
+      .then(results => results.json())
+      .then(data => {
+        // let res = data.results.map((token) => {
+        //   return(
+        //     <div key={token.results}>
+        //       <p src={token.res.token} />
+
+        //     </div>
+        //   )
+        // })
+        console.log(data);
+        if (data.token) alert(`Login Successful!`);
+        else alert(`Either the Username or Password is Wrong`);
+      });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
