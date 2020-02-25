@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> Should render and match the snapshot 1`] = `
+<div
+  class="NavBar-sc-1a70pn8-0 fBbJXM"
+>
+  <a
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    href="/"
+  >
+    <span>
+      Home
+    </span>
+  </a>
+  <a
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    href="/machine"
+  >
+    <span>
+      Drum Machine
+    </span>
+  </a>
+</div>
+`;

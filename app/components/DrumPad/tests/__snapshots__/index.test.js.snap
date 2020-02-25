@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DrumPad /> Should render and match the snapshot 1`] = `
+<div>
+  <button
+    class="Pad-sc-1ad3ed0-0 cMOtpk"
+  />
+</div>
+`;

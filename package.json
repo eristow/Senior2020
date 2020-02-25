@@ -1,16 +1,16 @@
 {
-  "name": "react-boilerplate",
-  "version": "4.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "web-daw",
+  "version": "1.0.0",
+  "description": "A web-based DAW.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "git://github.com/eristow/senior2020.git"
   },
   "engines": {
     "npm": ">=5",
     "node": ">=8.15.1"
   },
-  "author": "Max Stoiber",
+  "author": "Evan Ristow",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -77,11 +77,13 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
-    "lodash": "4.17.11",
+    "lodash": "^4.17.15",
     "minimist": "1.2.0",
     "prop-types": "15.7.2",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "rc-slider": "^9.2.1",
+    "react": "16.7.0-alpha.2",
+    "react-cache": "2.0.0-alpha.1",
+    "react-dom": "16.7.0-alpha.2",
     "react-helmet": "6.0.0-beta",
     "react-intl": "2.8.0",
     "react-redux": "7.0.2",

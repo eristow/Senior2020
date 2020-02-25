@@ -8,41 +8,50 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
+import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { ConnectedRouter } from 'connected-react-router/immutable';
+import { createMemoryHistory } from 'history';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
+import configureStore from '../../../configureStore';
 import Header from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
 describe('<Header />', () => {
-  // TODO: fix errors in test log
-  it.skip('Expect to not log errors in console', () => {
+  let history;
+  let store;
+
+  beforeAll(() => {
+    history = createMemoryHistory();
+    store = configureStore({}, history);
+  });
+
+  it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Header />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <ConnectedRouter history={history}>
+            <Header />
+          </ConnectedRouter>
+        </IntlProvider>
+      </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
-  // TODO: add tests
-  it.skip('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
-  /**
-   * Unskip this test to use it
-   *
-   * @see {@link https://jestjs.io/docs/en/api#testskipname-fn}
-   */
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Header />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <ConnectedRouter history={history}>
+            <Header />
+          </ConnectedRouter>
+        </IntlProvider>
+      </Provider>,
     );
     expect(firstChild).toMatchSnapshot();
   });

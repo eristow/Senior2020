@@ -16,14 +16,8 @@ function Header() {
       <HeaderLink to="/">
         <FormattedMessage {...messages.home} />
       </HeaderLink>
-      <HeaderLink to="/timeline">
-        <FormattedMessage {...messages.timeline} />
-      </HeaderLink>
-      <HeaderLink to="/piano">
-        <FormattedMessage {...messages.piano} />
-      </HeaderLink>
-      <HeaderLink to="/drums">
-        <FormattedMessage {...messages.drums} />
+      <HeaderLink to="/machine">
+        <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
     </NavBar>
   );
