@@ -2,13 +2,11 @@ import produce from 'immer';
 import {
   SELECT_CONFIG,
   TOGGLE_PLAY,
-  TOGGLE_STEP,
   CHANGE_VOL,
   CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
-  CHANGE_BUFFERS,
 } from './constants';
 
 export const initialState = {
@@ -29,7 +27,6 @@ export const initialState = {
     HiHatOpen: 0,
   },
   currentStep: 0,
-  buffers: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -41,11 +38,6 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case TOGGLE_PLAY:
         draft.playing = !draft.playing;
-        break;
-      case TOGGLE_STEP:
-        draft.stepState[action.sound][action.index] = !draft.stepState[
-          action.sound
-        ][action.index];
         break;
       case CHANGE_VOL:
         draft.vol = action.value;
@@ -62,8 +54,6 @@ const drumMachineReducer = (state = initialState, action) =>
       case CHANGE_STEPS:
         draft.stepState = action.value;
         break;
-      case CHANGE_BUFFERS:
-        draft.buffers = action.value;
     }
   });
 

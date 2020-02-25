@@ -45,9 +45,3 @@ export const makeSelectCurrentStep = () =>
     selectDrumMachineDomain,
     substate => substate.currentStep,
   );
-
-export const makeSelectBuffers = () =>
-  createSelector(
-    selectDrumMachineDomain,
-    substate => substate.buffers,
-  );

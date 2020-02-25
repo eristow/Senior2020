@@ -34,11 +34,12 @@ export function Timeline({ onChangeDropdown, dropdownValue }) {
   useInjectSaga({ key, saga });
 
   function log(value) {
-    console.log(value);
+    // console.log(value);
+    return value;
   }
 
   function logButton() {
-    console.log('Button Clicked');
+    // console.log('Button Clicked');
   }
 
   return (

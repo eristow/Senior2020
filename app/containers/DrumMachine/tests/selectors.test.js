@@ -1,9 +1,12 @@
 import {
   selectDrumMachineDomain,
-  makeSelectSelectedKit,
+  makeSelectConfig,
   makeSelectVol,
-  makeSelectTempo,
+  makeSelectTrackVol,
+  makeSelectBpm,
   makeSelectPlaying,
+  makeSelectStepState,
+  makeSelectCurrentStep,
 } from '../selectors';
 
 describe('selectDrumMachineDomain', () => {
@@ -20,17 +23,17 @@ describe('selectDrumMachineDomain', () => {
     });
   });
 
-  describe('makeSelectSelectedKit', () => {
-    const selectedKitSelector = makeSelectSelectedKit();
-    it('Should select the selected kit', () => {
-      const selectedKit = 2;
+  describe('makeSelectConfig', () => {
+    const selectedKitSelector = makeSelectConfig();
+    it('Should select the selected config', () => {
+      const config = 2;
       const mockedState = {
         drumMachine: {
-          selectedKit,
+          config,
         },
       };
 
-      expect(selectedKitSelector(mockedState)).toEqual(selectedKit);
+      expect(selectedKitSelector(mockedState)).toEqual(config);
     });
   });
 
@@ -48,17 +51,31 @@ describe('selectDrumMachineDomain', () => {
     });
   });
 
-  describe('makeSelectTempo', () => {
-    const tempoSelector = makeSelectTempo();
-    it('Should select the tempo', () => {
-      const tempo = '2';
+  describe('makeSelectTrackVol', () => {
+    const trackVolSelector = makeSelectTrackVol();
+    it('Should select the track vol', () => {
+      const trackVol = { Snare: 1 };
       const mockedState = {
         drumMachine: {
-          tempo,
+          trackVol,
         },
       };
 
-      expect(tempoSelector(mockedState)).toEqual(tempo);
+      expect(trackVolSelector(mockedState)).toEqual(trackVol);
+    });
+  });
+
+  describe('makeSelectBpm', () => {
+    const tempoSelector = makeSelectBpm();
+    it('Should select the bpm', () => {
+      const bpm = '2';
+      const mockedState = {
+        drumMachine: {
+          bpm,
+        },
+      };
+
+      expect(tempoSelector(mockedState)).toEqual(bpm);
     });
   });
 
@@ -73,6 +90,36 @@ describe('selectDrumMachineDomain', () => {
       };
 
       expect(playingSelector(mockedState)).toEqual(playing);
+    });
+  });
+
+  describe('makeSelectStepState', () => {
+    const stepStateSelector = makeSelectStepState();
+    it('Should select the step state', () => {
+      const stepState = {
+        Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      };
+      const mockedState = {
+        drumMachine: {
+          stepState,
+        },
+      };
+
+      expect(stepStateSelector(mockedState)).toEqual(stepState);
+    });
+  });
+
+  describe('makeSelectCurrentStep', () => {
+    const currentStepSelector = makeSelectCurrentStep();
+    it('Should select the current step', () => {
+      const currentStep = 2;
+      const mockedState = {
+        drumMachine: {
+          currentStep,
+        },
+      };
+
+      expect(currentStepSelector(mockedState)).toEqual(currentStep);
     });
   });
 });

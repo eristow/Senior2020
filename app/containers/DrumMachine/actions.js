@@ -1,13 +1,11 @@
 import {
   SELECT_CONFIG,
   TOGGLE_PLAY,
-  TOGGLE_STEP,
   CHANGE_VOL,
   CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
-  CHANGE_BUFFERS,
 } from './constants';
 
 export function selectConfig(value) {
@@ -20,14 +18,6 @@ export function selectConfig(value) {
 export function togglePlay() {
   return {
     type: TOGGLE_PLAY,
-  };
-}
-
-export function toggleStep(sound, index) {
-  return {
-    type: TOGGLE_STEP,
-    sound,
-    index,
   };
 }
 
@@ -63,13 +53,6 @@ export function changeCurrentStep(value) {
 export function changeSteps(value) {
   return {
     type: CHANGE_STEPS,
-    value,
-  };
-}
-
-export function changeBuffers(value) {
-  return {
-    type: CHANGE_BUFFERS,
     value,
   };
 }

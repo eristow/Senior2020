@@ -1,76 +1,90 @@
 import {
-  selectKit,
-  play,
-  stop,
-  toggleBlock,
+  selectConfig,
+  togglePlay,
   changeVol,
-  changeTempo,
+  changeTrackVol,
+  changeBpm,
+  changeCurrentStep,
+  changeSteps,
 } from '../actions';
 import {
-  SELECT_KIT,
-  PLAY,
-  STOP,
-  TOGGLE_BLOCK,
+  SELECT_CONFIG,
+  TOGGLE_PLAY,
   CHANGE_VOL,
-  CHANGE_TEMPO,
+  CHANGE_TRACK_VOL,
+  CHANGE_BPM,
+  CHANGE_CURRENT_STEP,
+  CHANGE_STEPS,
 } from '../constants';
 
 describe('DrumMachine actions', () => {
-  describe('Select Kit', () => {
-    it('has a type of SELECT_KIT and value that was passed in', () => {
+  describe('Select Config', () => {
+    it('has a type of SELECT_CONFIG and value that was passed in', () => {
       const expected = {
-        type: SELECT_KIT,
+        type: SELECT_CONFIG,
+        value: 'config2',
+      };
+      expect(selectConfig('config2')).toEqual(expected);
+    });
+  });
+
+  describe('Toggle Play', () => {
+    it('has a type of TOGGLE_PLAY', () => {
+      const expected = {
+        type: TOGGLE_PLAY,
+      };
+      expect(togglePlay()).toEqual(expected);
+    });
+  });
+
+  describe('Change Vol', () => {
+    it('has a type of CHANGE_VOL and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_VOL,
         value: 2,
       };
-      expect(selectKit(2)).toEqual(expected);
+      expect(changeVol(2)).toEqual(expected);
     });
   });
 
-  describe('Play', () => {
-    it('has a type of PLAY', () => {
+  describe('Change Track Vol', () => {
+    it('has a type of CHANGE_TRACK_VOL and values that was passed in', () => {
       const expected = {
-        type: PLAY,
+        type: CHANGE_TRACK_VOL,
+        track: 'Snare',
+        value: 2,
       };
-      expect(play()).toEqual(expected);
+      expect(changeTrackVol('Snare', 2)).toEqual(expected);
     });
   });
 
-  describe('Stop', () => {
-    it('has a type of STOP', () => {
+  describe('Change Bpm', () => {
+    it('has a type of CHANGE_BPM and value that was passed in', () => {
       const expected = {
-        type: STOP,
-      };
-      expect(stop()).toEqual(expected);
-    });
-
-    // TODO: update when implemented
-    describe('Toggle Block', () => {
-      it('has a type of TOGGLE_BLOCK', () => {
-        const expected = {
-          type: TOGGLE_BLOCK,
-        };
-        expect(toggleBlock()).toEqual(expected);
-      });
-    });
-
-    describe('Change Vol', () => {
-      it('has a type of CHANGE_VOL and value that was passed in', () => {
-        const expected = {
-          type: CHANGE_VOL,
-          value: 2,
-        };
-        expect(changeVol(2)).toEqual(expected);
-      });
-    });
-  });
-
-  describe('Change Tempo', () => {
-    it('has a type of CHANGE_TEMPO and value that was passed in', () => {
-      const expected = {
-        type: CHANGE_TEMPO,
+        type: CHANGE_BPM,
         value: '2',
       };
-      expect(changeTempo('2')).toEqual(expected);
+      expect(changeBpm('2')).toEqual(expected);
+    });
+  });
+
+  describe('Change Current Step', () => {
+    it('has a type of CHANGE_CURRENT_STEP and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_CURRENT_STEP,
+        value: '2',
+      };
+      expect(changeCurrentStep('2')).toEqual(expected);
+    });
+  });
+
+  describe('Change Steps', () => {
+    it('has a type of CHANGE_STEPS and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_STEPS,
+        value: '2',
+      };
+      expect(changeSteps('2')).toEqual(expected);
     });
   });
 });

@@ -17,7 +17,14 @@ export function Steps({ name, stepState }) {
   return (
     <Wrapper>
       {stepState[name].map((s, i) => (
-        <Step on={s !== 0} doubled={s === 2} index={i} key={i} name={name} />
+        <Step
+          on={s !== 0}
+          doubled={s === 2}
+          index={i}
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${name} ${i}`}
+          name={name}
+        />
       ))}
     </Wrapper>
   );

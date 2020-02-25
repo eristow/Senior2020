@@ -178,7 +178,7 @@ export function DrumMachine({
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer
-          config={configs[config]}
+          config={config ? configs[config] : configs.config1}
           currentStep={currentStepRef.current}
           playing={playing}
           setBuffers={setBuffers}

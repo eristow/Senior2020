@@ -42,14 +42,18 @@ export const Step = React.memo(
     const toggleStep = e => {
       const shiftEnabled = e.shiftKey === true;
       const steps = [...stepState[name]];
-      const val =
-        steps[index] === 0
-          ? shiftEnabled
-            ? 2
-            : 1
-          : shiftEnabled && steps[index] === 1
-          ? 2
-          : 0;
+      let val = 0;
+      if (steps[index] === 0) {
+        if (shiftEnabled) {
+          val = 2;
+        } else {
+          val = 1;
+        }
+      } else if (shiftEnabled && steps[index] === 1) {
+        val = 2;
+      } else {
+        val = 0;
+      }
       steps[index] = val;
       setSteps({
         ...stepState,

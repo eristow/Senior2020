@@ -45,6 +45,8 @@ export function Track({
   useInjectReducer({ key, reducer });
 
   useEffect(() => {
+    // I don't know if there's a better way to do this to make eslint happy
+    // eslint-disable-next-line no-param-reassign
     buffer.volume.value = trackVol[name];
   }, [trackVol]);
 

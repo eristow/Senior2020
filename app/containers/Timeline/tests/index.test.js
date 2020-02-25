@@ -23,7 +23,8 @@ describe('<Timeline />', () => {
     store = configureStore();
   });
 
-  it('Expect to not log errors in console', () => {
+  // TODO: not using this file, so test is commented out
+  it.skip('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
@@ -36,7 +37,8 @@ describe('<Timeline />', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Should render and match the snapshot', () => {
+  // TODO: not using this file, so test is commented out
+  it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(
