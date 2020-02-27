@@ -16,12 +16,13 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import H2 from 'components/H2';
 import LoginForm from 'components/LoginForm';
-import makeSelectLogin from './selectors';
+import { changeUsername } from './actions';
+import makeSelectLogin, { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export function Login() {
+export function Login({ username, setUsername }) {
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
@@ -34,6 +35,7 @@ export function Login() {
       <H2>
         <FormattedMessage {...messages.header} />
       </H2>
+      <input type="text" value={username} onChange={setUsername} />
 
       <LoginForm />
     </div>
@@ -42,15 +44,21 @@ export function Login() {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  username: PropTypes.string,
+  setUsername: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: makeSelectLogin(),
+  username: makeSelectUsername(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    setUsername: e => {
+      dispatch(changeUsername(e.target.value));
+    },
   };
 }
 
