@@ -25,6 +25,7 @@ import saga from './saga';
 import BPMInput from './BPMInput';
 import PlayButton from './PlayButton';
 import SaveButton from './SaveButton';
+import LoadButton from './LoadButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
 
@@ -45,12 +46,17 @@ const Logo = styled.h1`
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 20px;
+  padding-bottom: 10px;
   margin: 0;
   text-transform: uppercase;
   display: inline-block;
 `;
 
-const SliderText = styled.p`
+const ControlContainer = styled.div`
+  text-align: center;
+`;
+
+const ControlText = styled.p`
   padding: 10px;
   margin: 0;
   color: #25ccf7;
@@ -153,24 +159,31 @@ export function DrumMachine({
 
   return (
     <Container>
+      <Logo>Drum Machine</Logo>
+      <LoadButton />
       <Transport>
-        <Logo>Drum Machine</Logo>
-        <BPMInput />
-        <Dropdown width="5em" value={config} onChange={onChangeConfig}>
-          <option value="config1">EDM</option>
-          <option value="config2">Rock</option>
-          <option value="config3">Trap</option>
-        </Dropdown>
-        <div>
-          <SliderText>Master Volume</SliderText>
+        <ControlContainer>
+          <ControlText>BPM</ControlText>
+          <BPMInput />
+        </ControlContainer>
+        <ControlContainer>
+          <ControlText>Kit</ControlText>
+          <Dropdown width="5em" value={config} onChange={onChangeConfig}>
+            <option value="config1">EDM</option>
+            <option value="config2">Rock</option>
+            <option value="config3">Trap</option>
+          </Dropdown>
+        </ControlContainer>
+        <ControlContainer>
+          <ControlText>Master Volume</ControlText>
           <Slider
             onChange={onChangeVol}
             min={-60}
             max={0}
-            defaultValue={vol}
+            value={vol}
             width={110}
           />
-        </div>
+        </ControlContainer>
         <div>
           <SaveButton />
           <PlayButton />

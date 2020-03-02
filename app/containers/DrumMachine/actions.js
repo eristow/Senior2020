@@ -6,6 +6,7 @@ import {
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  LOAD_STATE,
 } from './constants';
 
 export function selectConfig(value) {
@@ -53,6 +54,13 @@ export function changeCurrentStep(value) {
 export function changeSteps(value) {
   return {
     type: CHANGE_STEPS,
+    value,
+  };
+}
+
+export function loadState(value) {
+  return {
+    type: LOAD_STATE,
     value,
   };
 }

@@ -18,7 +18,7 @@ const Dropdown = styled.select.attrs(props => ({
   font-size: 1em;
   padding: ${props => props.padding};
   width: ${props => props.width};
-  margin: 0.5em 0.5em;
+  margin-right: 0.75em;
 `;
 
 Dropdown.propTypes = {

@@ -18,7 +18,7 @@ const BPM = styled.input`
   padding: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-radius: 2;
-  margin: 2px 4px;
+  margin-left: 20px;
   margin-right: 20px;
   align-self: center;
 `;
