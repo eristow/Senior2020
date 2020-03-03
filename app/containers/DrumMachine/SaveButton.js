@@ -31,7 +31,7 @@ export function SaveButton({ drumMachineState }) {
 
   const ID = process.env.AWS_ID;
   const SECRET = process.env.AWS_SECRET;
-  const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+  const BUCKET_NAME = 'web-daw';
 
   const s3 = new AWS.S3({
     accessKeyId: ID,
