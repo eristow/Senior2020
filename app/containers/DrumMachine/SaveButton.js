@@ -29,9 +29,9 @@ const key = 'drumMachine';
 export function SaveButton({ drumMachineState }) {
   useInjectReducer({ key, reducer });
 
-  const ID = 'AKIAILVRBXTZVKP42V7A';
-  const SECRET = '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';
-  const BUCKET_NAME = 'web-daw';
+  const ID = process.env.AWS_ID;
+  const SECRET = process.env.AWS_SECRET;
+  const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 
   const s3 = new AWS.S3({
     accessKeyId: ID,
@@ -57,10 +57,11 @@ export function SaveButton({ drumMachineState }) {
 
     s3.upload(params, (err, data) => {
       if (err) {
-        console.log('Error uploading file to S3.');
+        alert('Error saving file.');
         throw err;
       }
       console.log(`File uploaded successfully. ${data.Location}`);
+      alert('Project saved.');
     });
 
     // document.body.appendChild(element); // Required for FireFox
