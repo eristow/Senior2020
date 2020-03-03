@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import AWS from 'aws-sdk';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectDrumMachineState } from './selectors';
@@ -28,14 +29,42 @@ const key = 'drumMachine';
 export function SaveButton({ drumMachineState }) {
   useInjectReducer({ key, reducer });
 
+  const ID = 'AKIAILVRBXTZVKP42V7A';
+  const SECRET = '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';
+  const BUCKET_NAME = 'web-daw';
+
+  const s3 = new AWS.S3({
+    accessKeyId: ID,
+    secretAccessKey: SECRET,
+  });
+
   const onClickSave = state => {
     const element = document.createElement('a');
     const stateString = JSON.stringify(state);
     const file = new Blob([stateString], { type: 'text/plain' });
     element.href = URL.createObjectURL(file);
-    element.download = 'state.json';
-    document.body.appendChild(element); // Required for FireFox
-    element.click();
+
+    const date = new Date(Date.now());
+    const timestamp = `${date.getFullYear()}-${date.getMonth() +
+      1}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+    // element.download = `${timestamp}_DrumState.json`;
+
+    const params = {
+      Bucket: BUCKET_NAME,
+      Key: `states/${timestamp}_DrumState.json`,
+      Body: file,
+    };
+
+    s3.upload(params, (err, data) => {
+      if (err) {
+        console.log('Error uploading file to S3.');
+        throw err;
+      }
+      console.log(`File uploaded successfully. ${data.Location}`);
+    });
+
+    // document.body.appendChild(element); // Required for FireFox
+    // element.click();
   };
 
   return <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>;
