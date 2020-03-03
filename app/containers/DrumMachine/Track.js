@@ -65,7 +65,7 @@ export function Track({
           onChange={e => onChangeTrackVol(name, e)}
           min={-55}
           max={0}
-          defaultValue={trackVol[name]}
+          value={trackVol[name]}
           width={120}
         />
       </Info>

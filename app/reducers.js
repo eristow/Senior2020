@@ -6,7 +6,6 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import history from 'utils/history';
-import timelineReducer from 'containers/Timeline/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
 /**
@@ -17,7 +16,6 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     router: connectRouter(history),
     ...injectedReducers,
-    timeline: timelineReducer,
   });
 
   return rootReducer;

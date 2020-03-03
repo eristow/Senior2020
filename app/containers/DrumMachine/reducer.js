@@ -7,6 +7,7 @@ import {
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  LOAD_STATE,
 } from './constants';
 
 export const initialState = {
@@ -31,6 +32,7 @@ export const initialState = {
 
 /* eslint-disable default-case, no-param-reassign */
 const drumMachineReducer = (state = initialState, action) =>
+  // eslint-disable-next-line consistent-return
   produce(state, draft => {
     switch (action.type) {
       case SELECT_CONFIG:
@@ -54,6 +56,8 @@ const drumMachineReducer = (state = initialState, action) =>
       case CHANGE_STEPS:
         draft.stepState = action.value;
         break;
+      case LOAD_STATE:
+        return action.value;
     }
   });
 
