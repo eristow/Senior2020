@@ -41,7 +41,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const Header = styled.div`
+  display: flex;
+`;
+
 const Logo = styled.h1`
+  display: table;
   font-size: 28px;
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -49,7 +54,6 @@ const Logo = styled.h1`
   padding-bottom: 10px;
   margin: 0;
   text-transform: uppercase;
-  display: inline-block;
 `;
 
 const ControlContainer = styled.div`
@@ -159,8 +163,10 @@ export function DrumMachine({
 
   return (
     <Container>
-      <Logo>Drum Machine</Logo>
-      <LoadButton />
+      <Header>
+        <Logo>Drum Machine</Logo>
+        <LoadButton />
+      </Header>
       <Transport>
         <ControlContainer>
           <ControlText>BPM</ControlText>
@@ -185,8 +191,8 @@ export function DrumMachine({
           />
         </ControlContainer>
         <div>
-          <SaveButton />
           <PlayButton />
+          <SaveButton />
         </div>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
