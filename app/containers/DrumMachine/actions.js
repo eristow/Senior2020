@@ -1,17 +1,18 @@
 import {
-  SELECT_CONFIG,
+  CHANGE_CONFIG,
   TOGGLE_PLAY,
   CHANGE_VOL,
   CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  CHANGE_TITLE,
   LOAD_STATE,
 } from './constants';
 
-export function selectConfig(value) {
+export function changeConfig(value) {
   return {
-    type: SELECT_CONFIG,
+    type: CHANGE_CONFIG,
     value,
   };
 }
@@ -54,6 +55,13 @@ export function changeCurrentStep(value) {
 export function changeSteps(value) {
   return {
     type: CHANGE_STEPS,
+    value,
+  };
+}
+
+export function changeTitle(value) {
+  return {
+    type: CHANGE_TITLE,
     value,
   };
 }

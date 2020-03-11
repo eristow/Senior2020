@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputText /> Should render and match the snapshot 1`] = `
+<input
+  class="InputText-wtwjzw-0 jGoZgH"
+  font-size="1em"
+  type="text"
+  value=""
+  width="5em"
+/>
+`;
