@@ -1,5 +1,5 @@
 import {
-  selectConfig,
+  changeConfig,
   togglePlay,
   changeVol,
   changeTrackVol,
@@ -8,7 +8,7 @@ import {
   changeSteps,
 } from '../actions';
 import {
-  SELECT_CONFIG,
+  CHANGE_CONFIG,
   TOGGLE_PLAY,
   CHANGE_VOL,
   CHANGE_TRACK_VOL,
@@ -18,13 +18,13 @@ import {
 } from '../constants';
 
 describe('DrumMachine actions', () => {
-  describe('Select Config', () => {
-    it('has a type of SELECT_CONFIG and value that was passed in', () => {
+  describe('Change Config', () => {
+    it('has a type of CHANGE_CONFIG and value that was passed in', () => {
       const expected = {
-        type: SELECT_CONFIG,
+        type: CHANGE_CONFIG,
         value: 'config2',
       };
-      expect(selectConfig('config2')).toEqual(expected);
+      expect(changeConfig('config2')).toEqual(expected);
     });
   });
 

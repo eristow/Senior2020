@@ -1,7 +1,7 @@
 import produce from 'immer';
 import drumMachineReducer from '../reducer';
 import {
-  selectConfig,
+  changeConfig,
   togglePlay,
   changeVol,
   changeTrackVol,
@@ -15,6 +15,7 @@ describe('drumMachineReducer', () => {
   let state;
   beforeEach(() => {
     state = {
+      title: 'Drum Machine',
       config: 'config1',
       vol: 0,
       bpm: '80',
@@ -45,7 +46,7 @@ describe('drumMachineReducer', () => {
       draft.config = 'config2';
     });
 
-    expect(drumMachineReducer(state, selectConfig('config2'))).toEqual(
+    expect(drumMachineReducer(state, changeConfig('config2'))).toEqual(
       expectedResult,
     );
   });
