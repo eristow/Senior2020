@@ -1,19 +1,13 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the daw state domain
- */
-
 const selectDawDomain = state => state.daw || initialState;
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by Daw
- */
+const makeSelectMenuStates = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.menuStates,
+  );
 
 const makeSelectDaw = () =>
   createSelector(
@@ -21,5 +15,29 @@ const makeSelectDaw = () =>
     substate => substate,
   );
 
+const makeSelectBpm = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.bpm,
+  );
+
+const makeSelectVol = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.vol,
+  );
+
+const makeSelectTrackVol = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.trackVol,
+  );
+
 export default makeSelectDaw;
-export { selectDawDomain };
+export {
+  selectDawDomain,
+  makeSelectMenuStates,
+  makeSelectBpm,
+  makeSelectVol,
+  makeSelectTrackVol,
+};

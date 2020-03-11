@@ -1,9 +1,3 @@
-/**
- *
- * Daw
- *
- */
-
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -17,17 +11,30 @@ import makeSelectDaw from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import H1 from '../../components/H1';
 import Options from './Options';
+import TrackConfig from './TrackConfig';
+
+const TrackContainer = styled.div`
+  width: 100%;
+  margin-top: 10px;
+`;
+
+const key = 'daw';
+
+const config = ['Kick', 'Snare', 'Hi Hat Closed', 'Hi Hat Open'];
 
 export function Daw() {
-  useInjectReducer({ key: 'daw', reducer });
-  useInjectSaga({ key: 'daw', saga });
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
   return (
     <div>
-      <H1>DAW</H1>
       <Options />
+      <TrackContainer>
+        {config.map(t => (
+          <TrackConfig name={t} />
+        ))}
+      </TrackContainer>
     </div>
   );
 }

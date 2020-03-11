@@ -1,5 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+
+import { useInjectSaga } from 'utils/injectSaga';
+import { useInjectReducer } from 'utils/injectReducer';
+import { makeSelectMenuStates, makeSelectVol } from './selectors';
+import { showMenu, changeVol } from './actions';
+import reducer from './reducer';
+import saga from './saga';
 
 import Smiley from '../../images/Smiley.png';
 import PlayButton from '../../images/PlayButton.png';
@@ -7,13 +18,19 @@ import StopButton from '../../images/StopButton.png';
 import RecordButton from '../../images/RecordButton.png';
 
 import P from '../../components/P';
+import Slider from '../../components/Slider';
+import BPMInput from './BPMInput';
+
+const BigContainer = styled.div`
+  display: flex;
+  background: lightgray;
+`;
 
 const Container = styled.div`
   background: lightgray;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  margin-left: auto;
+  height: 50px;
 `;
 
 const TransportContainer = styled.div`
@@ -26,112 +43,202 @@ const IconContainer = styled.div`
   order: 2;
 `;
 
-const MenuButton = styled.button`
-  background: lightblue;
-  border-radius: 5px;
-  margin: 5px 2px;
-  padding: 2px;
+const Menus = styled.div`
+  display: flex;
+  background: lightgray;
+  height: 50px;
 `;
 
-const IconButton = styled.button`
+const MenuContainer = styled.div``;
+
+const MenuButton = styled.button`
   background: lightblue;
   border-radius: 5px;
   margin: 5px 5px;
   padding: 2px;
 `;
 
-export default function Options() {
-  const FileOnClick = () => {
-    console.log('FileOnClick');
+const Menu = styled.div`
+  background: lightgray;
+  display: flex;
+  flex-direction: column;
+  width: 58px;
+  position: absolute;
+`;
+
+const IconButton = styled.button`
+  background: lightblue;
+  border-radius: 5px;
+  margin: 3px 3px;
+  padding: 2px;
+`;
+
+const ControlText = styled.p`
+  margin: 0;
+  margin-left: 10px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
+`;
+
+const MasterVol = styled.div`
+  margin: 0 1.25em;
+`;
+
+const key = 'daw';
+
+export function Options({ onChangeVol, showMenuDispatch, menuStates, vol }) {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
+  const onClickMenu = menuName => {
+    let alreadyOpen = false;
+    Object.entries(menuStates).forEach(val => {
+      if (val[1] === true && val[0] !== menuName) {
+        alreadyOpen = true;
+      }
+    });
+
+    if (!alreadyOpen) {
+      showMenuDispatch(menuName);
+    }
   };
 
-  const EditOnClick = () => {
-    console.log('EditOnClick');
-  };
-
-  const ViewOnClick = () => {
-    console.log('ViewOnClick');
-  };
-
-  const HelpOnClick = () => {
-    console.log('HelpOnClick');
-  };
-
-  const PlayOnClick = () => {
-    console.log('PlayOnClick');
-  };
-
-  const StopOnClick = () => {
-    console.log('StopOnClick');
-  };
-
-  const RecordOnClick = () => {
-    console.log('RecordOnClick');
-  };
-
-  const IconOnClick = () => {
-    console.log('IconOnClick');
-  };
-
+  // TODO: move Menus into a component that takes in name and menu items
+  // this file is way too big
   return (
-    <Container>
-      <div>
-        {/* TODO: make these dropdown menus */}
-        <MenuButton type="button" onClick={FileOnClick}>
-          <P marginTop="0.25em" marginBottom="0.25em">
-            File
-          </P>
-        </MenuButton>
-        <MenuButton type="button" onClick={EditOnClick}>
-          <P marginTop="0.25em" marginBottom="0.25em">
-            Edit
-          </P>
-        </MenuButton>
-        <MenuButton type="button" onClick={ViewOnClick}>
-          <P marginTop="0.25em" marginBottom="0.25em">
-            View
-          </P>
-        </MenuButton>
-        <MenuButton type="button" onClick={HelpOnClick}>
-          <P marginTop="0.25em" marginBottom="0.25em">
-            Help
-          </P>
-        </MenuButton>
-      </div>
-      <TransportContainer>
-        <IconButton type="button" onClick={PlayOnClick}>
-          <img
-            style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
-            src={PlayButton}
-            alt="Play"
+    <BigContainer>
+      <Menus>
+        <MenuContainer>
+          <MenuButton type="button" onClick={() => onClickMenu('File')}>
+            <P marginTop="0.25em" marginBottom="0.25em">
+              File
+            </P>
+          </MenuButton>
+          {menuStates.File ? (
+            <Menu>
+              <MenuButton type="button">Item 1</MenuButton>
+              <MenuButton type="button">Item 2</MenuButton>
+              <MenuButton type="button">Item 3</MenuButton>
+            </Menu>
+          ) : null}
+        </MenuContainer>
+        <MenuContainer>
+          <MenuButton type="button" onClick={() => onClickMenu('Edit')}>
+            <P marginTop="0.25em" marginBottom="0.25em">
+              Edit
+            </P>
+          </MenuButton>
+          {menuStates.Edit ? (
+            <Menu>
+              <MenuButton type="button">Item 1</MenuButton>
+              <MenuButton type="button">Item 2</MenuButton>
+              <MenuButton type="button">Item 3</MenuButton>
+            </Menu>
+          ) : null}
+        </MenuContainer>
+        <MenuContainer>
+          <MenuButton type="button" onClick={() => onClickMenu('View')}>
+            <P marginTop="0.25em" marginBottom="0.25em">
+              View
+            </P>
+          </MenuButton>
+          {menuStates.View ? (
+            <Menu>
+              <MenuButton type="button">Item 1</MenuButton>
+              <MenuButton type="button">Item 2</MenuButton>
+              <MenuButton type="button">Item 3</MenuButton>
+            </Menu>
+          ) : null}
+        </MenuContainer>
+        <MenuContainer>
+          <MenuButton type="button" onClick={() => onClickMenu('Help')}>
+            <P marginTop="0.25em" marginBottom="0.25em">
+              Help
+            </P>
+          </MenuButton>
+          {menuStates.Help ? (
+            <Menu>
+              <MenuButton type="button">Item 1</MenuButton>
+              <MenuButton type="button">Item 2</MenuButton>
+              <MenuButton type="button">Item 3</MenuButton>
+            </Menu>
+          ) : null}
+        </MenuContainer>
+      </Menus>
+      <Container>
+        <MasterVol>
+          <ControlText>Master Volume</ControlText>
+          <Slider
+            onChange={onChangeVol}
+            min={-60}
+            max={0}
+            value={vol}
+            width={110}
           />
-        </IconButton>
-        <IconButton type="button" onClick={StopOnClick}>
-          <img
-            style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
-            src={StopButton}
-            alt="Stop"
-          />
-        </IconButton>
-        <IconButton type="button" onClick={RecordOnClick}>
-          <img
-            style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
-            src={RecordButton}
-            alt="Stop"
-          />
-        </IconButton>
-        {/* TODO: add BPM here */}
-      </TransportContainer>
-      <IconContainer>
-        {/* TODO: add onClick to user icon */}
-        <IconButton type="button" onClick={IconOnClick}>
-          <img
-            style={{ marginRight: 3, width: 36, height: 36 }}
-            src={Smiley}
-            alt="User Icon"
-          />
-        </IconButton>
-      </IconContainer>
-    </Container>
+        </MasterVol>
+        <BPMInput />
+        <TransportContainer>
+          <IconButton type="button">
+            <img
+              style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
+              src={PlayButton}
+              alt="Play"
+            />
+          </IconButton>
+          <IconButton type="button">
+            <img
+              style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
+              src={StopButton}
+              alt="Stop"
+            />
+          </IconButton>
+          <IconButton type="button">
+            <img
+              style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
+              src={RecordButton}
+              alt="Stop"
+            />
+          </IconButton>
+        </TransportContainer>
+        <IconContainer>
+          {/* TODO: figure out user icon */}
+          <IconButton type="button">
+            <img
+              style={{ marginRight: 3, width: 36, height: 36 }}
+              src={Smiley}
+              alt="User Icon"
+            />
+          </IconButton>
+        </IconContainer>
+      </Container>
+    </BigContainer>
   );
 }
+
+Options.propTypes = {
+  showMenuDispatch: PropTypes.func,
+  onChangeVol: PropTypes.func,
+  menuStates: PropTypes.object,
+  vol: PropTypes.number,
+};
+
+const mapStateToProps = createStructuredSelector({
+  menuStates: makeSelectMenuStates(),
+  vol: makeSelectVol(),
+});
+
+const mapDispatchToProps = dispatch => ({
+  showMenuDispatch: value => {
+    dispatch(showMenu(value));
+  },
+  onChangeVol: value => {
+    dispatch(changeVol(value));
+  },
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(Options);
