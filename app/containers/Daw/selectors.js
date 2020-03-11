@@ -33,6 +33,24 @@ const makeSelectTrackVol = () =>
     substate => substate.trackVol,
   );
 
+const makeSelectPlaying = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.playing,
+  );
+
+const makeSelectCurrentStep = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.currentStep,
+  );
+
+const makeSelectStepState = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.stepState,
+  );
+
 export default makeSelectDaw;
 export {
   selectDawDomain,
@@ -40,4 +58,7 @@ export {
   makeSelectBpm,
   makeSelectVol,
   makeSelectTrackVol,
+  makeSelectPlaying,
+  makeSelectCurrentStep,
+  makeSelectStepState,
 };

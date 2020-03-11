@@ -13,10 +13,9 @@ import reducer from './reducer';
 
 const Container = styled.div`
   width: 100px;
+  height: 100px;
   background: darkgray;
-  border: 2px black;
-  border-radius: 5px;
-  margin-bottom: 1px;
+  border-right: 1px solid black;
 `;
 
 const Title = styled.p`
@@ -40,7 +39,7 @@ export function TrackConfig({ onChangeVol, name, vol }) {
           min={-60}
           max={0}
           value={vol[name]}
-          width={50}
+          width={75}
         />
       </div>
     </Container>

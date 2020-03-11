@@ -7,8 +7,12 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectMenuStates, makeSelectVol } from './selectors';
-import { showMenu, changeVol } from './actions';
+import {
+  makeSelectMenuStates,
+  makeSelectVol,
+  makeSelectPlaying,
+} from './selectors';
+import { showMenu, changeVol, togglePlay } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -86,7 +90,14 @@ const MasterVol = styled.div`
 
 const key = 'daw';
 
-export function Options({ onChangeVol, showMenuDispatch, menuStates, vol }) {
+export function Options({
+  showMenuDispatch,
+  onChangeVol,
+  onClickPlay,
+  menuStates,
+  vol,
+  playing,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -178,18 +189,11 @@ export function Options({ onChangeVol, showMenuDispatch, menuStates, vol }) {
         </MasterVol>
         <BPMInput />
         <TransportContainer>
-          <IconButton type="button">
+          <IconButton type="button" onClick={onClickPlay}>
             <img
               style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
-              src={PlayButton}
+              src={playing ? StopButton : PlayButton}
               alt="Play"
-            />
-          </IconButton>
-          <IconButton type="button">
-            <img
-              style={{ marginLeft: 5, marginRight: 5, width: 36, height: 36 }}
-              src={StopButton}
-              alt="Stop"
             />
           </IconButton>
           <IconButton type="button">
@@ -218,13 +222,16 @@ export function Options({ onChangeVol, showMenuDispatch, menuStates, vol }) {
 Options.propTypes = {
   showMenuDispatch: PropTypes.func,
   onChangeVol: PropTypes.func,
+  onClickPlay: PropTypes.func,
   menuStates: PropTypes.object,
   vol: PropTypes.number,
+  playing: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   menuStates: makeSelectMenuStates(),
   vol: makeSelectVol(),
+  playing: makeSelectPlaying(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -233,6 +240,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onChangeVol: value => {
     dispatch(changeVol(value));
+  },
+  onClickPlay: evt => {
+    dispatch(togglePlay(evt.target.value));
   },
 });
 
