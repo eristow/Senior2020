@@ -51,3 +51,9 @@ export const makeSelectCurrentStep = () =>
     selectDrumMachineDomain,
     substate => substate.currentStep,
   );
+
+export const makeSelectTitle = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.title,
+  );

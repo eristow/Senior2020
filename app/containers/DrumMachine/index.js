@@ -10,6 +10,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 
 import Slider from 'components/Slider';
 import Dropdown from 'components/Dropdown';
+import InputText from 'components/InputText';
 import {
   makeSelectStepState,
   makeSelectCurrentStep,
@@ -17,8 +18,14 @@ import {
   makeSelectPlaying,
   makeSelectVol,
   makeSelectConfig,
+  makeSelectTitle,
 } from './selectors';
-import { changeCurrentStep, changeVol, selectConfig } from './actions';
+import {
+  changeCurrentStep,
+  changeVol,
+  changeConfig,
+  changeTitle,
+} from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -39,17 +46,6 @@ const Container = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-`;
-
-const Logo = styled.h1`
-  font-size: 28px;
-  color: #25ccf7;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 20px;
-  padding-bottom: 10px;
-  margin: 0;
-  text-transform: uppercase;
-  display: inline-block;
 `;
 
 const ControlContainer = styled.div`
@@ -97,12 +93,14 @@ export function DrumMachine({
   setCurrentStepState,
   onChangeVol,
   onChangeConfig,
+  onChangeTitle,
   stepState,
   currentStep,
   bpm,
   playing,
   vol,
   config,
+  title,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -159,7 +157,12 @@ export function DrumMachine({
 
   return (
     <Container>
-      <Logo>Drum Machine</Logo>
+      <InputText
+        value={title}
+        onChange={e => onChangeTitle(e)}
+        fontSize="1.5em"
+        width="auto"
+      />
       <LoadButton />
       <Transport>
         <ControlContainer>
@@ -205,12 +208,14 @@ DrumMachine.propTypes = {
   setCurrentStepState: PropTypes.func,
   onChangeVol: PropTypes.func,
   onChangeConfig: PropTypes.func,
+  onChangeTitle: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
   playing: PropTypes.bool,
   vol: PropTypes.number,
   config: PropTypes.string,
+  title: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -220,6 +225,7 @@ const mapStateToProps = createStructuredSelector({
   playing: makeSelectPlaying(),
   vol: makeSelectVol(),
   config: makeSelectConfig(),
+  title: makeSelectTitle(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -230,7 +236,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeVol(evt));
   },
   onChangeConfig: evt => {
-    dispatch(selectConfig(evt.target.value));
+    dispatch(changeConfig(evt.target.value));
+  },
+  onChangeTitle: evt => {
+    dispatch(changeTitle(evt.target.value));
   },
 });
 
