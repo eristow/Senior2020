@@ -1,14 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   flex: 0 1 auto;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  align-items: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
-export default function StepSequencer(props) {
-  return <Wrapper>{props.children}</Wrapper>;
+export default function Transport({ children }) {
+  return <Wrapper>{children}</Wrapper>;
 }
+
+Transport.propTypes = {
+  children: PropTypes.array,
+};

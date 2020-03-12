@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
-import StepContext from './StepContext';
+import { makeSelectStepState } from './selectors';
+import { changeSteps } from './actions';
 
 const flash = keyframes`
   0% {
@@ -33,42 +37,62 @@ const StepButton = styled.button`
 const isOffsetColor = index =>
   (index > 3 && index < 8) || (index > 11 && index < 16);
 
-const Step = ({ on, index, name, doubled }) => {
-  const context = useContext(StepContext);
-  function toggleStep(e) {
-    const shiftEnabled = e.shiftKey === true;
-    context.setSteps(state => {
-      const steps = [...state[name]];
-      const val =
-        steps[index] === 0
-          ? shiftEnabled
-            ? 2
-            : 1
-          : shiftEnabled && steps[index] === 1
-          ? 2
-          : 0;
+export const Step = React.memo(
+  ({ on, index, name, doubled, setSteps, stepState }) => {
+    const toggleStep = e => {
+      const shiftEnabled = e.shiftKey === true;
+      const steps = [...stepState[name]];
+      let val = 0;
+      if (steps[index] === 0) {
+        if (shiftEnabled) {
+          val = 2;
+        } else {
+          val = 1;
+        }
+      } else if (shiftEnabled && steps[index] === 1) {
+        val = 2;
+      } else {
+        val = 0;
+      }
       steps[index] = val;
-      return {
-        ...state,
+      setSteps({
+        ...stepState,
         [name]: steps,
-      };
-    });
-  }
-  return (
-    <StepButton
-      on={on}
-      offsetColor={isOffsetColor(index)}
-      doubled={doubled}
-      onClick={toggleStep}
-    />
-  );
-};
-
-export default React.memo(Step);
+      });
+    };
+    return (
+      <StepButton
+        on={on}
+        offsetColor={isOffsetColor(index)}
+        doubled={doubled}
+        onClick={toggleStep}
+      />
+    );
+  },
+);
 
 Step.propTypes = {
   on: PropTypes.bool,
   index: PropTypes.number,
   name: PropTypes.string,
   doubled: PropTypes.bool,
+  setSteps: PropTypes.func,
+  stepState: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  stepState: makeSelectStepState(),
+});
+
+const mapDispatchToProps = dispatch => ({
+  setSteps: value => {
+    dispatch(changeSteps(value));
+  },
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(Step);

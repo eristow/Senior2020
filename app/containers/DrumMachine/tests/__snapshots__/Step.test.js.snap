@@ -2,6 +2,6 @@
 
 exports[`<Step /> Should render and match the snapshot 1`] = `
 <button
-  class="Step-bcwiks-0 kERmqH"
+  class="Step__StepButton-m11x8-0 epBtBi"
 />
 `;

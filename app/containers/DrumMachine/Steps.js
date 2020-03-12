@@ -1,8 +1,11 @@
-import React, { useMemo, useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 
-import StepContext from './StepContext';
+import { makeSelectStepState } from './selectors';
 import Step from './Step';
 
 const Wrapper = styled.div`
@@ -10,21 +13,17 @@ const Wrapper = styled.div`
   flex: 1;
 `;
 
-export default function Steps(props) {
-  const context = useContext(StepContext);
-  const steps = useMemo(() => context.state[props.name], [
-    context.state[props.name],
-  ]);
-
+export function Steps({ name, stepState }) {
   return (
     <Wrapper>
-      {steps.map((s, i) => (
+      {stepState[name].map((s, i) => (
         <Step
           on={s !== 0}
           doubled={s === 2}
           index={i}
-          key={i}
-          name={props.name}
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${name} ${i}`}
+          name={name}
         />
       ))}
     </Wrapper>
@@ -33,4 +32,13 @@ export default function Steps(props) {
 
 Steps.propTypes = {
   name: PropTypes.string,
+  stepState: PropTypes.object,
 };
+
+const mapStateToProps = createStructuredSelector({
+  stepState: makeSelectStepState(),
+});
+
+const withConnect = connect(mapStateToProps);
+
+export default compose(withConnect)(Steps);

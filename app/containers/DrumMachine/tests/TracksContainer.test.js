@@ -1,52 +1,41 @@
-/**
- *
- * Tests for DrumMachine
- *
- * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
- *
- */
-
 import React from 'react';
 import { render } from 'react-testing-library';
-import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import configureStore from '../../../configureStore';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import { DrumMachine } from '../index';
-import { DEFAULT_LOCALE } from '../../../i18n';
+import TracksContainer from '../TracksContainer';
 
-describe('<DrumMachine />', () => {
+describe('<TracksContainer />', () => {
   let store;
+  const config = {
+    tracks: ['Snare'],
+    samples: ['snareSample'],
+  };
 
   beforeAll(() => {
     store = configureStore();
   });
 
-  // TODO: mock tone
+  // TODO: gave up trying to write test
   it.skip('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
-    // const Tone = jest.fn();
+
     render(
       <Provider store={store}>
-        <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine dispatch={dispatch} />
-        </IntlProvider>
+        <TracksContainer dispatch={dispatch} config={config} />
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
-  // TODO: mock tone
+  // TODO: gave up trying to write test
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine />
-        </IntlProvider>
+        <TracksContainer config={config} />
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();

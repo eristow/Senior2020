@@ -17,31 +17,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
     href="/machine"
   >
     <span>
-      Machine
-    </span>
-  </a>
-  <a
-    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/timeline"
-  >
-    <span>
-      Timeline
-    </span>
-  </a>
-  <a
-    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/piano"
-  >
-    <span>
-      Piano
-    </span>
-  </a>
-  <a
-    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/drums"
-  >
-    <span>
-      Drums
+      Drum Machine
     </span>
   </a>
 </div>

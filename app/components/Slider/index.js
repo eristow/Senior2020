@@ -27,19 +27,28 @@ const handle = ({ value, dragging, index, ...restProps }) => (
   </Tooltip>
 );
 
-function Slider({ min, max, defaultValue, hasTooltip, width, onChange }) {
+function Slider({
+  min,
+  max,
+  defaultValue,
+  value,
+  hasTooltip,
+  width,
+  onChange,
+}) {
   const style = {
     width,
-    margin: 10,
+    margin: '0.5em 1em',
   };
   return (
-    <div style={{ display: 'inline' }}>
+    <div style={{ display: 'inline-block' }}>
       {hasTooltip ? (
         <RCSlider
           style={style}
           min={min}
           max={max}
           defaultValue={defaultValue}
+          value={value}
           handle={handle}
           onChange={onChange}
         />
@@ -49,6 +58,7 @@ function Slider({ min, max, defaultValue, hasTooltip, width, onChange }) {
           min={min}
           max={max}
           defaultValue={defaultValue}
+          value={value}
           onChange={onChange}
         />
       )}
@@ -60,6 +70,7 @@ Slider.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   defaultValue: PropTypes.number,
+  value: PropTypes.number,
   hasTooltip: PropTypes.bool,
   width: PropTypes.number,
   onChange: PropTypes.func,

@@ -1,65 +1,59 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the drumMachine state domain
- */
+export const selectDrumMachineDomain = state =>
+  state.drumMachine || initialState;
 
-const selectDrumMachineDomain = state => state.drumMachine || initialState;
-
-/**
- * Other specific selectors
- */
-
-const makeSelectSelectedKit = () =>
+export const makeSelectDrumMachineState = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.selectedKit,
+    substate => substate,
   );
 
-const makeSelectVol = () =>
+export const makeSelectConfig = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.config,
+  );
+
+export const makeSelectVol = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.vol,
   );
 
-const makeSelectTempo = () =>
+export const makeSelectTrackVol = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.tempo,
+    substate => substate.trackVol,
   );
 
-const makeSelectPlaying = () =>
+export const makeSelectBpm = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.bpm,
+  );
+
+export const makeSelectPlaying = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.playing,
   );
 
-const makeSelectStepState = () =>
+export const makeSelectStepState = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.stepState,
   );
 
-const makeSelectCurrentStep = () =>
+export const makeSelectCurrentStep = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.currentStep,
   );
 
-const makeSelectBuffers = () =>
+export const makeSelectTitle = () =>
   createSelector(
     selectDrumMachineDomain,
-    substate => substate.buffers,
+    substate => substate.title,
   );
-
-export {
-  selectDrumMachineDomain,
-  makeSelectSelectedKit,
-  makeSelectVol,
-  makeSelectTempo,
-  makeSelectPlaying,
-  makeSelectStepState,
-  makeSelectCurrentStep,
-  makeSelectBuffers,
-};

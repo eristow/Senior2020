@@ -1,64 +1,28 @@
-/*
- *
- * DrumMachine actions
- *
- */
-
 import {
-  SELECT_KIT,
+  CHANGE_CONFIG,
   TOGGLE_PLAY,
-  TOGGLE_STEP,
   CHANGE_VOL,
-  CHANGE_TEMPO,
+  CHANGE_TRACK_VOL,
+  CHANGE_BPM,
   CHANGE_CURRENT_STEP,
-  CHANGE_BUFFERS,
+  CHANGE_STEPS,
+  CHANGE_TITLE,
+  LOAD_STATE,
 } from './constants';
 
-/**
- * Changes the currently selected kit in dropdown
- *
- * @param {string} value The new selected kit
- *
- * @return {object} An action object with a type of CHANGE_SELECT
- */
-export function selectKit(value) {
+export function changeConfig(value) {
   return {
-    type: SELECT_KIT,
+    type: CHANGE_CONFIG,
     value,
   };
 }
 
-/**
- * Start or stop playing the drum machine.
- *
- * @return {object} An action object with a type of TOGGLE_PLAY
- */
 export function togglePlay() {
   return {
     type: TOGGLE_PLAY,
   };
 }
 
-/**
- * Toggle the status of a step.
- *
- * @return {object} An action object with a type of TOGGLE_STEP
- */
-export function toggleStep(sound, index) {
-  return {
-    type: TOGGLE_STEP,
-    sound,
-    index,
-  };
-}
-
-/**
- * Change volume.
- *
- * @param {string} value
- *
- * @return {object} An action object with a type of CHANGE_VOL
- */
 export function changeVol(value) {
   return {
     type: CHANGE_VOL,
@@ -66,16 +30,17 @@ export function changeVol(value) {
   };
 }
 
-/**
- * Change tempo.
- *
- * @param {string} value
- *
- * @return {object} An action object with a type of CHANGE_TEMPO
- */
-export function changeTempo(value) {
+export function changeTrackVol(track, value) {
   return {
-    type: CHANGE_TEMPO,
+    type: CHANGE_TRACK_VOL,
+    track,
+    value,
+  };
+}
+
+export function changeBpm(value) {
+  return {
+    type: CHANGE_BPM,
     value,
   };
 }
@@ -87,9 +52,23 @@ export function changeCurrentStep(value) {
   };
 }
 
-export function changeBuffers(value) {
+export function changeSteps(value) {
   return {
-    type: CHANGE_BUFFERS,
+    type: CHANGE_STEPS,
+    value,
+  };
+}
+
+export function changeTitle(value) {
+  return {
+    type: CHANGE_TITLE,
+    value,
+  };
+}
+
+export function loadState(value) {
+  return {
+    type: LOAD_STATE,
     value,
   };
 }
