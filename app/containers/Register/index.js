@@ -27,8 +27,8 @@ export function Register() {
   return (
     <div>
       <Helmet>
-        <title>Login</title>
-        <meta name="description" content="Description of Login" />
+        <title>Register</title>
+        <meta name="description" content="Description of Register" />
       </Helmet>
       <FormattedMessage {...messages.header} />
       <RegisterForm />

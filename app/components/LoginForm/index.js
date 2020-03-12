@@ -15,7 +15,7 @@ import pianoReducer from 'containers/Piano/reducer';
 
 // constructor(props){
 //   super(props);
-//   this.state = {username: '', pass: ''};
+//   this.state = {Email: '', pass: ''};
 
 //   this.handleChange = this.handleChange.bind(this);
 //   this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +26,7 @@ import pianoReducer from 'containers/Piano/reducer';
 // }
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -34,43 +34,51 @@ function LoginForm() {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    // alert(`Submitting Name ${username}`);
+    // alert(`Submitting Name ${Email}`);
 
-    fetch(targetUrl, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        pass,
-      }),
-    })
-      .then(results => results.json())
-      .then(data => {
-        // let res = data.results.map((token) => {
-        //   return(
-        //     <div key={token.results}>
-        //       <p src={token.res.token} />
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        //     </div>
-        //   )
-        // })
-        console.log(data);
-        if (data.token) alert(`Login Successful!`);
-        else alert(`Either the Username or Password is Wrong`);
-      });
+    if(re.test(email)) {
+      fetch(targetUrl, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          pass,
+        }),
+      })
+        .then(results => results.json())
+        .then(data => {
+          // let res = data.results.map((token) => {
+          //   return(
+          //     <div key={token.results}>
+          //       <p src={token.res.token} />
+  
+          //     </div>
+          //   )
+          // })
+          console.log(data);
+          if (data.token) alert(`Login Successful!`);
+          else alert(`Either the Email or Password is Wrong`);
+        });
+    }
+    else {
+      alert(`Either the Email or Password is Wrong`);
+    }
+    
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Username:
+        Email:
         <input
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
       </label>
       <br />
@@ -85,10 +93,10 @@ function LoginForm() {
       <br />
       <input type="submit" value="Submit" />
       {/* <h2>Login</h2>
-      <StyledInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Username" />
+      <StyledInput type="text" value={this.state.value} onChange={this.handleChange} placeholder="Email" />
       <StyledInput type="password" value={this.state.value} onChange={this.handleChange} placeholder="Password" /> */}
       {/* This doesn't work because there is nothing handling the input */}
-      {/* <StyledInput type="text" placeholder="Username" />
+      {/* <StyledInput type="text" placeholder="Email" />
       <StyledInput type="password" placeholder="Password" /> */}
       {/* <Button onClick={handleSubmit} text="Login" /> */}
       <br />
