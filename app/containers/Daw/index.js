@@ -14,6 +14,8 @@ import {
   makeSelectPlaying,
   makeSelectCurrentStep,
   makeSelectStepState,
+  makeSelectSelectedTrack,
+  makeSelectTrackNames,
 } from './selectors';
 import { changeCurrentStep } from './actions';
 import reducer from './reducer';
@@ -21,6 +23,8 @@ import saga from './saga';
 
 import Options from './Options';
 import Track from './Track';
+import TrackDetails from './TrackDetails';
+import SideBar from './SideBar';
 
 const TrackContainer = styled.div`
   width: 100%;
@@ -29,7 +33,15 @@ const TrackContainer = styled.div`
 
 const key = 'daw';
 
-const config = ['Kick', 'Snare', 'Hi Hat Closed', 'Hi Hat Open'];
+const config = ['Track1', 'Track2', 'Track3', 'Track4'];
+
+// TODO: remove this once it's implemented
+const tracks = [
+  { name: 'Track 1' },
+  { name: 'Track 2' },
+  { name: 'Track 3' },
+  { name: 'Track 4' },
+];
 
 export function Daw({
   setCurrentStep,
@@ -38,6 +50,8 @@ export function Daw({
   playing,
   currentStep,
   stepState,
+  selectedTrack,
+  trackNames,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -91,12 +105,22 @@ export function Daw({
 
   return (
     <div>
+      <SideBar />
       <Options />
       <TrackContainer>
         {config.map(t => (
-          <Track key={t} name={t} playing={playing} currentStep={currentStep} />
+          <Track
+            key={t}
+            name={trackNames[config.indexOf(t)]}
+            num={config.indexOf(t)}
+            playing={playing}
+            currentStep={currentStep}
+          />
         ))}
       </TrackContainer>
+      <TrackDetails
+        track={selectedTrack ? tracks[trackNames.indexOf(selectedTrack)] : {}}
+      />
     </div>
   );
 }
@@ -109,6 +133,8 @@ Daw.propTypes = {
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
   stepState: PropTypes.object,
+  selectedTrack: PropTypes.string,
+  trackNames: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -117,6 +143,8 @@ const mapStateToProps = createStructuredSelector({
   playing: makeSelectPlaying(),
   currentStep: makeSelectCurrentStep(),
   stepState: makeSelectStepState(),
+  selectedTrack: makeSelectSelectedTrack(),
+  trackNames: makeSelectTrackNames(),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -7,6 +7,9 @@ import {
   TOGGLE_PLAY,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  CHANGE_SELECTED_TRACK,
+  CHANGE_TRACK_NAMES,
+  SHOW_SIDEBAR,
 } from './constants';
 
 export const initialState = {
@@ -20,19 +23,22 @@ export const initialState = {
   vol: 0,
   // TODO: make stepState and trackVol keys dynamic
   stepState: {
-    Kick: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    Snare: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    HiHat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    HiHatOpen: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   trackVol: {
-    Kick: 0,
-    Snare: 0,
-    HiHat: 0,
-    HiHatOpen: 0,
+    Track1: 0,
+    Track2: 0,
+    Track3: 0,
+    Track4: 0,
   },
   currentStep: 0,
   playing: false,
+  selectedTrack: '',
+  trackNames: ['Track 1', 'Track 2', 'Track 3', 'Track 4'],
+  sideBarOpen: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -59,6 +65,15 @@ const dawReducer = (state = initialState, action) =>
         break;
       case CHANGE_STEPS:
         draft.stepState = action.value;
+        break;
+      case CHANGE_SELECTED_TRACK:
+        draft.selectedTrack = action.value;
+        break;
+      case CHANGE_TRACK_NAMES:
+        draft.trackNames[action.track] = action.value;
+        break;
+      case SHOW_SIDEBAR:
+        draft.sideBarOpen = !draft.sideBarOpen;
         break;
     }
   });

@@ -33,11 +33,11 @@ const StepIndicator = styled.div`
   background: #00ff0040;
 `;
 
-export function Track({ name, playing, currentStep }) {
+export function Track({ name, num, playing, currentStep }) {
   return (
     <Container>
-      <TrackConfig name={name} />
-      {/* TODO: this is where tracks will go (midi or audio) */}
+      <TrackConfig name={name} num={num} />
+      {/* TODO: this is where patterns will go (midi or audio) */}
       <IndicatorWrapper>
         {playing && <StepIndicator step={currentStep} />}
       </IndicatorWrapper>
@@ -47,6 +47,7 @@ export function Track({ name, playing, currentStep }) {
 
 Track.propTypes = {
   name: PropTypes.string,
+  num: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
 };

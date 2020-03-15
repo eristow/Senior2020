@@ -51,6 +51,24 @@ const makeSelectStepState = () =>
     substate => substate.stepState,
   );
 
+const makeSelectSelectedTrack = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.selectedTrack,
+  );
+
+const makeSelectTrackNames = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.trackNames,
+  );
+
+const makeSelectSideBarOpen = () =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.sideBarOpen,
+  );
+
 export default makeSelectDaw;
 export {
   selectDawDomain,
@@ -61,4 +79,7 @@ export {
   makeSelectPlaying,
   makeSelectCurrentStep,
   makeSelectStepState,
+  makeSelectSelectedTrack,
+  makeSelectTrackNames,
+  makeSelectSideBarOpen,
 };

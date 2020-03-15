@@ -56,6 +56,7 @@ const Menus = styled.div`
 const MenuContainer = styled.div``;
 
 const MenuButton = styled.button`
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   background: lightblue;
   border-radius: 5px;
   margin: 5px 5px;
@@ -63,6 +64,7 @@ const MenuButton = styled.button`
 `;
 
 const Menu = styled.div`
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   background: lightgray;
   display: flex;
   flex-direction: column;
@@ -71,6 +73,7 @@ const Menu = styled.div`
 `;
 
 const IconButton = styled.button`
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   background: lightblue;
   border-radius: 5px;
   margin: 3px 3px;

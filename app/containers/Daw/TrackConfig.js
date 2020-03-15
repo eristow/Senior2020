@@ -7,8 +7,13 @@ import { compose } from 'redux';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import Slider from 'components/Slider';
+import InputText from 'components/InputText';
 import { makeSelectTrackVol } from './selectors';
-import { changeTrackVol } from './actions';
+import {
+  changeTrackVol,
+  changeTrackNames,
+  changeSelectedTrack,
+} from './actions';
 import reducer from './reducer';
 
 const Container = styled.div`
@@ -18,21 +23,39 @@ const Container = styled.div`
   border-right: 1px solid black;
 `;
 
-const Title = styled.p`
-  user-select: none;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  display: inline-block;
-  margin: 0.1em 0.5em;
+const Select = styled.button`
+  background: linear-gradient(to bottom right, #eee, #ddd);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px 5px;
+  width: 90%;
 `;
 
 const key = 'daw';
 
-export function TrackConfig({ onChangeVol, name, vol }) {
+export function TrackConfig({
+  onChangeVol,
+  onChangeTrackNames,
+  onChangeSelectedTrack,
+  name,
+  num,
+  vol,
+}) {
   useInjectReducer({ key, reducer });
 
   return (
     <Container>
-      <Title>{name}</Title>
+      <InputText
+        value={name}
+        onChange={e => onChangeTrackNames(num, e)}
+        margin="1px"
+        fontSize="0.75em"
+        width="97%"
+      />
+      <Select type="button" onClick={() => onChangeSelectedTrack(name)}>
+        Select
+      </Select>
       <div>
         <Slider
           onChange={e => onChangeVol(name, e)}
@@ -48,7 +71,10 @@ export function TrackConfig({ onChangeVol, name, vol }) {
 
 TrackConfig.propTypes = {
   onChangeVol: PropTypes.func,
+  onChangeTrackNames: PropTypes.func,
+  onChangeSelectedTrack: PropTypes.func,
   name: PropTypes.string,
+  num: PropTypes.number,
   vol: PropTypes.object,
 };
 
@@ -59,6 +85,12 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   onChangeVol: (name, e) => {
     dispatch(changeTrackVol(name, e));
+  },
+  onChangeTrackNames: (num, e) => {
+    dispatch(changeTrackNames(num, e.target.value));
+  },
+  onChangeSelectedTrack: name => {
+    dispatch(changeSelectedTrack(name));
   },
 });
 

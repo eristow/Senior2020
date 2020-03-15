@@ -42,6 +42,7 @@ function Slider({
     width,
     height,
     margin: '0.5em 0.5em',
+    zIndex: 0,
   };
   return (
     <div style={{ display: 'inline-block' }}>

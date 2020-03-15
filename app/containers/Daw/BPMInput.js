@@ -11,6 +11,7 @@ import { changeBpm } from './actions';
 import reducer from './reducer';
 
 const BPM = styled.input`
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 18px;
   color: #25ccf7;
