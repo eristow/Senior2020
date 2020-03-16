@@ -21,19 +21,13 @@ export const initialState = {
   },
   bpm: '80',
   vol: 0,
-  // TODO: make stepState and trackVol keys dynamic
-  stepState: {
-    Track1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    Track2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    Track3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    Track4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  },
-  trackVol: {
-    Track1: 0,
-    Track2: 0,
-    Track3: 0,
-    Track4: 0,
-  },
+  stepState: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  trackVol: [0, 0, 0, 0],
   currentStep: 0,
   playing: false,
   selectedTrack: '',
@@ -64,7 +58,7 @@ const dawReducer = (state = initialState, action) =>
         draft.currentStep = action.value;
         break;
       case CHANGE_STEPS:
-        draft.stepState = action.value;
+        draft.stepState[action.num] = action.value;
         break;
       case CHANGE_SELECTED_TRACK:
         draft.selectedTrack = action.value;

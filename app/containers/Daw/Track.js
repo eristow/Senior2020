@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import TrackConfig from './TrackConfig';
+import Steps from './Steps';
 
 const Container = styled.div`
   display: flex;
@@ -11,13 +12,15 @@ const Container = styled.div`
   height: auto;
   border: 1px solid black;
   margin: 1px;
+  position: relative;
 `;
 
 const IndicatorWrapper = styled.div`
-  position: relative;
+  position: absolute;
   width: 570px;
   top: 0px;
   right: 0px;
+  left: 100px;
   height: 100px;
   padding: 4px 2px;
   pointer-events: none;
@@ -27,13 +30,13 @@ const IndicatorWrapper = styled.div`
 const StepIndicator = styled.div`
   position: absolute;
   top: 0px;
-  left: ${props => props.step * 44}px;
-  width: 3px;
+  left: ${props => props.step * 41.5}px;
+  width: 40px;
   height: 100%;
   background: #00ff0040;
 `;
 
-export function Track({ name, num, playing, currentStep }) {
+export function Track({ name, num, playing, currentStep, stepState }) {
   return (
     <Container>
       <TrackConfig name={name} num={num} />
@@ -41,6 +44,7 @@ export function Track({ name, num, playing, currentStep }) {
       <IndicatorWrapper>
         {playing && <StepIndicator step={currentStep} />}
       </IndicatorWrapper>
+      <Steps name={name} num={num} stepsState={stepState} />
     </Container>
   );
 }
@@ -50,6 +54,7 @@ Track.propTypes = {
   num: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
+  stepState: PropTypes.array,
 };
 
 export default Track;

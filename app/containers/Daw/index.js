@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Tone from 'tone';
@@ -56,28 +56,29 @@ export function Daw({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  const [buffers, setBuffers] = useState({});
-  const buffersRef = useRef(buffers);
-  buffersRef.current = buffers;
+  // const [buffers, setBuffers] = useState({});
+  // const buffersRef = useRef(buffers);
+  // buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
 
   useEffect(() => {
-    Tone.Transport.scheduleRepeat(time => {
-      Object.keys(buffersRef.current).forEach(b => {
-        const targetStep = stepsRef.current[b][currentStepRef.current];
-        const targetBuffer = buffersRef.current[b];
+    Tone.Transport.scheduleRepeat(() => {
+      // Tone.Transport.scheduleRepeat(time => {
+      // Object.keys(buffersRef.current).forEach(b => {
+      //   const targetStep = stepsRef.current[b][currentStepRef.current];
+      //   const targetBuffer = buffersRef.current[b];
 
-        if (targetStep === 1) {
-          targetBuffer.start(time);
-        } else if (targetStep === 2) {
-          targetBuffer.start();
-          targetBuffer.start('+64n');
-          targetBuffer.start('+32n');
-        }
-      });
+      //   if (targetStep === 1) {
+      //     targetBuffer.start(time);
+      //   } else if (targetStep === 2) {
+      //     targetBuffer.start();
+      //     targetBuffer.start('+64n');
+      //     targetBuffer.start('+32n');
+      //   }
+      // });
 
       // eslint-disable-next-line no-unused-expressions
       currentStepRef.current > 14
@@ -115,6 +116,7 @@ export function Daw({
             num={config.indexOf(t)}
             playing={playing}
             currentStep={currentStep}
+            stepState={stepState}
           />
         ))}
       </TrackContainer>
@@ -132,7 +134,7 @@ Daw.propTypes = {
   vol: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
-  stepState: PropTypes.object,
+  stepState: PropTypes.array,
   selectedTrack: PropTypes.string,
   trackNames: PropTypes.array,
 };

@@ -58,10 +58,10 @@ export function TrackConfig({
       </Select>
       <div>
         <Slider
-          onChange={e => onChangeVol(name, e)}
+          onChange={e => onChangeVol(num, e)}
           min={-60}
           max={0}
-          value={vol[name]}
+          value={vol[num]}
           width={75}
         />
       </div>
@@ -75,7 +75,7 @@ TrackConfig.propTypes = {
   onChangeSelectedTrack: PropTypes.func,
   name: PropTypes.string,
   num: PropTypes.number,
-  vol: PropTypes.object,
+  vol: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({

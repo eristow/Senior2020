@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Container = styled.div`
   width: 100%;
   height: auto;
-  background: gray;
+  background: lightgray;
   margin-top: 10px;
   border: 2px solid black;
   border-radius: 5px;

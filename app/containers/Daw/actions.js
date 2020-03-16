@@ -53,9 +53,10 @@ export function changeCurrentStep(value) {
   };
 }
 
-export function changeSteps(value) {
+export function changeSteps(num, value) {
   return {
     type: CHANGE_STEPS,
+    num,
     value,
   };
 }
