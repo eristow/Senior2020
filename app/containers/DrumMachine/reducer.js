@@ -1,16 +1,18 @@
 import produce from 'immer';
 import {
-  SELECT_CONFIG,
+  CHANGE_CONFIG,
   TOGGLE_PLAY,
   CHANGE_VOL,
   CHANGE_TRACK_VOL,
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  CHANGE_TITLE,
   LOAD_STATE,
 } from './constants';
 
 export const initialState = {
+  title: 'Drum Machine',
   config: 'config1',
   vol: 0,
   bpm: '80',
@@ -35,7 +37,7 @@ const drumMachineReducer = (state = initialState, action) =>
   // eslint-disable-next-line consistent-return
   produce(state, draft => {
     switch (action.type) {
-      case SELECT_CONFIG:
+      case CHANGE_CONFIG:
         draft.config = action.value;
         break;
       case TOGGLE_PLAY:
@@ -55,6 +57,9 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case CHANGE_STEPS:
         draft.stepState = action.value;
+        break;
+      case CHANGE_TITLE:
+        draft.title = action.value;
         break;
       case LOAD_STATE:
         return action.value;
