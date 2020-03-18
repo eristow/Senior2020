@@ -24,6 +24,8 @@ const P = styled.p.attrs(props => ({
 P.propTypes = {
   marginTop: PropTypes.string,
   marginBottom: PropTypes.string,
+  marginLeft: PropTypes.string,
+  marginRight: PropTypes.string,
 };
 
 export default P;

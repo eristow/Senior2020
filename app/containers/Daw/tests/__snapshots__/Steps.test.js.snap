@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Steps /> Should render and match the snapshot 1`] = `
+<div
+  class="Steps__Wrapper-sc-8e49i7-0 iDvuHY"
+>
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 buOaSX"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+  <button
+    class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+  />
+</div>
+`;

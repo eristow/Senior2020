@@ -18,9 +18,9 @@ const Load = styled.button`
   font-size: 18px;
   border-radius: 2;
   margin: 2px 4px;
-  margin-left: 10px;
   align-self: center;
   min-width: 100px;
+  margin-left: auto;
 `;
 
 const key = 'drumMachine';
@@ -49,7 +49,7 @@ export function LoadButton({ onLoad }) {
   const inputFile = useRef(null);
 
   return (
-    <div>
+    <>
       <input
         ref={inputFile}
         type="file"
@@ -58,7 +58,7 @@ export function LoadButton({ onLoad }) {
         onChange={e => handleFileChosen(e.target.files[0])}
       />
       <Load onClick={onClickLoad}>Load</Load>
-    </div>
+    </>
   );
 }
 
