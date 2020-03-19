@@ -4,5 +4,9 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Login/DEFAULT_ACTION';
-export const CHANGE_USERNAME = 'app/Login/CHANGE_USERNAME';
+export const CHANGE_EMAIL = 'app/Login/CHANGE_EMAIL';
+export const CHANGE_PASS = 'app/Login/CHANGE_PASS';
+export const LOGGING_IN = 'app/Login/LOGGING_IN';
+
+export const LOGGED_IN = 'app/Login/LOGGED_IN';
+export const LOGIN_FAILED = 'app/Login/LOGIN_FAILED';

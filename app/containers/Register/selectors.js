@@ -20,6 +20,16 @@ const makeSelectRegister = () =>
     selectRegisterDomain,
     substate => substate,
   );
+const makeSelectEmail = () =>
+  createSelector(
+    selectRegisterDomain,
+    substate => substate.email,
+  );
 
+const makeSelectPass = () =>
+  createSelector(
+    selectRegisterDomain,
+    substate => substate.pass,
+  );
 export default makeSelectRegister;
-export { selectRegisterDomain };
+export { selectRegisterDomain, makeSelectEmail, makeSelectPass };

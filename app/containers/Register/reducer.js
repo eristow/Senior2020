@@ -4,15 +4,19 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { CHANGE_EMAIL, CHANGE_PASS } from './constants';
 
-export const initialState = {};
+export const initialState = { email: '', pass: '' };
 
 /* eslint-disable default-case, no-param-reassign */
 const registerReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, draft => {
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case CHANGE_EMAIL:
+        draft.email = action.value;
+        break;
+      case CHANGE_PASS:
+        draft.pass = action.value;
         break;
     }
   });

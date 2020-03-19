@@ -5,40 +5,21 @@
  */
 
 import React, { useState } from 'react';
-import pianoReducer from 'containers/Piano/reducer';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
-// import Form from './Form';
-// import StyledInput from './StyledInput';
-// import Button from '../Button/index.js';
-
-// constructor(props){
-//   super(props);
-//   this.state = {Email: '', pass: ''};
-
-//   this.handleChange = this.handleChange.bind(this);
-//   this.handleSubmit = this.handleSubmit.bind(this);
-// }
-
-// handleChange(event){
-//   this.setState({value: event.target.value});
-// }
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
-  // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = 'http://localhost:8080/api/auth/login';
+  // http://localhost:8080
+  const targetUrl = '/api/auth/login';
 
   const handleSubmit = evt => {
     evt.preventDefault();
     // alert(`Submitting Name ${Email}`);
 
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if(re.test(email)) {
+    if (re.test(email)) {
       fetch(targetUrl, {
         method: 'POST',
         headers: {
@@ -56,7 +37,7 @@ function LoginForm() {
           //   return(
           //     <div key={token.results}>
           //       <p src={token.res.token} />
-  
+
           //     </div>
           //   )
           // })
@@ -64,11 +45,9 @@ function LoginForm() {
           if (data.token) alert(`Login Successful!`);
           else alert(`Either the Email or Password is Wrong`);
         });
-    }
-    else {
+    } else {
       alert(`Either the Email or Password is Wrong`);
     }
-    
   };
 
   return (
