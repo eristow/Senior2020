@@ -55,7 +55,7 @@ export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
       <br />
       <br />
       <p>
-        Don't have an account? Click&nbsp;
+        {"Don't have an account? Click"}&nbsp;
         <a href="/register">here</a>
       </p>
       <button type="button" onClick={() => handleSubmit(email, pass)}>

@@ -2,7 +2,7 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { registerSuccess, registerError } from 'containers/Register/actions';
 
 import request from 'utils/request';
-import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
+import { makeSelectEmail, makeSelectPass } from 'containers/Register/selectors';
 import { REGISTERING } from './constants';
 
 /**
@@ -27,6 +27,7 @@ export function* registerReq() {
     body: JSON.stringify(state),
   };
   try {
+    console.log(JSON.stringify(state));
     // Call our request helper (found in 'utils/request')
     const res = yield call(request, requestURL, options);
     yield put(registerSuccess(res, state));
