@@ -31,6 +31,8 @@ export function* loginReq() {
     // Call our request helper (found in 'utils/request')
     const res = yield call(request, requestURL, options);
     yield put(loginSuccess(res, state));
+    const { token } = res.token;
+    localStorage.setItem('jwtToken', token);
   } catch (err) {
     yield put(loginError(err));
   }
