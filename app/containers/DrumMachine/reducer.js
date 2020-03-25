@@ -9,6 +9,7 @@ import {
   CHANGE_STEPS,
   CHANGE_TITLE,
   LOAD_STATE,
+  CHANGE_LOAD_URL,
 } from './constants';
 
 export const initialState = {
@@ -30,6 +31,7 @@ export const initialState = {
     HiHatOpen: 0,
   },
   currentStep: 0,
+  loadUrl: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -63,6 +65,9 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case LOAD_STATE:
         return action.value;
+      case CHANGE_LOAD_URL:
+        draft.loadUrl = action.value;
+        break;
     }
   });
 

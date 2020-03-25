@@ -8,6 +8,7 @@ import {
   CHANGE_STEPS,
   CHANGE_TITLE,
   LOAD_STATE,
+  CHANGE_LOAD_URL,
 } from './constants';
 
 export function changeConfig(value) {
@@ -69,6 +70,13 @@ export function changeTitle(value) {
 export function loadState(value) {
   return {
     type: LOAD_STATE,
+    value,
+  };
+}
+
+export function changeLoadUrl(value) {
+  return {
+    type: CHANGE_LOAD_URL,
     value,
   };
 }

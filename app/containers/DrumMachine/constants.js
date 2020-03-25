@@ -7,3 +7,4 @@ export const CHANGE_CURRENT_STEP = 'app/DrumMachine/CHANGE_CURRENT_STEP';
 export const CHANGE_STEPS = 'app/DrumMachine/CHANGE_STEPS';
 export const CHANGE_TITLE = 'app/DrumMachine/CHANGE_TITLE';
 export const LOAD_STATE = 'app/DrumMachine/LOAD_STATE';
+export const CHANGE_LOAD_URL = 'app/DrumMachine/CHANGE_LOAD_URL';

@@ -57,3 +57,9 @@ export const makeSelectTitle = () =>
     selectDrumMachineDomain,
     substate => substate.title,
   );
+
+export const makeSelectLoadUrl = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.loadUrl,
+  );

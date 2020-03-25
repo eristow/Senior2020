@@ -7,6 +7,8 @@ import {
   makeSelectPlaying,
   makeSelectStepState,
   makeSelectCurrentStep,
+  makeSelectTitle,
+  makeSelectLoadUrl,
 } from '../selectors';
 
 describe('selectDrumMachineDomain', () => {
@@ -120,6 +122,34 @@ describe('selectDrumMachineDomain', () => {
       };
 
       expect(currentStepSelector(mockedState)).toEqual(currentStep);
+    });
+  });
+
+  describe('makeSelectTitle', () => {
+    const titleSelector = makeSelectTitle();
+    it('Should select the title', () => {
+      const title = 'The Title';
+      const mockedState = {
+        drumMachine: {
+          title,
+        },
+      };
+
+      expect(titleSelector(mockedState)).toEqual(title);
+    });
+  });
+
+  describe('makeSelectLoadUrl', () => {
+    const loadUrlSelector = makeSelectLoadUrl();
+    it('Should select the load url', () => {
+      const loadUrl = 's3aws.com';
+      const mockedState = {
+        drumMachine: {
+          loadUrl,
+        },
+      };
+
+      expect(loadUrlSelector(mockedState)).toEqual(loadUrl);
     });
   });
 });

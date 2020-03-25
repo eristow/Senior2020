@@ -6,6 +6,9 @@ import {
   changeBpm,
   changeCurrentStep,
   changeSteps,
+  changeTitle,
+  loadState,
+  changeLoadUrl,
 } from '../actions';
 import {
   CHANGE_CONFIG,
@@ -15,6 +18,9 @@ import {
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  CHANGE_TITLE,
+  LOAD_STATE,
+  CHANGE_LOAD_URL,
 } from '../constants';
 
 describe('DrumMachine actions', () => {
@@ -85,6 +91,36 @@ describe('DrumMachine actions', () => {
         value: '2',
       };
       expect(changeSteps('2')).toEqual(expected);
+    });
+  });
+
+  describe('Change Title', () => {
+    it('has a type of CHANGE_TITLE and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_TITLE,
+        value: 'the title',
+      };
+      expect(changeTitle('the title')).toEqual(expected);
+    });
+  });
+
+  describe('Load State', () => {
+    it('has a type of LOAD_STATE and value that was passed in', () => {
+      const expected = {
+        type: LOAD_STATE,
+        value: { state: 'the state' },
+      };
+      expect(loadState({ state: 'the state' })).toEqual(expected);
+    });
+  });
+
+  describe('Change Load Url', () => {
+    it('has a type of CHANGE_LOAD_URL and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_LOAD_URL,
+        value: 'the url',
+      };
+      expect(changeLoadUrl('the url')).toEqual(expected);
     });
   });
 });

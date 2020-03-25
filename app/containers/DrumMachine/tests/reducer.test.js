@@ -8,6 +8,9 @@ import {
   changeBpm,
   changeCurrentStep,
   changeSteps,
+  changeTitle,
+  loadState,
+  changeLoadUrl,
 } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
@@ -33,6 +36,7 @@ describe('drumMachineReducer', () => {
         HiHatOpen: 0,
       },
       currentStep: 0,
+      loadUrl: '',
     };
   });
 
@@ -108,6 +112,42 @@ describe('drumMachineReducer', () => {
     });
 
     expect(drumMachineReducer(state, changeSteps(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeTitle action correctly', () => {
+    const testVal = 'the title';
+
+    const expectedResult = produce(state, draft => {
+      draft.title = 'the title';
+    });
+
+    expect(drumMachineReducer(state, changeTitle(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the loadState action correctly', () => {
+    const testVal = {
+      state: 'the state',
+    };
+
+    const expectedResult = produce(state, () => testVal);
+
+    expect(drumMachineReducer(state, loadState(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeLoadUrl action correctly', () => {
+    const testVal = 'the url';
+
+    const expectedResult = produce(state, draft => {
+      draft.loadUrl = 'the url';
+    });
+
+    expect(drumMachineReducer(state, changeLoadUrl(testVal))).toEqual(
       expectedResult,
     );
   });
