@@ -20,5 +20,11 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
       Drum Machine
     </span>
   </a>
+  <a
+    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    href="/daw"
+  >
+    DAW
+  </a>
 </div>
 `;

@@ -1,16 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoadButton /> Should render and match the snapshot 1`] = `
-<div>
-  <input
-    id="input"
-    style="display: none;"
-    type="file"
-  />
-  <button
-    class="LoadButton__Load-l3r6np-0 koHRtQ"
-  >
-    Load
-  </button>
-</div>
+<input
+  id="input"
+  style="display: none;"
+  type="file"
+/>
 `;

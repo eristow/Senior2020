@@ -188,8 +188,8 @@ export function DrumMachine({
           />
         </ControlContainer>
         <div>
-          <SaveButton />
           <PlayButton />
+          <SaveButton />
         </div>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
