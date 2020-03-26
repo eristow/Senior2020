@@ -42,8 +42,8 @@ describe('Login actions', () => {
       );
     });
   });
-  describe('Register fetch success', () => {
-    it('has a type of REGISTER_SUCCESS', () => {
+  describe('Login fetch success', () => {
+    it('has a type of LOGGED_IN', () => {
       const expected = {
         type: LOGGED_IN,
         value: { email: 'changed@email.com' },
@@ -51,8 +51,8 @@ describe('Login actions', () => {
       expect(loginSuccess({ message: 'changed@email.com' })).toEqual(expected);
     });
   });
-  describe('Register fetch failed', () => {
-    it('has a type of REGISTER_FAILED', () => {
+  describe('Login fetch failed', () => {
+    it('has a type of LOGIN_FAILED', () => {
       const expected = {
         type: LOGIN_FAILED,
         value: { response: {} },
