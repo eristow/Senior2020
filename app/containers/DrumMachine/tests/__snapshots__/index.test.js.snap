@@ -2,54 +2,105 @@
 
 exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
 <div
-  class="Container-sc-15p5wf5-0 bxprML"
+  class="DrumMachine__Container-sc-2d7mbo-0 eIvoJm"
 >
-  <h2
-    class="H2-a2hfac-0 hIKbpW"
-  >
-    <span>
-      Drum Machine
-    </span>
-    
-  </h2>
+  <input
+    class="InputText-wtwjzw-0 hWoTih"
+    font-size="1.5em"
+    type="text"
+    value=""
+    width="auto"
+  />
   <div
-    class="Settings-lof6g7-0 hAwtsL"
+    class="LoadButton__Container-l3r6np-0 eoYqKL"
+  >
+    <button
+      class="LoadButton__Load-l3r6np-1 gSKRqo"
+    >
+      Load
+    </button>
+  </div>
+  <div
+    class="Transport__Wrapper-sc-16zg5lv-0 gCMBEA"
   >
     <div
-      style="text-align: center;"
+      class="DrumMachine__ControlContainer-sc-2d7mbo-1 emVpvr"
     >
       <p
-        class="P-sc-1c3t6r-0 hFkQXe"
+        class="DrumMachine__ControlText-sc-2d7mbo-2 hBLIRD"
       >
-        <span>
-          Master Volume
-        </span>
+        BPM
+      </p>
+      <input
+        class="BPMInput__BPM-sc-83ibx4-0 bTTBUp"
+        max="180"
+        min="50"
+        type="number"
+        value="80"
+      />
+    </div>
+    <div
+      class="DrumMachine__ControlContainer-sc-2d7mbo-1 emVpvr"
+    >
+      <p
+        class="DrumMachine__ControlText-sc-2d7mbo-2 hBLIRD"
+      >
+        Kit
+      </p>
+      <select
+        class="Dropdown-sc-1lo2juv-0 gDYBDL"
+        width="5em"
+      >
+        <option
+          value="config1"
+        >
+          EDM
+        </option>
+        <option
+          value="config2"
+        >
+          Rock
+        </option>
+        <option
+          value="config3"
+        >
+          Trap
+        </option>
+      </select>
+    </div>
+    <div
+      class="DrumMachine__ControlContainer-sc-2d7mbo-1 emVpvr"
+    >
+      <p
+        class="DrumMachine__ControlText-sc-2d7mbo-2 hBLIRD"
+      >
+        Master Volume
       </p>
       <div
-        style="display: inline;"
+        style="display: inline-block;"
       >
         <div
           class="rc-slider"
-          style="width: 110px; margin: 10px;"
+          style="width: 110px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
         >
           <div
             class="rc-slider-rail"
           />
           <div
             class="rc-slider-track"
-            style="left: 0%; width: 0%;"
+            style="left: 0%; width: 100%;"
           />
           <div
             class="rc-slider-step"
           />
           <div
             aria-disabled="false"
-            aria-valuemax="100"
-            aria-valuemin="0"
+            aria-valuemax="0"
+            aria-valuemin="-60"
             aria-valuenow="0"
             class="rc-slider-handle"
             role="slider"
-            style="left: 0%; transform: translateX(-50%);"
+            style="left: 100%; transform: translateX(-50%);"
             tabindex="0"
           />
           <div
@@ -58,299 +109,21 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div
-      style="text-align: center;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 hFkQXe"
-      >
-        <span>
-          Tempo
-        </span>
-      </p>
-      <input
-        class="InputNumber-fuyjcw-0 kbUcHI"
-        pattern="[0-9]*"
-        type="number"
-        value=""
-        width="4em"
-      />
-    </div>
-    <div
-      style="text-align: center;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 hFkQXe"
-      >
-        <span>
-          Drum Kits
-        </span>
-      </p>
-      <select
-        class="Dropdown-sc-1lo2juv-0 hlWcVS"
-        width="5em"
-      >
-        <option
-          value="1"
-        >
-          Kit 1
-        </option>
-        <option
-          value="2"
-        >
-          Kit 2
-        </option>
-        <option
-          value="3"
-        >
-          Kit 3
-        </option>
-      </select>
-    </div>
-    <div
-      style="text-align: center;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 hFkQXe"
-      >
-        <span>
-          Play
-        </span>
-      </p>
+    <div>
       <button
-        class="StyledButton-sc-1vlwaww-0 jTvsUn"
-        width="4em"
+        class="PlayButton__Play-sc-1sbrdge-0 hCDzRT"
       >
         Play
       </button>
-    </div>
-    <div
-      style="text-align: center;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 hFkQXe"
-      >
-        <span>
-          Stop
-        </span>
-      </p>
       <button
-        class="StyledButton-sc-1vlwaww-0 jTvsUn"
-        width="4em"
+        class="SaveButton__Save-sc-1uv51v8-0 iDlxTc"
       >
-        Stop
+        Save
       </button>
     </div>
   </div>
-  <div
-    class="Grid-xwviak-0 kvSvSk"
-  >
-    <div
-      style="display: inline-block; margin-bottom: 0.5em;"
-    >
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        1
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        2
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        3
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        4
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        5
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        6
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        7
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        8
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        9
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        10
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        11
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        12
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        13
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        14
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        15
-      </div>
-      <div
-        style="width: 3.75em; height: 15px; float: left; margin: 3px 1px 1px; text-align: center; font-size: 12px;"
-      >
-        16
-      </div>
-    </div>
-    <div
-      style="display: inline;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 bQVunc"
-      >
-        <span>
-          Snare
-        </span>
-      </p>
-      <div>
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-      </div>
-    </div>
-    <div
-      style="display: inline;"
-    >
-      <p
-        class="P-sc-1c3t6r-0 bQVunc"
-      >
-        <span>
-          Kick
-        </span>
-      </p>
-      <div>
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-        <button
-          class="Block-rqdz70-0 ebrLIB"
-        />
-      </div>
-    </div>
-  </div>
+  <p>
+    loading
+  </p>
 </div>
 `;

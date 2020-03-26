@@ -4,12 +4,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// import AWS from 'aws-sdk';
+import AWS from 'aws-sdk';
 import Modal from 'react-modal';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectLoadUrl, makeSelectIsOpen } from './selectors';
-import { loadState, changeLoadUrl, changeIsOpen } from './actions';
+import { makeSelectIsOpen, makeSelectFiles } from './selectors';
+import { loadState, changeIsOpen, changeFiles } from './actions';
 import reducer from './reducer';
 
 const Container = styled.div`
@@ -30,12 +30,6 @@ const Load = styled.button`
   margin-left: auto;
 `;
 
-const URL = styled.input`
-  margin: 10px;
-  margin-left: auto;
-  width: auto;
-`;
-
 const modalStyles = {
   content: {
     top: '25%',
@@ -44,6 +38,10 @@ const modalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    background: 'gray',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
   },
 };
 
@@ -51,37 +49,53 @@ const key = 'drumMachine';
 
 export function LoadButton({
   onLoad,
-  onChangeLoadUrl,
   setIsOpen,
-  loadUrl,
+  setFiles,
   modalIsOpen,
+  files,
 }) {
   useInjectReducer({ key, reducer });
+  if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
-  // const ID = process.env.AWS_ID;
-  // const SECRET = process.env.AWS_SECRET;
-  // const BUCKET_NAME = 'web-daw';
+  const ID = process.env.AWS_ID;
+  const SECRET = process.env.AWS_SECRET;
+  const BUCKET_NAME = 'web-daw';
 
-  // const s3 = new AWS.S3({
-  //   accessKeyId: ID,
-  //   secretAccessKey: SECRET,
-  // });
+  const s3 = new AWS.S3({
+    accessKeyId: ID,
+    secretAccessKey: SECRET,
+  });
 
-  const onClickLoad = () => {
-    fetch(loadUrl)
-      .then(response => {
-        console.log(response);
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        onLoad(data);
-      })
-      .catch(error => console.log(`Failed because: ${error}`));
+  const onClickLoad = fileName => {
+    const params = {
+      Bucket: BUCKET_NAME,
+      Key: fileName,
+    };
+
+    s3.getObject(params, (err, data) => {
+      if (err) {
+        console.log(`Error: ${err}`);
+      } else {
+        onLoad(JSON.parse(data.Body));
+      }
+    });
   };
 
   const openModal = () => {
-    setIsOpen(true);
+    const params = {
+      Bucket: BUCKET_NAME,
+      Delimiter: '',
+      Prefix: 'states/',
+    };
+
+    s3.listObjects(params, (err, data) => {
+      if (err) {
+        throw err;
+      } else {
+        setFiles(data.Contents);
+        setIsOpen(true);
+      }
+    });
   };
 
   const afterOpenModal = () => {};
@@ -100,13 +114,17 @@ export function LoadButton({
         style={modalStyles}
         contentLabel="Load Modal"
       >
-        <URL
-          type="text"
-          placeholder="Load URL"
-          value={loadUrl}
-          onChange={onChangeLoadUrl}
-        />
-        <Load onClick={onClickLoad}>Load</Load>
+        {files.map(f => {
+          if (f.Key !== 'states/') {
+            return (
+              <Load onClick={() => onClickLoad(f.Key)} key={f.Key}>
+                {f.Key.replace('states/', '').replace('_DrumState.json', '')}
+              </Load>
+            );
+          }
+          // eslint-disable-next-line consistent-return
+          return; // eslint-disable-line no-useless-return
+        })}
       </Modal>
     </Container>
   );
@@ -114,26 +132,26 @@ export function LoadButton({
 
 LoadButton.propTypes = {
   onLoad: PropTypes.func,
-  onChangeLoadUrl: PropTypes.func,
   setIsOpen: PropTypes.func,
-  loadUrl: PropTypes.string,
+  setFiles: PropTypes.func,
   modalIsOpen: PropTypes.bool,
+  files: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loadUrl: makeSelectLoadUrl(),
   modalIsOpen: makeSelectIsOpen(),
+  files: makeSelectFiles(),
 });
 
 const mapDispatchToProps = dispatch => ({
   onLoad: value => {
     dispatch(loadState(value));
   },
-  onChangeLoadUrl: evt => {
-    dispatch(changeLoadUrl(evt.target.value));
-  },
   setIsOpen: value => {
     dispatch(changeIsOpen(value));
+  },
+  setFiles: value => {
+    dispatch(changeFiles(value));
   },
 });
 

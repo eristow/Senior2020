@@ -10,8 +10,8 @@ import {
   changeSteps,
   changeTitle,
   loadState,
-  changeLoadUrl,
   changeIsOpen,
+  changeFiles,
 } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
@@ -37,8 +37,8 @@ describe('drumMachineReducer', () => {
         HiHatOpen: 0,
       },
       currentStep: 0,
-      loadUrl: '',
       modalIsOpen: false,
+      files: [],
     };
   });
 
@@ -142,18 +142,6 @@ describe('drumMachineReducer', () => {
     );
   });
 
-  it('should handle the changeLoadUrl action correctly', () => {
-    const testVal = 'the url';
-
-    const expectedResult = produce(state, draft => {
-      draft.loadUrl = 'the url';
-    });
-
-    expect(drumMachineReducer(state, changeLoadUrl(testVal))).toEqual(
-      expectedResult,
-    );
-  });
-
   it('should handle the changeIsOpen action correctly', () => {
     const testVal = true;
 
@@ -162,6 +150,18 @@ describe('drumMachineReducer', () => {
     });
 
     expect(drumMachineReducer(state, changeIsOpen(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeFiles action correctly', () => {
+    const testVal = [{ Key: 'file' }];
+
+    const expectedResult = produce(state, draft => {
+      draft.files = testVal;
+    });
+
+    expect(drumMachineReducer(state, changeFiles(testVal))).toEqual(
       expectedResult,
     );
   });

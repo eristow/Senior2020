@@ -18,7 +18,7 @@ describe('<LoadButton />', () => {
 
     render(
       <Provider store={store}>
-        <LoadButton dispatch={dispatch} />
+        <LoadButton dispatch={dispatch} files={[]} />
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe('<LoadButton />', () => {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <LoadButton />
+        <LoadButton files={[]} />
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();

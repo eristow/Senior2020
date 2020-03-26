@@ -17,25 +17,29 @@ describe('<TracksContainer />', () => {
   });
 
   // TODO: gave up trying to write test
-  it.skip('Expect to not log errors in console', () => {
+  it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
 
     render(
       <Provider store={store}>
-        <TracksContainer dispatch={dispatch} config={config} />
+        <React.Suspense fallback={<p>loading</p>}>
+          <TracksContainer dispatch={dispatch} config={config} />
+        </React.Suspense>
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
   // TODO: gave up trying to write test
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <TracksContainer config={config} />
+        <React.Suspense fallback={<p>loading</p>}>
+          <TracksContainer config={config} />
+        </React.Suspense>
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();

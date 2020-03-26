@@ -8,8 +8,8 @@ import {
   makeSelectStepState,
   makeSelectCurrentStep,
   makeSelectTitle,
-  makeSelectLoadUrl,
   makeSelectIsOpen,
+  makeSelectFiles,
 } from '../selectors';
 
 describe('selectDrumMachineDomain', () => {
@@ -140,20 +140,6 @@ describe('selectDrumMachineDomain', () => {
     });
   });
 
-  describe('makeSelectLoadUrl', () => {
-    const loadUrlSelector = makeSelectLoadUrl();
-    it('Should select the load url', () => {
-      const loadUrl = 's3aws.com';
-      const mockedState = {
-        drumMachine: {
-          loadUrl,
-        },
-      };
-
-      expect(loadUrlSelector(mockedState)).toEqual(loadUrl);
-    });
-  });
-
   describe('makeSelectIsOpen', () => {
     const isOpenSelector = makeSelectIsOpen();
     it('Should select isOpen', () => {
@@ -165,6 +151,20 @@ describe('selectDrumMachineDomain', () => {
       };
 
       expect(isOpenSelector(mockedState)).toEqual(modalIsOpen);
+    });
+  });
+
+  describe('makeSelectFiles', () => {
+    const filesSelector = makeSelectFiles();
+    it('Should select isOpen', () => {
+      const files = [{ Key: 'file' }];
+      const mockedState = {
+        drumMachine: {
+          files,
+        },
+      };
+
+      expect(filesSelector(mockedState)).toEqual(files);
     });
   });
 });

@@ -23,8 +23,7 @@ describe('<Piano />', () => {
     store = configureStore();
   });
 
-  // TODO: fix error with synth (Tone.Synth())
-  it.skip('Expect to not log errors in console', () => {
+  it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
@@ -37,7 +36,7 @@ describe('<Piano />', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(

@@ -8,9 +8,10 @@ import {
   changeSteps,
   changeTitle,
   loadState,
-  changeLoadUrl,
   changeIsOpen,
+  changeFiles,
 } from '../actions';
+
 import {
   CHANGE_CONFIG,
   TOGGLE_PLAY,
@@ -21,8 +22,8 @@ import {
   CHANGE_STEPS,
   CHANGE_TITLE,
   LOAD_STATE,
-  CHANGE_LOAD_URL,
   CHANGE_IS_OPEN,
+  CHANGE_FILES,
 } from '../constants';
 
 describe('DrumMachine actions', () => {
@@ -116,16 +117,6 @@ describe('DrumMachine actions', () => {
     });
   });
 
-  describe('Change Load Url', () => {
-    it('has a type of CHANGE_LOAD_URL and value that was passed in', () => {
-      const expected = {
-        type: CHANGE_LOAD_URL,
-        value: 'the url',
-      };
-      expect(changeLoadUrl('the url')).toEqual(expected);
-    });
-  });
-
   describe('Change Is Open', () => {
     it('has a type of CHANGE_IS_OPEN and value that was passed in', () => {
       const expected = {
@@ -133,6 +124,16 @@ describe('DrumMachine actions', () => {
         value: true,
       };
       expect(changeIsOpen(true)).toEqual(expected);
+    });
+  });
+
+  describe('Change Files', () => {
+    it('has a type of CHANGE_FILES and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_FILES,
+        value: [{ Key: 'file' }],
+      };
+      expect(changeFiles([{ Key: 'file' }])).toEqual(expected);
     });
   });
 });

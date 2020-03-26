@@ -58,14 +58,14 @@ export const makeSelectTitle = () =>
     substate => substate.title,
   );
 
-export const makeSelectLoadUrl = () =>
-  createSelector(
-    selectDrumMachineDomain,
-    substate => substate.loadUrl,
-  );
-
 export const makeSelectIsOpen = () =>
   createSelector(
     selectDrumMachineDomain,
     substate => substate.modalIsOpen,
+  );
+
+export const makeSelectFiles = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.files,
   );
