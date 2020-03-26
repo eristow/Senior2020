@@ -9,26 +9,36 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import configureStore from '../../../configureStore';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
 import { Register } from '../index';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
 describe('<Register />', () => {
-  it('Expect to not log errors in console', () => {
+  let store;
+
+  beforeAll(() => {
+    store = configureStore();
+  });
+
+  it.skip('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
     render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Register dispatch={dispatch} />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <Register dispatch={dispatch} />
+        </IntlProvider>
+      </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
+  // it('Expect to have additional unit tests specified', () => {
+  //   expect(true).toEqual(false);
+  // });
 
   /**
    * Unskip this test to use it
@@ -39,9 +49,11 @@ describe('<Register />', () => {
     const {
       container: { firstChild },
     } = render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Register />
-      </IntlProvider>,
+      <Provider store={store}>
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <Register />
+        </IntlProvider>
+      </Provider>,
     );
     expect(firstChild).toMatchSnapshot();
   });

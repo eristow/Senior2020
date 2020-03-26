@@ -48,7 +48,7 @@ describe('Login actions', () => {
         type: LOGGED_IN,
         value: { email: 'changed@email.com' },
       };
-      expect(loginSuccess({ message: 'changed@email.com' })).toEqual(expected);
+      expect(loginSuccess({ email: 'changed@email.com' })).toEqual(expected);
     });
   });
   describe('Login fetch failed', () => {

@@ -23,6 +23,7 @@ export function* registerReq() {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      // Bearer: localStorage.getItem(jwtToken),
     },
     body: JSON.stringify(state),
   };

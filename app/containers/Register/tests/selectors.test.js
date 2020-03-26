@@ -23,31 +23,27 @@ describe('selectRegisterDomain', () => {
   describe('makeSelectEmail', () => {
     const selectedEmailSelector = makeSelectEmail();
     it('Should select the selected config', () => {
-      const emailState = {
-        email: 'changed@email.com',
-      };
+      const email = 'changed@email.com';
       const mockedState = {
-        login: {
-          email: emailState,
+        register: {
+          email,
         },
       };
 
-      expect(selectedEmailSelector(mockedState)).toEqual(emailState);
+      expect(selectedEmailSelector(mockedState)).toEqual(email);
     });
   });
   describe('makeSelectPass', () => {
     const selectedPassSelector = makeSelectPass();
     it('Should select the selected password', () => {
-      const passState = {
-        pass: 'password',
-      };
+      const pass = 'password';
       const mockedState = {
-        login: {
-          pass: passState,
+        register: {
+          pass,
         },
       };
 
-      expect(selectedPassSelector(mockedState)).toEqual(passState);
+      expect(selectedPassSelector(mockedState)).toEqual(pass);
     });
   });
 });

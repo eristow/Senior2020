@@ -21,8 +21,6 @@ describe('registerReducer', () => {
   it('should handle the changeEmail action correctly', () => {
     const expectedResult = produce(state, draft => {
       draft.email = 'changed@email.com';
-      draft.error = false;
-      draft.userData.nested = false;
     });
 
     expect(registerReducer(state, changeEmail('changed@email.com'))).toEqual(

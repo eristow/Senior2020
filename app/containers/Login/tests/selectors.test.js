@@ -33,6 +33,7 @@ describe('selectLoginDomain', () => {
       expect(selectedEmailSelector(mockedState)).toEqual(email);
     });
   });
+
   describe('makeSelectPass', () => {
     const selectedPassSelector = makeSelectPass();
     it('Should select the selected password', () => {
