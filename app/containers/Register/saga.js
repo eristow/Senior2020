@@ -27,7 +27,7 @@ export function* registerReq() {
     body: JSON.stringify(state),
   };
   try {
-    console.log(JSON.stringify(state));
+    // console.log(JSON.stringify(state));
     // Call our request helper (found in 'utils/request')
     const res = yield call(request, requestURL, options);
     yield put(registerSuccess(res, state));
