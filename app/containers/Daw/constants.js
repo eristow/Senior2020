@@ -1,0 +1,10 @@
+export const SHOW_MENU = 'app/Daw/SHOW_MENU';
+export const CHANGE_BPM = 'app/Daw/CHANGE_BPM';
+export const CHANGE_VOL = 'app/Daw/CHANGE_VOL';
+export const CHANGE_TRACK_VOL = 'app/Daw/CHANGE_TRACK_VOL';
+export const TOGGLE_PLAY = 'app/Daw/TOGGLE_PLAY';
+export const CHANGE_CURRENT_STEP = 'app/Daw/CHANGE_CURRENT_STEP';
+export const CHANGE_STEPS = 'app/Daw/CHANGE_STEPS';
+export const CHANGE_SELECTED_TRACK = 'app/Daw/CHANGE_SELECTED_TRACK';
+export const CHANGE_TRACK_NAMES = 'app/Daw/CHANGE_TRACK_NAMES';
+export const SHOW_SIDEBAR = 'app/Daw/SHOW_SIDEBAR';

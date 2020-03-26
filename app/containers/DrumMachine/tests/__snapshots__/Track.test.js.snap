@@ -17,7 +17,7 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     >
       <div
         class="rc-slider"
-        style="width: 120px; margin: 0.5em 1em;"
+        style="width: 120px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
       >
         <div
           class="rc-slider-rail"

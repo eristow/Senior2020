@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SideBar /> Should render and match the snapshot 1`] = `
+<button
+  class="SideBar__OpenBtn-sc-1ix0uck-0 fZxkvF"
+  type="button"
+>
+  &gt;&gt;
+</button>
+`;
