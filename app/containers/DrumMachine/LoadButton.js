@@ -5,10 +5,11 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 // import AWS from 'aws-sdk';
+import Modal from 'react-modal';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectLoadUrl } from './selectors';
-import { loadState, changeLoadUrl } from './actions';
+import { makeSelectLoadUrl, makeSelectIsOpen } from './selectors';
+import { loadState, changeLoadUrl, changeIsOpen } from './actions';
 import reducer from './reducer';
 
 const Container = styled.div`
@@ -26,6 +27,7 @@ const Load = styled.button`
   margin: 2px 4px;
   align-self: center;
   min-width: 100px;
+  margin-left: auto;
 `;
 
 const URL = styled.input`
@@ -34,9 +36,26 @@ const URL = styled.input`
   width: auto;
 `;
 
+const modalStyles = {
+  content: {
+    top: '25%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
 const key = 'drumMachine';
 
-export function LoadButton({ onLoad, onChangeLoadUrl, loadUrl }) {
+export function LoadButton({
+  onLoad,
+  onChangeLoadUrl,
+  setIsOpen,
+  loadUrl,
+  modalIsOpen,
+}) {
   useInjectReducer({ key, reducer });
 
   // const ID = process.env.AWS_ID;
@@ -61,15 +80,34 @@ export function LoadButton({ onLoad, onChangeLoadUrl, loadUrl }) {
       .catch(error => console.log(`Failed because: ${error}`));
   };
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const afterOpenModal = () => {};
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Container>
-      <URL
-        type="text"
-        placeholder="Load URL"
-        value={loadUrl}
-        onChange={onChangeLoadUrl}
-      />
-      <Load onClick={onClickLoad}>Load</Load>
+      <Load onClick={openModal}>Load</Load>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Load Modal"
+      >
+        <URL
+          type="text"
+          placeholder="Load URL"
+          value={loadUrl}
+          onChange={onChangeLoadUrl}
+        />
+        <Load onClick={onClickLoad}>Load</Load>
+      </Modal>
     </Container>
   );
 }
@@ -77,11 +115,14 @@ export function LoadButton({ onLoad, onChangeLoadUrl, loadUrl }) {
 LoadButton.propTypes = {
   onLoad: PropTypes.func,
   onChangeLoadUrl: PropTypes.func,
+  setIsOpen: PropTypes.func,
   loadUrl: PropTypes.string,
+  modalIsOpen: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   loadUrl: makeSelectLoadUrl(),
+  modalIsOpen: makeSelectIsOpen(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -90,6 +131,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onChangeLoadUrl: evt => {
     dispatch(changeLoadUrl(evt.target.value));
+  },
+  setIsOpen: value => {
+    dispatch(changeIsOpen(value));
   },
 });
 

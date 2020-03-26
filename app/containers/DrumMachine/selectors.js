@@ -63,3 +63,9 @@ export const makeSelectLoadUrl = () =>
     selectDrumMachineDomain,
     substate => substate.loadUrl,
   );
+
+export const makeSelectIsOpen = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.modalIsOpen,
+  );

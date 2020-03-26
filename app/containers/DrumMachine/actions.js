@@ -9,6 +9,7 @@ import {
   CHANGE_TITLE,
   LOAD_STATE,
   CHANGE_LOAD_URL,
+  CHANGE_IS_OPEN,
 } from './constants';
 
 export function changeConfig(value) {
@@ -77,6 +78,13 @@ export function loadState(value) {
 export function changeLoadUrl(value) {
   return {
     type: CHANGE_LOAD_URL,
+    value,
+  };
+}
+
+export function changeIsOpen(value) {
+  return {
+    type: CHANGE_IS_OPEN,
     value,
   };
 }

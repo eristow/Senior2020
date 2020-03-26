@@ -10,6 +10,7 @@ import {
   CHANGE_TITLE,
   LOAD_STATE,
   CHANGE_LOAD_URL,
+  CHANGE_IS_OPEN,
 } from './constants';
 
 export const initialState = {
@@ -32,6 +33,7 @@ export const initialState = {
   },
   currentStep: 0,
   loadUrl: '',
+  modalIsOpen: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -67,6 +69,9 @@ const drumMachineReducer = (state = initialState, action) =>
         return action.value;
       case CHANGE_LOAD_URL:
         draft.loadUrl = action.value;
+        break;
+      case CHANGE_IS_OPEN:
+        draft.modalIsOpen = action.value;
         break;
     }
   });

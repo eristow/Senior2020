@@ -9,6 +9,7 @@ import {
   changeTitle,
   loadState,
   changeLoadUrl,
+  changeIsOpen,
 } from '../actions';
 import {
   CHANGE_CONFIG,
@@ -21,6 +22,7 @@ import {
   CHANGE_TITLE,
   LOAD_STATE,
   CHANGE_LOAD_URL,
+  CHANGE_IS_OPEN,
 } from '../constants';
 
 describe('DrumMachine actions', () => {
@@ -121,6 +123,16 @@ describe('DrumMachine actions', () => {
         value: 'the url',
       };
       expect(changeLoadUrl('the url')).toEqual(expected);
+    });
+  });
+
+  describe('Change Is Open', () => {
+    it('has a type of CHANGE_IS_OPEN and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_IS_OPEN,
+        value: true,
+      };
+      expect(changeIsOpen(true)).toEqual(expected);
     });
   });
 });

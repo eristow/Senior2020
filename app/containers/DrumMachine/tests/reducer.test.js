@@ -11,6 +11,7 @@ import {
   changeTitle,
   loadState,
   changeLoadUrl,
+  changeIsOpen,
 } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
@@ -37,6 +38,7 @@ describe('drumMachineReducer', () => {
       },
       currentStep: 0,
       loadUrl: '',
+      modalIsOpen: false,
     };
   });
 
@@ -148,6 +150,18 @@ describe('drumMachineReducer', () => {
     });
 
     expect(drumMachineReducer(state, changeLoadUrl(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeIsOpen action correctly', () => {
+    const testVal = true;
+
+    const expectedResult = produce(state, draft => {
+      draft.modalIsOpen = true;
+    });
+
+    expect(drumMachineReducer(state, changeIsOpen(testVal))).toEqual(
       expectedResult,
     );
   });

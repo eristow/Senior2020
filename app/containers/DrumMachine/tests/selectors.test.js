@@ -9,6 +9,7 @@ import {
   makeSelectCurrentStep,
   makeSelectTitle,
   makeSelectLoadUrl,
+  makeSelectIsOpen,
 } from '../selectors';
 
 describe('selectDrumMachineDomain', () => {
@@ -150,6 +151,20 @@ describe('selectDrumMachineDomain', () => {
       };
 
       expect(loadUrlSelector(mockedState)).toEqual(loadUrl);
+    });
+  });
+
+  describe('makeSelectIsOpen', () => {
+    const isOpenSelector = makeSelectIsOpen();
+    it('Should select isOpen', () => {
+      const modalIsOpen = true;
+      const mockedState = {
+        drumMachine: {
+          modalIsOpen,
+        },
+      };
+
+      expect(isOpenSelector(mockedState)).toEqual(modalIsOpen);
     });
   });
 });
