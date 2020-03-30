@@ -45,9 +45,13 @@ export function SaveButton({ drumMachineState }) {
     element.href = URL.createObjectURL(file);
 
     const date = new Date(Date.now());
-    const timestamp = `${date.getFullYear()}-${date.getMonth() +
-      1}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-    // element.download = `${timestamp}_DrumState.json`;
+    const timestamp =
+      `${date.getFullYear()}` +
+      `-${`0${date.getMonth() + 1}`.slice(-2)}` +
+      `-${`0${date.getDate()}`.slice(-2)}` +
+      `_${`0${date.getHours()}`.slice(-2)}` +
+      `-${`0${date.getMinutes()}`.slice(-2)}` +
+      `-${`0${date.getSeconds()}`.slice(-2)}`;
 
     const params = {
       Bucket: BUCKET_NAME,
@@ -63,9 +67,6 @@ export function SaveButton({ drumMachineState }) {
       console.log(`File uploaded successfully. ${data.Location}`);
       alert('Project saved.');
     });
-
-    // document.body.appendChild(element); // Required for FireFox
-    // element.click();
   };
 
   return <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>;

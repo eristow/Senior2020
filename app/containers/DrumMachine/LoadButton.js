@@ -30,15 +30,32 @@ const Load = styled.button`
   margin-left: auto;
 `;
 
+const File = styled.button`
+  color: #25ccf7;
+  border: 2px solid #25ccf7;
+  background: #eee;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 2;
+  margin: 4px 4px;
+  align-self: center;
+  min-width: 100px;
+`;
+
 const modalStyles = {
   content: {
-    top: '25%',
+    top: '30%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'gray',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'inline-block',
   },
   overlay: {
     background: 'rgba(0, 0, 0, 0.4)',
@@ -117,9 +134,9 @@ export function LoadButton({
         {files.map(f => {
           if (f.Key !== 'states/') {
             return (
-              <Load onClick={() => onClickLoad(f.Key)} key={f.Key}>
+              <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
                 {f.Key.replace('states/', '').replace('_DrumState.json', '')}
-              </Load>
+              </File>
             );
           }
           // eslint-disable-next-line consistent-return
