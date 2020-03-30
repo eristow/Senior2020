@@ -19,6 +19,12 @@ function Header() {
       <HeaderLink to="/machine">
         <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
+      <HeaderLink to="/fileList">
+        <FormattedMessage {...messages.fileList} />
+      </HeaderLink>
+      <HeaderLink to="/login">
+        <FormattedMessage {...messages.login} />
+      </HeaderLink>
       <HeaderLink to="/daw">DAW</HeaderLink>
     </NavBar>
   );
