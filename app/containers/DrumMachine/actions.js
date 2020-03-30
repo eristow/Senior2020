@@ -8,6 +8,8 @@ import {
   CHANGE_STEPS,
   CHANGE_TITLE,
   LOAD_STATE,
+  CHANGE_IS_OPEN,
+  CHANGE_FILES,
 } from './constants';
 
 export function changeConfig(value) {
@@ -69,6 +71,20 @@ export function changeTitle(value) {
 export function loadState(value) {
   return {
     type: LOAD_STATE,
+    value,
+  };
+}
+
+export function changeIsOpen(value) {
+  return {
+    type: CHANGE_IS_OPEN,
+    value,
+  };
+}
+
+export function changeFiles(value) {
+  return {
+    type: CHANGE_FILES,
     value,
   };
 }

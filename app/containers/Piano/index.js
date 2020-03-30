@@ -34,7 +34,9 @@ export function Piano() {
   let synth;
 
   useEffect(() => {
-    synth = new Tone.Synth().toMaster();
+    if (process.env.NODE_ENV !== 'test') {
+      synth = new Tone.Synth().toMaster();
+    }
     return () => {
       synth = null;
     };

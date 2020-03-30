@@ -8,6 +8,10 @@ import {
   changeBpm,
   changeCurrentStep,
   changeSteps,
+  changeTitle,
+  loadState,
+  changeIsOpen,
+  changeFiles,
 } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
@@ -33,6 +37,8 @@ describe('drumMachineReducer', () => {
         HiHatOpen: 0,
       },
       currentStep: 0,
+      modalIsOpen: false,
+      files: [],
     };
   });
 
@@ -108,6 +114,54 @@ describe('drumMachineReducer', () => {
     });
 
     expect(drumMachineReducer(state, changeSteps(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeTitle action correctly', () => {
+    const testVal = 'the title';
+
+    const expectedResult = produce(state, draft => {
+      draft.title = 'the title';
+    });
+
+    expect(drumMachineReducer(state, changeTitle(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the loadState action correctly', () => {
+    const testVal = {
+      state: 'the state',
+    };
+
+    const expectedResult = produce(state, () => testVal);
+
+    expect(drumMachineReducer(state, loadState(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeIsOpen action correctly', () => {
+    const testVal = true;
+
+    const expectedResult = produce(state, draft => {
+      draft.modalIsOpen = true;
+    });
+
+    expect(drumMachineReducer(state, changeIsOpen(testVal))).toEqual(
+      expectedResult,
+    );
+  });
+
+  it('should handle the changeFiles action correctly', () => {
+    const testVal = [{ Key: 'file' }];
+
+    const expectedResult = produce(state, draft => {
+      draft.files = testVal;
+    });
+
+    expect(drumMachineReducer(state, changeFiles(testVal))).toEqual(
       expectedResult,
     );
   });

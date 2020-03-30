@@ -1,0 +1,618 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Daw /> Should render and match the snapshot 1`] = `
+<div>
+  <button
+    class="SideBar__OpenBtn-sc-1ix0uck-0 fZxkvF"
+    type="button"
+  >
+    &gt;&gt;
+  </button>
+  <div />
+  <div
+    class="Options__BigContainer-sc-1rpgk7v-0 jacXpE"
+  >
+    <div
+      class="Options__Menus-sc-1rpgk7v-4 gFdfIM"
+    >
+      <div
+        class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+      >
+        <button
+          class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+          type="button"
+        >
+          <p
+            class="P-sc-1c3t6r-0 kwQVoN"
+          >
+            File
+          </p>
+        </button>
+      </div>
+      <div
+        class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+      >
+        <button
+          class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+          type="button"
+        >
+          <p
+            class="P-sc-1c3t6r-0 kwQVoN"
+          >
+            Edit
+          </p>
+        </button>
+      </div>
+      <div
+        class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+      >
+        <button
+          class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+          type="button"
+        >
+          <p
+            class="P-sc-1c3t6r-0 kwQVoN"
+          >
+            View
+          </p>
+        </button>
+      </div>
+      <div
+        class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+      >
+        <button
+          class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+          type="button"
+        >
+          <p
+            class="P-sc-1c3t6r-0 kwQVoN"
+          >
+            Help
+          </p>
+        </button>
+      </div>
+    </div>
+    <div
+      class="Options__Container-sc-1rpgk7v-1 cbcAel"
+    >
+      <div
+        class="Options__MasterVol-sc-1rpgk7v-10 bJKyVe"
+      >
+        <p
+          class="Options__ControlText-sc-1rpgk7v-9 fxlAHD"
+        >
+          Master Volume
+        </p>
+        <div
+          style="display: inline-block;"
+        >
+          <div
+            class="rc-slider"
+            style="width: 110px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+          >
+            <div
+              class="rc-slider-rail"
+            />
+            <div
+              class="rc-slider-track"
+              style="left: 0%; width: 100%;"
+            />
+            <div
+              class="rc-slider-step"
+            />
+            <div
+              aria-disabled="false"
+              aria-valuemax="0"
+              aria-valuemin="-60"
+              aria-valuenow="0"
+              class="rc-slider-handle"
+              role="slider"
+              style="left: 100%; transform: translateX(-50%);"
+              tabindex="0"
+            />
+            <div
+              class="rc-slider-mark"
+            />
+          </div>
+        </div>
+      </div>
+      <input
+        class="BPMInput__BPM-krgou6-0 cBwQwD"
+        max="180"
+        min="50"
+        type="number"
+        value="80"
+      />
+      <div
+        class="Options__TransportContainer-sc-1rpgk7v-2 iJGFgJ"
+      >
+        <button
+          class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+          type="button"
+        >
+          <img
+            alt="Play"
+            src="IMAGE_MOCK"
+            style="margin-left: 5px; margin-right: 5px; width: 36px; height: 36px;"
+          />
+        </button>
+        <button
+          class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+          type="button"
+        >
+          <img
+            alt="Stop"
+            src="IMAGE_MOCK"
+            style="margin-left: 5px; margin-right: 5px; width: 36px; height: 36px;"
+          />
+        </button>
+      </div>
+      <div
+        class="Options__IconContainer-sc-1rpgk7v-3 bIMNwp"
+      >
+        <button
+          class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+          type="button"
+        >
+          <img
+            alt="User Icon"
+            src="IMAGE_MOCK"
+            style="margin-right: 3px; width: 36px; height: 36px;"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="Daw__TrackContainer-sc-1k0pznb-0 kVkdMP"
+  >
+    <div
+      class="Track__Container-dcw2r7-0 etskRi"
+    >
+      <div
+        class="TrackConfig__Container-ouodsg-0 ddcwJq"
+      >
+        <input
+          class="InputText-wtwjzw-0 ihxodh"
+          font-size="0.75em"
+          type="text"
+          value=""
+          width="97%"
+        />
+        <button
+          class="TrackConfig__Select-ouodsg-1 cstDwF"
+          type="button"
+        >
+          Select
+        </button>
+        <div>
+          <div
+            style="display: inline-block;"
+          >
+            <div
+              class="rc-slider"
+              style="width: 75px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+            >
+              <div
+                class="rc-slider-rail"
+              />
+              <div
+                class="rc-slider-track"
+                style="left: 0%; width: 100%;"
+              />
+              <div
+                class="rc-slider-step"
+              />
+              <div
+                aria-disabled="false"
+                aria-valuemax="0"
+                aria-valuemin="-60"
+                aria-valuenow="0"
+                class="rc-slider-handle"
+                role="slider"
+                style="left: 100%; transform: translateX(-50%);"
+                tabindex="0"
+              />
+              <div
+                class="rc-slider-mark"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Track__IndicatorWrapper-dcw2r7-1 cztnBH"
+      />
+      <div
+        class="Steps__Wrapper-sc-8e49i7-0 iDvuHY"
+      >
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+      </div>
+    </div>
+    <div
+      class="Track__Container-dcw2r7-0 etskRi"
+    >
+      <div
+        class="TrackConfig__Container-ouodsg-0 ddcwJq"
+      >
+        <input
+          class="InputText-wtwjzw-0 ihxodh"
+          font-size="0.75em"
+          type="text"
+          value=""
+          width="97%"
+        />
+        <button
+          class="TrackConfig__Select-ouodsg-1 cstDwF"
+          type="button"
+        >
+          Select
+        </button>
+        <div>
+          <div
+            style="display: inline-block;"
+          >
+            <div
+              class="rc-slider"
+              style="width: 75px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+            >
+              <div
+                class="rc-slider-rail"
+              />
+              <div
+                class="rc-slider-track"
+                style="left: 0%; width: 100%;"
+              />
+              <div
+                class="rc-slider-step"
+              />
+              <div
+                aria-disabled="false"
+                aria-valuemax="0"
+                aria-valuemin="-60"
+                aria-valuenow="0"
+                class="rc-slider-handle"
+                role="slider"
+                style="left: 100%; transform: translateX(-50%);"
+                tabindex="0"
+              />
+              <div
+                class="rc-slider-mark"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Track__IndicatorWrapper-dcw2r7-1 cztnBH"
+      />
+      <div
+        class="Steps__Wrapper-sc-8e49i7-0 iDvuHY"
+      >
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+      </div>
+    </div>
+    <div
+      class="Track__Container-dcw2r7-0 etskRi"
+    >
+      <div
+        class="TrackConfig__Container-ouodsg-0 ddcwJq"
+      >
+        <input
+          class="InputText-wtwjzw-0 ihxodh"
+          font-size="0.75em"
+          type="text"
+          value=""
+          width="97%"
+        />
+        <button
+          class="TrackConfig__Select-ouodsg-1 cstDwF"
+          type="button"
+        >
+          Select
+        </button>
+        <div>
+          <div
+            style="display: inline-block;"
+          >
+            <div
+              class="rc-slider"
+              style="width: 75px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+            >
+              <div
+                class="rc-slider-rail"
+              />
+              <div
+                class="rc-slider-track"
+                style="left: 0%; width: 100%;"
+              />
+              <div
+                class="rc-slider-step"
+              />
+              <div
+                aria-disabled="false"
+                aria-valuemax="0"
+                aria-valuemin="-60"
+                aria-valuenow="0"
+                class="rc-slider-handle"
+                role="slider"
+                style="left: 100%; transform: translateX(-50%);"
+                tabindex="0"
+              />
+              <div
+                class="rc-slider-mark"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Track__IndicatorWrapper-dcw2r7-1 cztnBH"
+      />
+      <div
+        class="Steps__Wrapper-sc-8e49i7-0 iDvuHY"
+      >
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+      </div>
+    </div>
+    <div
+      class="Track__Container-dcw2r7-0 etskRi"
+    >
+      <div
+        class="TrackConfig__Container-ouodsg-0 ddcwJq"
+      >
+        <input
+          class="InputText-wtwjzw-0 ihxodh"
+          font-size="0.75em"
+          type="text"
+          value=""
+          width="97%"
+        />
+        <button
+          class="TrackConfig__Select-ouodsg-1 cstDwF"
+          type="button"
+        >
+          Select
+        </button>
+        <div>
+          <div
+            style="display: inline-block;"
+          >
+            <div
+              class="rc-slider"
+              style="width: 75px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+            >
+              <div
+                class="rc-slider-rail"
+              />
+              <div
+                class="rc-slider-track"
+                style="left: 0%; width: 100%;"
+              />
+              <div
+                class="rc-slider-step"
+              />
+              <div
+                aria-disabled="false"
+                aria-valuemax="0"
+                aria-valuemin="-60"
+                aria-valuenow="0"
+                class="rc-slider-handle"
+                role="slider"
+                style="left: 100%; transform: translateX(-50%);"
+                tabindex="0"
+              />
+              <div
+                class="rc-slider-mark"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Track__IndicatorWrapper-dcw2r7-1 cztnBH"
+      />
+      <div
+        class="Steps__Wrapper-sc-8e49i7-0 iDvuHY"
+      >
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 buOaSX"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+        <button
+          class="Step__StepButton-sc-1gy89br-0 iNYnBq"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="TrackDetails__Container-sc-1pg6vl2-0 ImYeq"
+  >
+    <p>
+      Please select a track to modify.
+    </p>
+  </div>
+</div>
+`;

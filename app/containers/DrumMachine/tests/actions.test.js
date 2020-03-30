@@ -6,7 +6,12 @@ import {
   changeBpm,
   changeCurrentStep,
   changeSteps,
+  changeTitle,
+  loadState,
+  changeIsOpen,
+  changeFiles,
 } from '../actions';
+
 import {
   CHANGE_CONFIG,
   TOGGLE_PLAY,
@@ -15,6 +20,10 @@ import {
   CHANGE_BPM,
   CHANGE_CURRENT_STEP,
   CHANGE_STEPS,
+  CHANGE_TITLE,
+  LOAD_STATE,
+  CHANGE_IS_OPEN,
+  CHANGE_FILES,
 } from '../constants';
 
 describe('DrumMachine actions', () => {
@@ -85,6 +94,46 @@ describe('DrumMachine actions', () => {
         value: '2',
       };
       expect(changeSteps('2')).toEqual(expected);
+    });
+  });
+
+  describe('Change Title', () => {
+    it('has a type of CHANGE_TITLE and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_TITLE,
+        value: 'the title',
+      };
+      expect(changeTitle('the title')).toEqual(expected);
+    });
+  });
+
+  describe('Load State', () => {
+    it('has a type of LOAD_STATE and value that was passed in', () => {
+      const expected = {
+        type: LOAD_STATE,
+        value: { state: 'the state' },
+      };
+      expect(loadState({ state: 'the state' })).toEqual(expected);
+    });
+  });
+
+  describe('Change Is Open', () => {
+    it('has a type of CHANGE_IS_OPEN and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_IS_OPEN,
+        value: true,
+      };
+      expect(changeIsOpen(true)).toEqual(expected);
+    });
+  });
+
+  describe('Change Files', () => {
+    it('has a type of CHANGE_FILES and value that was passed in', () => {
+      const expected = {
+        type: CHANGE_FILES,
+        value: [{ Key: 'file' }],
+      };
+      expect(changeFiles([{ Key: 'file' }])).toEqual(expected);
     });
   });
 });

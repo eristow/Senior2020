@@ -65,42 +65,50 @@ export function Daw({
   currentStepRef.current = currentStep;
 
   useEffect(() => {
-    Tone.Transport.scheduleRepeat(() => {
-      // Tone.Transport.scheduleRepeat(time => {
-      // Object.keys(buffersRef.current).forEach(b => {
-      //   const targetStep = stepsRef.current[b][currentStepRef.current];
-      //   const targetBuffer = buffersRef.current[b];
+    if (process.env.NODE_ENV !== 'test') {
+      Tone.Transport.scheduleRepeat(() => {
+        // Tone.Transport.scheduleRepeat(time => {
+        // Object.keys(buffersRef.current).forEach(b => {
+        //   const targetStep = stepsRef.current[b][currentStepRef.current];
+        //   const targetBuffer = buffersRef.current[b];
 
-      //   if (targetStep === 1) {
-      //     targetBuffer.start(time);
-      //   } else if (targetStep === 2) {
-      //     targetBuffer.start();
-      //     targetBuffer.start('+64n');
-      //     targetBuffer.start('+32n');
-      //   }
-      // });
+        //   if (targetStep === 1) {
+        //     targetBuffer.start(time);
+        //   } else if (targetStep === 2) {
+        //     targetBuffer.start();
+        //     targetBuffer.start('+64n');
+        //     targetBuffer.start('+32n');
+        //   }
+        // });
 
-      // eslint-disable-next-line no-unused-expressions
-      currentStepRef.current > 14
-        ? setCurrentStep(0)
-        : setCurrentStep(currentStepRef.current + 1);
-    }, '16n');
+        // eslint-disable-next-line no-unused-expressions
+        currentStepRef.current > 14
+          ? setCurrentStep(0)
+          : setCurrentStep(currentStepRef.current + 1);
+      }, '16n');
+    }
   }, [config]);
 
   useEffect(() => {
-    Tone.Transport.bpm.value = bpm;
+    if (process.env.NODE_ENV !== 'test') {
+      Tone.Transport.bpm.value = bpm;
+    }
   }, [bpm]);
 
   useEffect(() => {
-    Tone.Master.volume.value = vol;
+    if (process.env.NODE_ENV !== 'test') {
+      Tone.Master.volume.value = vol;
+    }
   }, [vol]);
 
   useEffect(() => {
-    if (playing) {
-      Tone.Transport.start();
-    } else {
-      Tone.Transport.stop();
-      setCurrentStep(0);
+    if (process.env.NODE_ENV !== 'test') {
+      if (playing) {
+        Tone.Transport.start();
+      } else {
+        Tone.Transport.stop();
+        setCurrentStep(0);
+      }
     }
   }, [playing]);
 

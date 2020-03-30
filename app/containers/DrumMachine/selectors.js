@@ -57,3 +57,15 @@ export const makeSelectTitle = () =>
     selectDrumMachineDomain,
     substate => substate.title,
   );
+
+export const makeSelectIsOpen = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.modalIsOpen,
+  );
+
+export const makeSelectFiles = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.files,
+  );

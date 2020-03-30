@@ -7,6 +7,9 @@ import {
   makeSelectPlaying,
   makeSelectStepState,
   makeSelectCurrentStep,
+  makeSelectTitle,
+  makeSelectIsOpen,
+  makeSelectFiles,
 } from '../selectors';
 
 describe('selectDrumMachineDomain', () => {
@@ -120,6 +123,48 @@ describe('selectDrumMachineDomain', () => {
       };
 
       expect(currentStepSelector(mockedState)).toEqual(currentStep);
+    });
+  });
+
+  describe('makeSelectTitle', () => {
+    const titleSelector = makeSelectTitle();
+    it('Should select the title', () => {
+      const title = 'The Title';
+      const mockedState = {
+        drumMachine: {
+          title,
+        },
+      };
+
+      expect(titleSelector(mockedState)).toEqual(title);
+    });
+  });
+
+  describe('makeSelectIsOpen', () => {
+    const isOpenSelector = makeSelectIsOpen();
+    it('Should select isOpen', () => {
+      const modalIsOpen = true;
+      const mockedState = {
+        drumMachine: {
+          modalIsOpen,
+        },
+      };
+
+      expect(isOpenSelector(mockedState)).toEqual(modalIsOpen);
+    });
+  });
+
+  describe('makeSelectFiles', () => {
+    const filesSelector = makeSelectFiles();
+    it('Should select isOpen', () => {
+      const files = [{ Key: 'file' }];
+      const mockedState = {
+        drumMachine: {
+          files,
+        },
+      };
+
+      expect(filesSelector(mockedState)).toEqual(files);
     });
   });
 });

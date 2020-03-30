@@ -9,6 +9,8 @@ import {
   CHANGE_STEPS,
   CHANGE_TITLE,
   LOAD_STATE,
+  CHANGE_IS_OPEN,
+  CHANGE_FILES,
 } from './constants';
 
 export const initialState = {
@@ -30,6 +32,8 @@ export const initialState = {
     HiHatOpen: 0,
   },
   currentStep: 0,
+  modalIsOpen: false,
+  files: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -63,6 +67,12 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case LOAD_STATE:
         return action.value;
+      case CHANGE_IS_OPEN:
+        draft.modalIsOpen = action.value;
+        break;
+      case CHANGE_FILES:
+        draft.files = action.value;
+        break;
     }
   });
 
