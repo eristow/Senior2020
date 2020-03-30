@@ -29,4 +29,12 @@ export default defineMessages({
     id: `${scope}.drums`,
     defaultMessage: 'Drums',
   },
+  fileList: {
+    id: `${scope}.fileList`,
+    defaultMessage: 'Files',
+  },
+  login: {
+    id: `${scope}.login`,
+    defaultMessage: 'Login',
+  },
 });
