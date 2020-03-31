@@ -32,7 +32,9 @@ export function* loginReq() {
     const res = yield call(request, requestURL, options);
     yield put(loginSuccess(res, state));
     const { token } = res.token;
+    const { email } = res.email;
     localStorage.setItem('jwtToken', token);
+    localStorage.setItem('email', email);
   } catch (err) {
     yield put(loginError(err));
   }
