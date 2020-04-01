@@ -12,15 +12,6 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
     width="auto"
   />
   <div
-    class="LoadButton__Container-l3r6np-0 eoYqKL"
-  >
-    <button
-      class="LoadButton__Load-l3r6np-1 gSKRqo"
-    >
-      Load
-    </button>
-  </div>
-  <div
     class="Transport__Wrapper-sc-16zg5lv-0 gCMBEA"
   >
     <div

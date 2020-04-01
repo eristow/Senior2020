@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import Modal from 'react-modal';
+import JWT from 'jsonwebtoken';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectIsOpen, makeSelectFiles } from './selectors';
@@ -99,19 +100,29 @@ export function LoadButton({
   };
 
   const openModal = () => {
-    const params = {
-      Bucket: BUCKET_NAME,
-      Delimiter: '',
-      Prefix: 'states/',
-    };
-
-    s3.listObjects(params, (err, data) => {
+    const jwt = localStorage.getItem('jwtToken');
+    JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        throw err;
-      } else {
-        setFiles(data.Contents);
-        setIsOpen(true);
+        alert(
+          'An error occurred when loading. Please try again, or log out and then back in.',
+        );
+        throw new Error(err);
       }
+      const params = {
+        Bucket: BUCKET_NAME,
+        Delimiter: '',
+        Prefix: `states/${email}/`,
+      };
+
+      s3.listObjects(params, (error, data) => {
+        if (error) {
+          alert('Error loading file.');
+          throw error;
+        } else {
+          setFiles(data.Contents);
+          setIsOpen(true);
+        }
+      });
     });
   };
 
@@ -120,6 +131,8 @@ export function LoadButton({
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  const email = localStorage.getItem('email');
 
   return (
     <Container>
@@ -135,7 +148,10 @@ export function LoadButton({
           if (f.Key !== 'states/') {
             return (
               <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
-                {f.Key.replace('states/', '').replace('_DrumState.json', '')}
+                {f.Key.replace(`states/${email}/`, '').replace(
+                  '_DrumState.json',
+                  '',
+                )}
               </File>
             );
           }
