@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
+import JWT from 'jsonwebtoken';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectDrumMachineState } from './selectors';
@@ -39,33 +40,50 @@ export function SaveButton({ drumMachineState }) {
   });
 
   const onClickSave = state => {
-    const element = document.createElement('a');
-    const stateString = JSON.stringify(state);
-    const file = new Blob([stateString], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
+    const jwt = localStorage.getItem('jwtToken');
+    if (!jwt) {
+      alert('Login before you can save.');
+      return;
+    }
 
-    const date = new Date(Date.now());
-    const timestamp =
-      `${date.getFullYear()}` +
-      `-${`0${date.getMonth() + 1}`.slice(-2)}` +
-      `-${`0${date.getDate()}`.slice(-2)}` +
-      `_${`0${date.getHours()}`.slice(-2)}` +
-      `-${`0${date.getMinutes()}`.slice(-2)}` +
-      `-${`0${date.getSeconds()}`.slice(-2)}`;
-
-    const params = {
-      Bucket: BUCKET_NAME,
-      Key: `states/${timestamp}_DrumState.json`,
-      Body: file,
-    };
-
-    s3.upload(params, (err, data) => {
+    JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        alert('Error saving file.');
-        throw err;
+        alert(
+          'An error occurred when saving. Please try again, or log out and then back in.',
+        );
+        throw new Error(err);
       }
-      console.log(`File uploaded successfully. ${data.Location}`);
-      alert('Project saved.');
+
+      const email = localStorage.getItem('email');
+
+      const element = document.createElement('a');
+      const stateString = JSON.stringify(state);
+      const file = new Blob([stateString], { type: 'text/plain' });
+      element.href = URL.createObjectURL(file);
+
+      const date = new Date(Date.now());
+      const timestamp =
+        `${date.getFullYear()}` +
+        `-${`0${date.getMonth() + 1}`.slice(-2)}` +
+        `-${`0${date.getDate()}`.slice(-2)}` +
+        `_${`0${date.getHours()}`.slice(-2)}` +
+        `-${`0${date.getMinutes()}`.slice(-2)}` +
+        `-${`0${date.getSeconds()}`.slice(-2)}`;
+
+      const params = {
+        Bucket: BUCKET_NAME,
+        Key: `states/${email}/${timestamp}_DrumState.json`,
+        Body: file,
+      };
+
+      s3.upload(params, (error, data) => {
+        if (error) {
+          alert('Error saving file.');
+          throw error;
+        }
+        console.log(`File uploaded successfully. ${data.Location}`);
+        alert('Project saved.');
+      });
     });
   };
 
