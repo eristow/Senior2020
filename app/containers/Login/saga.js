@@ -4,6 +4,7 @@ import { loginSuccess, loginError } from 'containers/Login/actions';
 
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
+import { baseURL } from 'utils/helpers';
 
 /**
  * Backend login request/response handler
@@ -17,7 +18,8 @@ export function* loginReq() {
     pass: currPass,
   };
 
-  const requestURL = `http://localhost:8080/api/auth/login`;
+  const requestURL = `${baseURL}/api/auth/login`;
+
   const options = {
     method: 'POST',
     headers: {
