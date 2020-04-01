@@ -3,6 +3,7 @@ import { registerSuccess, registerError } from 'containers/Register/actions';
 
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Register/selectors';
+import { baseURL } from 'utils/helpers';
 import { REGISTERING } from './constants';
 
 /**
@@ -17,7 +18,8 @@ export function* registerReq() {
     pass: currPass,
   };
 
-  const requestURL = `http://localhost:8080/api/auth/register`;
+  const requestURL = `${baseURL}/api/auth/login`;
+
   const options = {
     method: 'POST',
     headers: {
