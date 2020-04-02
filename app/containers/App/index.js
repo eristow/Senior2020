@@ -10,8 +10,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
-
+import {
+  Switch,
+  Route,
+  // BrowserRouter as RouterLink,
+  Redirect,
+  // useHistory,
+  // useLocation,
+} from 'react-router-dom';
 import Header from 'components/Header';
 import HomePage from 'containers/HomePage/Loadable';
 import DrumMachine from 'containers/DrumMachine/Loadable';
@@ -45,12 +51,36 @@ export default function App() {
         <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
-        <Route exact path="/login" component={Login} />
+        <PrivateRoute path="/login">
+          <Login />
+        </PrivateRoute>
+        {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/register" component={Register} />
         <Route exact path="/daw" component={Daw} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
     </AppWraper>
+  );
+}
+
+// eslint-disable-next-line react/prop-types
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        localStorage.getItem('jwtToken') === null ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
   );
 }

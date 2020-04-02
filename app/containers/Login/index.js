@@ -35,32 +35,35 @@ export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
       <H2>
         <FormattedMessage {...messages.header} />
       </H2>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          value={pass}
-          onChange={e => setPass(e.target.value)}
-        />
-      </label>
+      <form onSubmit={handleSubmit(email, pass)}>
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            value={pass}
+            onChange={e => setPass(e.target.value)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
       <br />
       <br />
       <p>
         {"Don't have an account? Click"}&nbsp;
         <a href="/register">here</a>
       </p>
-      <button type="button" onClick={() => handleSubmit(email, pass)}>
+      {/* <button type="button" onClick={() => handleSubmit(email, pass)}>
         Submit
-      </button>
+      </button> */}
       {/* </form> */}
     </div>
   );
