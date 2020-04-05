@@ -113,6 +113,9 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      AWS_ID: null,
+      AWS_SECRET: null,
+      JWT_SECRET: null,
     }),
   ]),
   resolve: {
