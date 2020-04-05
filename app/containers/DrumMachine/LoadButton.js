@@ -101,7 +101,6 @@ export function LoadButton({
 
   const openModal = () => {
     const jwt = localStorage.getItem('jwtToken');
-    console.log(process.env.JWT_SECRET);
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
         alert(
