@@ -1,9 +1,11 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { registerSuccess, registerError } from 'containers/Register/actions';
 
+// import React from 'react';
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Register/selectors';
 import { baseURL } from 'utils/helpers';
+import { push } from 'connected-react-router';
 import { REGISTERING } from './constants';
 
 /**
@@ -18,7 +20,7 @@ export function* registerReq() {
     pass: currPass,
   };
 
-  const requestURL = `${baseURL}/api/auth/login`;
+  const requestURL = `${baseURL}/api/auth/register`;
 
   const options = {
     method: 'POST',
@@ -34,6 +36,7 @@ export function* registerReq() {
     // Call our request helper (found in 'utils/request')
     const res = yield call(request, requestURL, options);
     yield put(registerSuccess(res, state));
+    yield put(push('/login'));
   } catch (err) {
     yield put(registerError(err));
   }

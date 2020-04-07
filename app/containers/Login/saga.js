@@ -5,6 +5,7 @@ import { loginSuccess, loginError } from 'containers/Login/actions';
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
 import { baseURL } from 'utils/helpers';
+import { push } from 'connected-react-router';
 
 /**
  * Backend login request/response handler
@@ -37,6 +38,7 @@ export function* loginReq() {
     const { email } = res;
     localStorage.setItem('jwtToken', token);
     localStorage.setItem('email', email);
+    yield put(push('/fileList'));
   } catch (err) {
     yield put(loginError(err));
   }

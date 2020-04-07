@@ -51,36 +51,24 @@ export default function App() {
         <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
-        <PrivateRoute path="/login">
-          <Login />
-        </PrivateRoute>
-        {/* <Route exact path="/login" component={Login} /> */}
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login}>
+          {localStorage.getItem('jwtToken') === null ? (
+            <Login />
+          ) : (
+            <Redirect to="/fileList" />
+          )}
+        </Route>
+        <Route exact path="/register" component={Register}>
+          {localStorage.getItem('jwtToken') === null ? (
+            <Register />
+          ) : (
+            <Redirect to="/fileList" />
+          )}
+        </Route>
         <Route exact path="/daw" component={Daw} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
     </AppWraper>
-  );
-}
-
-// eslint-disable-next-line react/prop-types
-function PrivateRoute({ children, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        localStorage.getItem('jwtToken') === null ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/',
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
   );
 }
