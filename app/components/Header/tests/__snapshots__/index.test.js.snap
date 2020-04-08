@@ -6,6 +6,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
 >
   <a
     class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    color="deepskyblue"
     href="/"
   >
     <span>
@@ -14,6 +15,7 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
   </a>
   <a
     class="HeaderLink-sc-5k2h0m-0 gGpwyo"
+    color="deepskyblue"
     href="/machine"
   >
     <span>
@@ -22,25 +24,19 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
   </a>
   <a
     class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/fileList"
+    color="deepskyblue"
+    href="/daw"
   >
-    <span>
-      Files
-    </span>
+    DAW
   </a>
   <a
     class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/login"
+    color="deepskyblue"
+    href="/auth"
   >
     <span>
       Login
     </span>
-  </a>
-  <a
-    class="HeaderLink-sc-5k2h0m-0 gGpwyo"
-    href="/daw"
-  >
-    DAW
   </a>
 </div>
 `;

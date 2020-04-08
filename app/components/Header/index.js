@@ -19,13 +19,21 @@ function Header() {
       <HeaderLink to="/machine">
         <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
-      <HeaderLink to="/fileList">
-        <FormattedMessage {...messages.fileList} />
-      </HeaderLink>
-      <HeaderLink to="/login">
-        <FormattedMessage {...messages.login} />
-      </HeaderLink>
       <HeaderLink to="/daw">DAW</HeaderLink>
+      {localStorage.getItem('jwtToken') ? (
+        <>
+          <HeaderLink to="/fileList">
+            <FormattedMessage {...messages.fileList} />
+          </HeaderLink>
+          <HeaderLink to="/signout" color="red">
+            Sign Out
+          </HeaderLink>
+        </>
+      ) : (
+        <HeaderLink to="/auth">
+          <FormattedMessage {...messages.login} />
+        </HeaderLink>
+      )}
     </NavBar>
   );
 }
