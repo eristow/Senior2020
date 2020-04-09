@@ -19,7 +19,7 @@ function Header() {
       <HeaderLink to="/machine">
         <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
-      <HeaderLink to="/daw">DAW</HeaderLink>
+      {/* <HeaderLink to="/daw">DAW</HeaderLink> */}
       {localStorage.getItem('jwtToken') ? (
         <>
           <HeaderLink to="/fileList">
