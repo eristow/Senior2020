@@ -13,6 +13,17 @@ import { render } from 'react-testing-library';
 import SignOut from '../index';
 
 describe('<SignOut />', () => {
+  const replaceMock = jest.fn();
+  const reloadMock = jest.fn();
+
+  delete window.location;
+  window.location = { replace: replaceMock, reload: reloadMock };
+
+  afterEach(() => {
+    replaceMock.mockClear();
+    reloadMock.mockClear();
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     render(<SignOut />);

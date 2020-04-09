@@ -13,7 +13,7 @@ function SignOut() {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('email');
     window.location.reload();
-    window.location.href = '/';
+    window.location.replace('/');
   };
 
   return <div>{clearLocalStorage()}</div>;

@@ -12,7 +12,7 @@ import JWT from 'jsonwebtoken';
 function Auth() {
   const redirect = route => {
     window.location.reload();
-    window.location.href = route;
+    window.location.replace(route);
   };
 
   const checkJWT = () => {
