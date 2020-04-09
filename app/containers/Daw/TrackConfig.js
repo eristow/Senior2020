@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -41,8 +41,14 @@ export function TrackConfig({
   name,
   num,
   vol,
+  buffer,
 }) {
   useInjectReducer({ key, reducer });
+
+  useEffect(() => {
+    // eslint-disable-next-line no-param-reassign
+    buffer.volume.value = vol[num];
+  }, [vol]);
 
   return (
     <Container>
@@ -76,6 +82,7 @@ TrackConfig.propTypes = {
   name: PropTypes.string,
   num: PropTypes.number,
   vol: PropTypes.array,
+  buffer: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

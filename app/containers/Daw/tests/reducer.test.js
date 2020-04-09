@@ -26,12 +26,12 @@ describe('dawReducer', () => {
       },
       bpm: '80',
       vol: 0,
-      stepState: [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      ],
+      stepState: {
+        Track1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        Track2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        Track3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        Track4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
       trackVol: [0, 0, 0, 0],
       currentStep: 0,
       playing: false,
@@ -97,10 +97,12 @@ describe('dawReducer', () => {
   it('Should handle the changeSteps action correctly', () => {
     const testVal = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const expectedResult = produce(state, draft => {
-      draft.stepState[1][0] = 1;
+      draft.stepState.Track1[0] = 1;
     });
 
-    expect(dawReducer(state, changeSteps(1, testVal))).toEqual(expectedResult);
+    expect(dawReducer(state, changeSteps('Track1', testVal))).toEqual(
+      expectedResult,
+    );
   });
 
   it('Should handle the changeSelectedTrack action correctly', () => {

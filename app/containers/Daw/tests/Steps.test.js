@@ -7,13 +7,13 @@ import { Steps } from '../Steps';
 
 describe('<Steps />', () => {
   let store;
-  const stepState = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  const num = 0;
+  const stepState = {
+    Track1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  };
+  const name = 'Track1';
 
   beforeAll(() => {
     store = configureStore();
@@ -25,7 +25,7 @@ describe('<Steps />', () => {
 
     render(
       <Provider store={store}>
-        <Steps dispatch={dispatch} stepState={stepState} num={num} />
+        <Steps dispatch={dispatch} stepState={stepState} name={name} />
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
@@ -36,7 +36,7 @@ describe('<Steps />', () => {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <Steps stepState={stepState} num={num} />
+        <Steps stepState={stepState} name={name} />
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();

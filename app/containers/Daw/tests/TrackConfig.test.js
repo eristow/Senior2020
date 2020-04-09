@@ -8,6 +8,7 @@ import { TrackConfig } from '../TrackConfig';
 describe('<TrackConfig />', () => {
   let store;
   const vol = [0, 0, 0, 0];
+  const buffer = { volume: { value: 0 } };
 
   beforeAll(() => {
     store = configureStore();
@@ -19,7 +20,7 @@ describe('<TrackConfig />', () => {
 
     render(
       <Provider store={store}>
-        <TrackConfig dispatch={dispatch} vol={vol} />
+        <TrackConfig dispatch={dispatch} vol={vol} buffer={buffer} />
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
@@ -30,7 +31,7 @@ describe('<TrackConfig />', () => {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <TrackConfig vol={vol} />
+        <TrackConfig vol={vol} buffer={buffer} />
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();
