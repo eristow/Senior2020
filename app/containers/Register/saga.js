@@ -1,7 +1,9 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import { baseURL, encryptPass } from 'utils/helpers';
+// import React from 'react';
 import request from 'utils/request';
+import { push } from 'connected-react-router';
+import { baseURL, encryptPass } from 'utils/helpers';
 import { makeSelectEmail, makeSelectPass } from './selectors';
 import { registerSuccess, registerError } from './actions';
 import { REGISTERING } from './constants';
@@ -34,6 +36,7 @@ export function* registerReq() {
     // Call our request helper (found in 'utils/request')
     const res = yield call(request, requestURL, options);
     yield put(registerSuccess(res, state));
+    yield put(push('/login'));
   } catch (err) {
     alert(err);
     yield put(registerError(err));

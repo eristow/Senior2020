@@ -4,6 +4,7 @@ import { loginSuccess, loginError } from 'containers/Login/actions';
 
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
+import { push } from 'connected-react-router';
 import { baseURL, comparePass } from 'utils/helpers';
 
 /**
@@ -39,6 +40,8 @@ export function* loginReq() {
       yield put(loginSuccess(res, state));
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('email', email);
+      yield put(push('/fileList'));
+      window.location.reload();
     } else {
       throw new Error('Incorrect login credentials');
     }
