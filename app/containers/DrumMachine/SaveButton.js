@@ -41,8 +41,10 @@ export function SaveButton({ drumMachineState }) {
 
   const onClickSave = state => {
     const jwt = localStorage.getItem('jwtToken');
+    // const gen = verify(jwt);
     if (!jwt) {
       alert('Login before you can save.');
+      window.location.href = '/login';
       return;
     }
 
@@ -51,6 +53,7 @@ export function SaveButton({ drumMachineState }) {
         alert(
           'An error occurred when saving. Please try again, or log out and then back in.',
         );
+        window.location.href = '/login';
         throw new Error(err);
       }
 
@@ -89,6 +92,16 @@ export function SaveButton({ drumMachineState }) {
 
   return <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>;
 }
+
+// export function* verify(jwt) {
+//   // const jwt = localStorage.getItem('jwtToken');
+//   try {
+//     const decoded = JWT.verify(jwt, process.env.JWT_SECRET);
+//     console.log(decoded);
+//   } catch (err) {
+//     yield put(push('/login'));
+//   }
+// }
 
 SaveButton.propTypes = {
   drumMachineState: PropTypes.object,

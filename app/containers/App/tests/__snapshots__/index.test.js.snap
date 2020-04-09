@@ -43,8 +43,20 @@ exports[`<App /> should render and match the snapshot 1`] = `
     <Route
       component={[Function]}
       exact={true}
-      path="/register"
+      path="/auth"
     />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/signout"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/register"
+    >
+      <Unknown />
+    </Route>
     <Route
       component={[Function]}
       exact={true}
