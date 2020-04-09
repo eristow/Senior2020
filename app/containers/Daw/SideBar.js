@@ -46,8 +46,9 @@ export function SideBar({ openSideBar, sideBarOpen }) {
       </OpenBtn>
       {sideBarOpen ? (
         <Container>
-          {sounds.map(sound => (
-            <MenuBtn>{sound}</MenuBtn>
+          {sounds.map((sound, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <MenuBtn key={i}>{sound}</MenuBtn>
           ))}
         </Container>
       ) : (

@@ -8,7 +8,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 
 import Slider from 'components/Slider';
 import InputText from 'components/InputText';
-import { makeSelectTrackVol } from './selectors';
+import { makeSelectTrackVol, makeSelectTrackNames } from './selectors';
 import {
   changeTrackVol,
   changeTrackNames,
@@ -38,11 +38,12 @@ export function TrackConfig({
   onChangeVol,
   onChangeTrackNames,
   onChangeSelectedTrack,
-  name,
+  trackNames,
   num,
   vol,
   buffer,
 }) {
+  const name = trackNames[num];
   useInjectReducer({ key, reducer });
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export function TrackConfig({
         fontSize="0.75em"
         width="97%"
       />
-      <Select type="button" onClick={() => onChangeSelectedTrack(name)}>
+      <Select type="button" onClick={() => onChangeSelectedTrack(num)}>
         Select
       </Select>
       <div>
@@ -79,7 +80,7 @@ TrackConfig.propTypes = {
   onChangeVol: PropTypes.func,
   onChangeTrackNames: PropTypes.func,
   onChangeSelectedTrack: PropTypes.func,
-  name: PropTypes.string,
+  trackNames: PropTypes.array,
   num: PropTypes.number,
   vol: PropTypes.array,
   buffer: PropTypes.object,
@@ -87,17 +88,18 @@ TrackConfig.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   vol: makeSelectTrackVol(),
+  trackNames: makeSelectTrackNames(),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeVol: (name, e) => {
-    dispatch(changeTrackVol(name, e));
+  onChangeVol: (num, e) => {
+    dispatch(changeTrackVol(num, e));
   },
   onChangeTrackNames: (num, e) => {
     dispatch(changeTrackNames(num, e.target.value));
   },
-  onChangeSelectedTrack: name => {
-    dispatch(changeSelectedTrack(name));
+  onChangeSelectedTrack: num => {
+    dispatch(changeSelectedTrack(num));
   },
 });
 

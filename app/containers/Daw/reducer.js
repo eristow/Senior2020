@@ -30,7 +30,7 @@ export const initialState = {
   trackVol: [0, 0, 0, 0],
   currentStep: 0,
   playing: false,
-  selectedTrack: '',
+  selectedTrack: null,
   trackNames: ['Track 1', 'Track 2', 'Track 3', 'Track 4'],
   sideBarOpen: false,
 };

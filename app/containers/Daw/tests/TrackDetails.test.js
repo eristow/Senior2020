@@ -7,7 +7,7 @@ import { TrackDetails } from '../TrackDetails';
 
 describe('<TrackDetails />', () => {
   let store;
-  const track = { name: 'Track 1' };
+  const track = 'Track 1';
 
   beforeAll(() => {
     store = configureStore();

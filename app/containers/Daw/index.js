@@ -29,29 +29,13 @@ const key = 'daw';
 
 const config = ['Track1', 'Track2', 'Track3', 'Track4'];
 
-// TODO: remove this once it's implemented
-const tracks = [
-  {
-    key: 'Track1',
-    name: 'Track 1',
-    sound: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
-  },
-  {
-    key: 'Track2',
-    name: 'Track 2',
-    sound: 'https://web-daw.s3.us-east-2.amazonaws.com/snare1.wav',
-  },
-  {
-    key: 'Track3',
-    name: 'Track 3',
-    sound: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
-  },
-  {
-    key: 'Track4',
-    name: 'Track 4',
-    sound: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
-  },
-];
+// TODO: remove this once track sound changing is implemented
+const sounds = {
+  Track1: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
+  Track2: 'https://web-daw.s3.us-east-2.amazonaws.com/snare1.wav',
+  Track3: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
+  Track4: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
+};
 
 export function Daw({
   setCurrentStep,
@@ -98,7 +82,7 @@ export function Daw({
           : setCurrentStep(currentStepRef.current + 1);
       }, '16n');
     }
-  }, [config]);
+  }, [sounds]);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
@@ -133,26 +117,25 @@ export function Daw({
           playing={playing}
           currentStep={currentStep}
           stepState={stepState}
-          tracks={tracks}
+          sounds={sounds}
           setBuffers={setBuffers}
         />
       </React.Suspense>
       <TrackDetails
-        track={selectedTrack ? tracks[trackNames.indexOf(selectedTrack)] : {}}
+        track={selectedTrack !== null ? trackNames[selectedTrack] : null}
       />
     </div>
   );
 }
 
 Daw.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func,
   bpm: PropTypes.string,
   vol: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
   stepState: PropTypes.object,
-  selectedTrack: PropTypes.string,
+  selectedTrack: PropTypes.number,
   trackNames: PropTypes.array,
 };
 

@@ -54,7 +54,7 @@ export function Track({
 
   return (
     <Container>
-      <TrackConfig name={name} num={num} buffer={buffer} />
+      <TrackConfig num={num} buffer={buffer} />
       {/* TODO: this is where patterns will go (midi or audio) */}
       <IndicatorWrapper>
         {playing && <StepIndicator step={currentStep} />}

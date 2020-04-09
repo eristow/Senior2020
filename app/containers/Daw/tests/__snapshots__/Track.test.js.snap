@@ -11,7 +11,7 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
       class="InputText-wtwjzw-0 ihxodh"
       font-size="0.75em"
       type="text"
-      value="Track1"
+      value=""
       width="97%"
     />
     <button

@@ -15,7 +15,7 @@ const TracksContainer = ({
   playing,
   currentStep,
   stepState,
-  tracks,
+  sounds,
   setBuffers,
 }) => (
   <Container>
@@ -27,9 +27,7 @@ const TracksContainer = ({
         playing={playing}
         currentStep={currentStep}
         stepState={stepState}
-        buffer={bufferResource.read(
-          tracks[tracks.findIndex(x => x.key === t)].sound,
-        )}
+        buffer={bufferResource.read(sounds[t])}
         setBuffers={setBuffers}
       />
     ))}
@@ -41,7 +39,7 @@ TracksContainer.propTypes = {
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
   stepState: PropTypes.object,
-  tracks: PropTypes.array,
+  sounds: PropTypes.object,
   setBuffers: PropTypes.func,
 };
 
