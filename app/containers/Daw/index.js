@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Tone from 'tone';
 import { connect } from 'react-redux';
@@ -22,26 +21,21 @@ import reducer from './reducer';
 import saga from './saga';
 
 import Options from './Options';
-import Track from './Track';
 import TrackDetails from './TrackDetails';
 import SideBar from './SideBar';
-
-const TrackContainer = styled.div`
-  width: 100%;
-  margin-top: 10px;
-`;
+import TracksContainer from './TracksContainer';
 
 const key = 'daw';
 
 const config = ['Track1', 'Track2', 'Track3', 'Track4'];
 
-// TODO: remove this once it's implemented
-const tracks = [
-  { name: 'Track 1' },
-  { name: 'Track 2' },
-  { name: 'Track 3' },
-  { name: 'Track 4' },
-];
+// TODO: remove this once track sound changing is implemented
+const sounds = {
+  Track1: 'https://web-daw.s3.us-east-2.amazonaws.com/kick.wav',
+  Track2: 'https://web-daw.s3.us-east-2.amazonaws.com/snare1.wav',
+  Track3: 'https://web-daw.s3.us-east-2.amazonaws.com/hatClosed.wav',
+  Track4: 'https://web-daw.s3.us-east-2.amazonaws.com/hatOpen.wav',
+};
 
 export function Daw({
   setCurrentStep,
@@ -56,9 +50,9 @@ export function Daw({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  // const [buffers, setBuffers] = useState({});
-  // const buffersRef = useRef(buffers);
-  // buffersRef.current = buffers;
+  const [buffers, setBuffers] = useState({});
+  const buffersRef = useRef(buffers);
+  buffersRef.current = buffers;
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
@@ -66,20 +60,21 @@ export function Daw({
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
-      Tone.Transport.scheduleRepeat(() => {
-        // Tone.Transport.scheduleRepeat(time => {
-        // Object.keys(buffersRef.current).forEach(b => {
-        //   const targetStep = stepsRef.current[b][currentStepRef.current];
-        //   const targetBuffer = buffersRef.current[b];
+      Tone.Transport.scheduleRepeat(time => {
+        Object.keys(buffersRef.current).forEach(b => {
+          // console.log(b);
+          // console.log(stepsRef.current);
+          const targetStep = stepsRef.current[b][currentStepRef.current];
+          const targetBuffer = buffersRef.current[b];
 
-        //   if (targetStep === 1) {
-        //     targetBuffer.start(time);
-        //   } else if (targetStep === 2) {
-        //     targetBuffer.start();
-        //     targetBuffer.start('+64n');
-        //     targetBuffer.start('+32n');
-        //   }
-        // });
+          if (targetStep === 1) {
+            targetBuffer.start(time);
+          } else if (targetStep === 2) {
+            targetBuffer.start();
+            targetBuffer.start('+64n');
+            targetBuffer.start('+32n');
+          }
+        });
 
         // eslint-disable-next-line no-unused-expressions
         currentStepRef.current > 14
@@ -87,7 +82,7 @@ export function Daw({
           : setCurrentStep(currentStepRef.current + 1);
       }, '16n');
     }
-  }, [config]);
+  }, [sounds]);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
@@ -116,34 +111,31 @@ export function Daw({
     <div>
       <SideBar />
       <Options />
-      <TrackContainer>
-        {config.map(t => (
-          <Track
-            key={t}
-            name={trackNames[config.indexOf(t)]}
-            num={config.indexOf(t)}
-            playing={playing}
-            currentStep={currentStep}
-            stepState={stepState}
-          />
-        ))}
-      </TrackContainer>
+      <React.Suspense fallback={<p>loading</p>}>
+        <TracksContainer
+          config={config}
+          playing={playing}
+          currentStep={currentStep}
+          stepState={stepState}
+          sounds={sounds}
+          setBuffers={setBuffers}
+        />
+      </React.Suspense>
       <TrackDetails
-        track={selectedTrack ? tracks[trackNames.indexOf(selectedTrack)] : {}}
+        track={selectedTrack !== null ? trackNames[selectedTrack] : null}
       />
     </div>
   );
 }
 
 Daw.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   setCurrentStep: PropTypes.func,
   bpm: PropTypes.string,
   vol: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
-  stepState: PropTypes.array,
-  selectedTrack: PropTypes.string,
+  stepState: PropTypes.object,
+  selectedTrack: PropTypes.number,
   trackNames: PropTypes.array,
 };
 

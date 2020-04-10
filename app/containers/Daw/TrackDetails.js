@@ -11,23 +11,24 @@ const Container = styled.div`
   border-radius: 5px;
 `;
 
-export function TrackDetails({ track }) {
-  const objIsEmpty = obj =>
-    Object.keys(obj).length === 0 && obj.constructor === Object;
+const Upper = styled.p`
+  text-transform: uppercase;
+`;
 
+export function TrackDetails({ track }) {
   return (
     <Container>
-      {objIsEmpty(track) ? (
-        <p>Please select a track to modify.</p>
+      {track === null ? (
+        <Upper>Please select a track to modify.</Upper>
       ) : (
-        <p>{track.name}</p>
+        <Upper>{track}</Upper>
       )}
     </Container>
   );
 }
 
 TrackDetails.propTypes = {
-  track: PropTypes.object,
+  track: PropTypes.string,
 };
 
 export default TrackDetails;

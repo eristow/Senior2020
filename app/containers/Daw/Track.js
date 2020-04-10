@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -36,15 +36,30 @@ const StepIndicator = styled.div`
   background: #00ff0040;
 `;
 
-export function Track({ name, num, playing, currentStep, stepState }) {
+export function Track({
+  name,
+  num,
+  playing,
+  currentStep,
+  stepState,
+  buffer,
+  setBuffers,
+}) {
+  useEffect(() => {
+    setBuffers(buffers => ({
+      ...buffers,
+      [name]: buffer,
+    }));
+  }, [buffer]);
+
   return (
     <Container>
-      <TrackConfig name={name} num={num} />
+      <TrackConfig num={num} buffer={buffer} />
       {/* TODO: this is where patterns will go (midi or audio) */}
       <IndicatorWrapper>
         {playing && <StepIndicator step={currentStep} />}
       </IndicatorWrapper>
-      <Steps name={name} num={num} stepsState={stepState} />
+      <Steps name={name} stepsState={stepState} />
     </Container>
   );
 }
@@ -54,7 +69,9 @@ Track.propTypes = {
   num: PropTypes.number,
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
-  stepState: PropTypes.array,
+  stepState: PropTypes.object,
+  buffer: PropTypes.object,
+  setBuffers: PropTypes.func,
 };
 
 export default Track;

@@ -7,13 +7,15 @@ import { Track } from '../Track';
 
 describe('<Track />', () => {
   let store;
-  const stepState = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ];
-  const num = 0;
+  const stepState = {
+    Track1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Track4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  };
+  const name = 'Track1';
+  const buffer = { volume: { value: 0 } };
+  const setBuffers = jest.fn();
 
   beforeAll(() => {
     store = configureStore();
@@ -25,7 +27,13 @@ describe('<Track />', () => {
 
     render(
       <Provider store={store}>
-        <Track dispatch={dispatch} num={num} stepState={stepState} />
+        <Track
+          dispatch={dispatch}
+          name={name}
+          stepState={stepState}
+          buffer={buffer}
+          setBuffers={setBuffers}
+        />
       </Provider>,
     );
     expect(spy).not.toHaveBeenCalled();
@@ -36,7 +44,12 @@ describe('<Track />', () => {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <Track num={num} stepState={stepState} />
+        <Track
+          name={name}
+          stepState={stepState}
+          buffer={buffer}
+          setBuffers={setBuffers}
+        />
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();
