@@ -16,7 +16,6 @@ describe('<TracksContainer />', () => {
     store = configureStore();
   });
 
-  // TODO: gave up trying to write test
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
     const dispatch = jest.fn();
@@ -31,7 +30,6 @@ describe('<TracksContainer />', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  // TODO: gave up trying to write test
   it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },

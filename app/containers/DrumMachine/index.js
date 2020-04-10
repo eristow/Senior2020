@@ -171,7 +171,7 @@ export function DrumMachine({
         fontSize="1.5em"
         width="auto"
       />
-      <LoadButton />
+      {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
       <Transport>
         <ControlContainer>
           <ControlText>BPM</ControlText>

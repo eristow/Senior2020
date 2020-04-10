@@ -53,15 +53,14 @@ export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
         />
       </label>
       <br />
+      <button type="button" onClick={() => handleSubmit(email, pass)}>
+        Submit
+      </button>
       <br />
       <p>
         {"Don't have an account? Click"}&nbsp;
         <a href="/register">here</a>
       </p>
-      <button type="button" onClick={() => handleSubmit(email, pass)}>
-        Submit
-      </button>
-      {/* </form> */}
     </div>
   );
 }

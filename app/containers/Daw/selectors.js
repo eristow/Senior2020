@@ -63,6 +63,12 @@ const makeSelectTrackNames = () =>
     substate => substate.trackNames,
   );
 
+const makeSelectTrackName = num =>
+  createSelector(
+    selectDawDomain,
+    substate => substate.trackNames[num],
+  );
+
 const makeSelectSideBarOpen = () =>
   createSelector(
     selectDawDomain,
@@ -81,5 +87,6 @@ export {
   makeSelectStepState,
   makeSelectSelectedTrack,
   makeSelectTrackNames,
+  makeSelectTrackName,
   makeSelectSideBarOpen,
 };

@@ -13,17 +13,17 @@ const Wrapper = styled.div`
   flex: 1;
 `;
 
-export function Steps({ name, num, stepState }) {
+export function Steps({ name, stepState }) {
   return (
     <Wrapper>
-      {stepState[num].map((s, i) => (
+      {stepState[name].map((s, i) => (
         <Step
           on={s !== 0}
           doubled={s === 2}
           index={i}
           // eslint-disable-next-line react/no-array-index-key
           key={`${name} ${i}`}
-          num={num}
+          name={name}
         />
       ))}
     </Wrapper>
@@ -32,8 +32,7 @@ export function Steps({ name, num, stepState }) {
 
 Steps.propTypes = {
   name: PropTypes.string,
-  num: PropTypes.number,
-  stepState: PropTypes.array,
+  stepState: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

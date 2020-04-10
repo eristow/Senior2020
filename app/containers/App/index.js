@@ -10,9 +10,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
-
+import {
+  Switch,
+  Route,
+  // BrowserRouter as RouterLink,
+  Redirect,
+  // useHistory,
+  // useLocation,
+} from 'react-router-dom';
 import Header from 'components/Header';
+import Auth from 'components/Auth';
+import SignOut from 'components/SignOut';
 import HomePage from 'containers/HomePage/Loadable';
 import DrumMachine from 'containers/DrumMachine/Loadable';
 import Piano from 'containers/Piano/Loadable';
@@ -46,7 +54,15 @@ export default function App() {
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/auth" component={Auth} />
+        <Route exact path="/signout" component={SignOut} />
+        <Route exact path="/register" component={Register}>
+          {localStorage.getItem('jwtToken') === null ? (
+            <Register />
+          ) : (
+            <Redirect to="/fileList" />
+          )}
+        </Route>
         <Route exact path="/daw" component={Daw} />
         <Route component={NotFoundPage} />
       </Switch>

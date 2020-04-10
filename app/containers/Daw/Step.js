@@ -38,10 +38,10 @@ const isOffsetColor = index =>
   (index > 3 && index < 8) || (index > 11 && index < 16);
 
 export const Step = React.memo(
-  ({ on, index, num, doubled, setSteps, stepState }) => {
+  ({ on, index, name, doubled, setSteps, stepState }) => {
     const toggleStep = e => {
       const shiftEnabled = e.shiftKey === true;
-      const steps = [...stepState[num]];
+      const steps = [...stepState[name]];
       let val = 0;
       if (steps[index] === 0) {
         if (shiftEnabled) {
@@ -55,7 +55,7 @@ export const Step = React.memo(
         val = 0;
       }
       steps[index] = val;
-      setSteps(num, steps);
+      setSteps(name, steps);
     };
     return (
       <StepButton
@@ -71,7 +71,7 @@ export const Step = React.memo(
 Step.propTypes = {
   on: PropTypes.bool,
   index: PropTypes.number,
-  num: PropTypes.number,
+  name: PropTypes.string,
   doubled: PropTypes.bool,
   setSteps: PropTypes.func,
   stepState: PropTypes.object,
