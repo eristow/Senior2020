@@ -8,7 +8,7 @@ import AWS from 'aws-sdk';
 import JWT from 'jsonwebtoken';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectDrumMachineState } from './selectors';
+import { makeSelectDrumMachineState, makeSelectTitle } from './selectors';
 import reducer from './reducer';
 
 const Save = styled.button`
@@ -27,7 +27,7 @@ const Save = styled.button`
 
 const key = 'drumMachine';
 
-export function SaveButton({ drumMachineState }) {
+export function SaveButton({ drumMachineState, title }) {
   useInjectReducer({ key, reducer });
 
   const ID = process.env.AWS_ID;
@@ -64,18 +64,19 @@ export function SaveButton({ drumMachineState }) {
       const file = new Blob([stateString], { type: 'text/plain' });
       element.href = URL.createObjectURL(file);
 
-      const date = new Date(Date.now());
-      const timestamp =
-        `${date.getFullYear()}` +
-        `-${`0${date.getMonth() + 1}`.slice(-2)}` +
-        `-${`0${date.getDate()}`.slice(-2)}` +
-        `_${`0${date.getHours()}`.slice(-2)}` +
-        `-${`0${date.getMinutes()}`.slice(-2)}` +
-        `-${`0${date.getSeconds()}`.slice(-2)}`;
+      // const date = new Date(Date.now());
+      // const timestamp =
+      //   `${date.getFullYear()}` +
+      //   `-${`0${date.getMonth() + 1}`.slice(-2)}` +
+      //   `-${`0${date.getDate()}`.slice(-2)}` +
+      //   `_${`0${date.getHours()}`.slice(-2)}` +
+      //   `-${`0${date.getMinutes()}`.slice(-2)}` +
+      //   `-${`0${date.getSeconds()}`.slice(-2)}`;
 
       const params = {
         Bucket: BUCKET_NAME,
-        Key: `states/${email}/${timestamp}_DrumState.json`,
+        Key: `states/${email}/${title}.json`,
+        // Key: `states/${email}/testing.json`,
         Body: file,
       };
 
@@ -105,10 +106,12 @@ export function SaveButton({ drumMachineState }) {
 
 SaveButton.propTypes = {
   drumMachineState: PropTypes.object,
+  title: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   drumMachineState: makeSelectDrumMachineState(),
+  title: makeSelectTitle(),
 });
 
 const withConnect = connect(mapStateToProps);
