@@ -17,12 +17,12 @@ const InputText = styled.input.attrs(props => ({
   fontSize: props.fontSize || '1em',
 }))`
   display: inline;
-  background: linear-gradient(to bottom right, #eee, #ddd);
+  background: #ffffffea;
+  color: black;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   border: 2px solid deepskyblue;
   border-radius: 3px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   font-size: ${props => props.fontSize};
   padding: ${props => props.padding};
   margin: ${props => props.margin};

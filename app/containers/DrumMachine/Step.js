@@ -29,7 +29,7 @@ const StepButton = styled.button`
   flex: 1;
   background: ${props => (props.offsetColor ? '#25CCF7' : '#FD7272')};
   opacity: ${props => (props.on ? 1 : 0.35)};
-  border-radius: 2;
+  border-radius: 4px;
   margin: 2px;
   ${props => props.doubled && flashMixin}
 `;

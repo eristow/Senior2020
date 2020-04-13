@@ -9,7 +9,8 @@ const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  border: 1px solid #555;
+  border: 2px solid #444;
+  border-radius: 4px;
   margin: 0px 20px 20px;
   position: relative;
 `;
@@ -19,6 +20,7 @@ const IndicatorWrapper = styled.div`
   width: 570px;
   top: 0px;
   right: 0px;
+  left: 99px;
   height: 100%;
   padding: 4px 2px;
   pointer-events: none;
@@ -27,8 +29,8 @@ const IndicatorWrapper = styled.div`
 const StepIndicator = styled.div`
   position: absolute;
   top: 0px;
-  left: ${props => props.step * 35.5}px;
-  width: 36px;
+  left: ${props => props.step * 39}px;
+  width: 35px;
   height: 100%;
   background: #00ff0040;
 `;

@@ -40,7 +40,7 @@ const key = 'drumMachine';
 
 const Container = styled.div`
   max-width: 800px;
-  background: linear-gradient(to bottom right, #666, #888);
+  background: #666666;
   border: 2px solid black;
   border-radius: 4px;
   margin-top: 20px;
@@ -50,11 +50,17 @@ const Container = styled.div`
 
 const ControlContainer = styled.div`
   text-align: center;
+  width: 130px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  margin-top: auto;
 `;
 
 const ControlText = styled.p`
   padding: 10px;
-  margin: 0;
+  margin: 0px;
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
@@ -171,7 +177,6 @@ export function DrumMachine({
         fontSize="1.5em"
         width="auto"
       />
-      {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
       <Transport>
         <ControlContainer>
           <ControlText>BPM</ControlText>
@@ -192,13 +197,14 @@ export function DrumMachine({
             min={-60}
             max={0}
             value={vol}
-            width={110}
+            width={80}
           />
         </ControlContainer>
-        <div>
+        <Buttons>
           <PlayButton />
           <SaveButton />
-        </div>
+          {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
+        </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer

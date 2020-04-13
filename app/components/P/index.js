@@ -19,6 +19,7 @@ const P = styled.p.attrs(props => ({
   margin-bottom: ${props => props.marginBottom};
   margin-left: ${props => props.marginLeft};
   margin-right: ${props => props.marginRight};
+  color: white;
 `;
 
 P.propTypes = {
