@@ -5,7 +5,7 @@ import request from 'utils/request';
 import { push } from 'connected-react-router';
 import { baseURL, encryptPass } from 'utils/helpers';
 import { makeSelectEmail, makeSelectPass } from './selectors';
-import { registerSuccess, registerError } from './actions';
+import { registerSuccess, registerError, changeIsOpen } from './actions';
 import { REGISTERING } from './constants';
 
 /**
@@ -38,7 +38,11 @@ export function* registerReq() {
     yield put(registerSuccess(res, state));
     yield put(push('/login'));
   } catch (err) {
-    alert(err);
+    if (err.response.status === 401) {
+      yield put(changeIsOpen(true, 'Email already registered.'));
+    } else
+      yield put(changeIsOpen(true, 'Communication error. Please try again.'));
+    // alert(err);
     yield put(registerError(err));
   }
 }

@@ -5,10 +5,15 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
+import Modal from 'react-modal';
 import JWT from 'jsonwebtoken';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectDrumMachineState } from './selectors';
+import {
+  makeSelectDrumMachineState,
+  makeSelectIsOpenSaveButton,
+} from './selectors';
+import { changeIsOpenSave } from './actions';
 import reducer from './reducer';
 
 const Save = styled.button`
@@ -25,9 +30,34 @@ const Save = styled.button`
   min-width: 100px;
 `;
 
+const modalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'gray',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'inline-block',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
+
 const key = 'drumMachine';
 
-export function SaveButton({ drumMachineState }) {
+let body;
+
+export function SaveButton({
+  drumMachineState,
+  setIsOpenSave,
+  modalIsOpenSave,
+}) {
   useInjectReducer({ key, reducer });
 
   const ID = process.env.AWS_ID;
@@ -43,16 +73,17 @@ export function SaveButton({ drumMachineState }) {
     const jwt = localStorage.getItem('jwtToken');
     // const gen = verify(jwt);
     if (!jwt) {
-      alert('Login before you can save.');
+      body = 'Login before you can save.';
+      setIsOpenSave(true);
       window.location.href = '/login';
       return;
     }
 
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        alert(
-          'An error occurred when saving. Please try again, or log out and then back in.',
-        );
+        body =
+          'An error occurred when saving. Please try again, or log out and then back in.';
+        setIsOpenSave(true);
         window.location.href = '/login';
         throw new Error(err);
       }
@@ -81,16 +112,37 @@ export function SaveButton({ drumMachineState }) {
 
       s3.upload(params, (error, data) => {
         if (error) {
-          alert('Error saving file.');
+          body = 'Error saving file.';
+          setIsOpenSave(true);
           throw error;
         }
         console.log(`File uploaded successfully. ${data.Location}`);
-        alert('Project saved.');
+        body = 'Project saved.';
+        setIsOpenSave(true);
       });
     });
   };
 
-  return <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>;
+  const afterOpenModal = () => {};
+
+  const closeModal = () => {
+    setIsOpenSave(false);
+  };
+
+  return (
+    <div>
+      <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>
+      <Modal
+        isOpen={modalIsOpenSave}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Save Modal"
+      >
+        {body}
+      </Modal>
+    </div>
+  );
 }
 
 // export function* verify(jwt) {
@@ -105,12 +157,23 @@ export function SaveButton({ drumMachineState }) {
 
 SaveButton.propTypes = {
   drumMachineState: PropTypes.object,
+  setIsOpenSave: PropTypes.func,
+  modalIsOpenSave: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
+  modalIsOpenSave: makeSelectIsOpenSaveButton(),
   drumMachineState: makeSelectDrumMachineState(),
 });
 
-const withConnect = connect(mapStateToProps);
+const mapDispatchToProps = dispatch => ({
+  setIsOpenSave: value => {
+    dispatch(changeIsOpenSave(value));
+  },
+});
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(withConnect)(SaveButton);

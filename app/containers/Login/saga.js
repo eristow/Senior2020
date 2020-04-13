@@ -1,6 +1,10 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { LOGGING_IN } from 'containers/Login/constants';
-import { loginSuccess, loginError } from 'containers/Login/actions';
+import {
+  loginSuccess,
+  loginError,
+  changeIsOpen,
+} from 'containers/Login/actions';
 
 import request from 'utils/request';
 import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
@@ -46,7 +50,13 @@ export function* loginReq() {
       throw new Error('Incorrect login credentials');
     }
   } catch (err) {
-    alert(err);
+    // console.log(typeof err.response);
+    if (typeof err.response === 'undefined' || err.response.status !== 500) {
+      yield put(changeIsOpen(true, 'Wrong Email or Password.'));
+    } else
+      yield put(changeIsOpen(true, 'Communication error. Please try again.'));
+    // console.log(err.response.status);
+    // alert(err);
     yield put(loginError(err));
   }
 }

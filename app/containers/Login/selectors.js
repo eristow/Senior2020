@@ -33,5 +33,11 @@ const makeSelectPass = () =>
     substate => substate.pass,
   );
 
+const makeSelectIsOpen = () =>
+  createSelector(
+    selectLoginDomain,
+    substate => substate.modalIsOpen,
+  );
+
 export default makeSelectLogin;
-export { selectLoginDomain, makeSelectEmail, makeSelectPass };
+export { selectLoginDomain, makeSelectEmail, makeSelectPass, makeSelectIsOpen };

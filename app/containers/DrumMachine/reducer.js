@@ -11,6 +11,7 @@ import {
   LOAD_STATE,
   CHANGE_IS_OPEN,
   CHANGE_FILES,
+  CHANGE_IS_OPEN_SAVE,
 } from './constants';
 
 export const initialState = {
@@ -72,6 +73,9 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case CHANGE_FILES:
         draft.files = action.value;
+        break;
+      case CHANGE_IS_OPEN_SAVE:
+        draft.modalIsOpenSave = action.value;
         break;
     }
   });
