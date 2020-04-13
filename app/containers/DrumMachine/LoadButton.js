@@ -44,6 +44,10 @@ const File = styled.button`
   min-width: 100px;
 `;
 
+const Error = styled.p`
+  color: #eeeeee;
+`;
+
 const modalStyles = {
   content: {
     top: '30%',
@@ -64,6 +68,7 @@ const modalStyles = {
 };
 
 const key = 'drumMachine';
+let modalString = '';
 
 export function LoadButton({
   onLoad,
@@ -92,7 +97,9 @@ export function LoadButton({
 
     s3.getObject(params, (err, data) => {
       if (err) {
-        console.log(`Error: ${err}`);
+        setIsOpen(false);
+        modalString = `Error: ${err}`;
+        setIsOpen(true);
       } else {
         onLoad(JSON.parse(data.Body));
       }
@@ -103,9 +110,9 @@ export function LoadButton({
     const jwt = localStorage.getItem('jwtToken');
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        alert(
-          'An error occurred when loading. Please try again, or log out and then back in.',
-        );
+        modalString =
+          'An error occurred when loading. Please try again, or log out and then back in.';
+        setIsOpen(true);
         throw new Error(err);
       }
       const params = {
@@ -116,7 +123,8 @@ export function LoadButton({
 
       s3.listObjects(params, (error, data) => {
         if (error) {
-          alert('Error loading file.');
+          modalString = 'Error loading projects.';
+          setIsOpen(true);
           throw error;
         } else {
           setFiles(data.Contents);
@@ -130,6 +138,7 @@ export function LoadButton({
 
   const closeModal = () => {
     setIsOpen(false);
+    modalString = '';
   };
 
   const email = localStorage.getItem('email');
@@ -144,20 +153,21 @@ export function LoadButton({
         style={modalStyles}
         contentLabel="Load Modal"
       >
-        {files.map(f => {
-          if (f.Key !== 'states/') {
-            return (
-              <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
-                {f.Key.replace(`states/${email}/`, '').replace(
-                  '_DrumState.json',
-                  '',
-                )}
-              </File>
-            );
-          }
-          // eslint-disable-next-line consistent-return
-          return; // eslint-disable-line no-useless-return
-        })}
+        {modalString === '' ? (
+          files.map(f => {
+            if (f.Key !== 'states/') {
+              return (
+                <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
+                  {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
+                </File>
+              );
+            }
+            // eslint-disable-next-line consistent-return
+            return; // eslint-disable-line no-useless-return
+          })
+        ) : (
+          <Error>{modalString}</Error>
+        )}
       </Modal>
     </Container>
   );
