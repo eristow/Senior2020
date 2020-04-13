@@ -15,7 +15,6 @@ import styled from 'styled-components';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import H2 from 'components/H2';
-import P from 'components/P';
 import InputText from 'components/InputText';
 import Button from 'components/Button';
 // import RegisterForm from 'components/RegisterForm';

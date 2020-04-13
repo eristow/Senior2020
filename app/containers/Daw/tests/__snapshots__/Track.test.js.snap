@@ -10,6 +10,7 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     <input
       class="InputText-wtwjzw-0 eooPIG"
       font-size="0.75em"
+      transform="uppercase"
       type="text"
       value=""
       width="97%"
