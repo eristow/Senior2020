@@ -8,12 +8,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import H2 from 'components/H2';
 // import RegisterForm from 'components/RegisterForm';
 import { changeEmail, changePass, register } from './actions';
 import makeSelectRegister, {
@@ -22,7 +22,6 @@ import makeSelectRegister, {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 export function Register({ email, setEmail, pass, setPass, handleSubmit }) {
   useInjectReducer({ key: 'register', reducer });
@@ -34,7 +33,7 @@ export function Register({ email, setEmail, pass, setPass, handleSubmit }) {
         <title>Register</title>
         <meta name="description" content="Description of Register" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
+      <H2>Register</H2>
       <br />
       <label>
         Email:

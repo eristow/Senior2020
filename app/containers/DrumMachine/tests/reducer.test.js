@@ -19,7 +19,7 @@ describe('drumMachineReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      title: 'Drum Machine',
+      title: 'Untitled Project',
       config: 'config1',
       vol: 0,
       bpm: '80',

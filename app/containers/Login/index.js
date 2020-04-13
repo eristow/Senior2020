@@ -8,7 +8,6 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -20,7 +19,6 @@ import { changeEmail, changePass, login } from './actions';
 import makeSelectLogin, { makeSelectEmail, makeSelectPass } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
   useInjectReducer({ key: 'login', reducer });
@@ -32,9 +30,7 @@ export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
         <title>Login</title>
         <meta name="description" content="Description of Login" />
       </Helmet>
-      <H2>
-        <FormattedMessage {...messages.header} />
-      </H2>
+      <H2>Login</H2>
       <label>
         Email:
         <input

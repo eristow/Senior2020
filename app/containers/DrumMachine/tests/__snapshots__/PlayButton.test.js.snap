@@ -2,7 +2,7 @@
 
 exports[`<PlayButton /> Should render and match the snapshot 1`] = `
 <button
-  class="PlayButton__Play-sc-1sbrdge-0 egjYCQ"
+  class="PlayButton__Play-sc-1sbrdge-0 fAOlcW"
 >
   Play
 </button>

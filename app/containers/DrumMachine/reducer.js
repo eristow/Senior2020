@@ -14,7 +14,7 @@ import {
 } from './constants';
 
 export const initialState = {
-  title: 'Unnamed Project',
+  title: 'Untitled Project',
   config: 'config1',
   vol: 0,
   bpm: '80',

@@ -5,7 +5,7 @@ exports[`<LoadButton /> Should render and match the snapshot 1`] = `
   class="LoadButton__Container-l3r6np-0 eoYqKL"
 >
   <button
-    class="LoadButton__Load-l3r6np-1 gSKRqo"
+    class="LoadButton__Load-l3r6np-1 hwVBha"
   >
     Load
   </button>

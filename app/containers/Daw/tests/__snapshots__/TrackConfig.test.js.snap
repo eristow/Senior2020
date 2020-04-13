@@ -5,7 +5,7 @@ exports[`<TrackConfig /> Should render and match the snapshot 1`] = `
   class="TrackConfig__Container-ouodsg-0 ddcwJq"
 >
   <input
-    class="InputText-wtwjzw-0 ihxodh"
+    class="InputText-wtwjzw-0 eooPIG"
     font-size="0.75em"
     type="text"
     value=""
