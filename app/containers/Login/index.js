@@ -10,59 +10,86 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import H2 from 'components/H2';
+import P from 'components/P';
+import InputText from 'components/InputText';
+import Button from 'components/Button';
 // import LoginForm from 'components/LoginForm';
 import { changeEmail, changePass, login } from './actions';
 import makeSelectLogin, { makeSelectEmail, makeSelectPass } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+const Container = styled.div`
+  max-width: 800px;
+  background: #666666;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  color: white;
+`;
+
 export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
   return (
-    <div>
+    <Container>
       <Helmet>
         <title>Login</title>
         <meta name="description" content="Description of Login" />
       </Helmet>
       <H2>Login</H2>
-      <label>
-        Email:
-        <input
+      <InputContainer>
+        <Label>Email: </Label>
+        <InputText
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          width="15em"
         />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
+      </InputContainer>
+      <InputContainer>
+        <Label>Password: </Label>
+        <InputText
           type="password"
           value={pass}
           onChange={e => setPass(e.target.value)}
+          width="15em"
         />
-      </label>
-      <br />
-      <button type="button" onClick={() => handleSubmit(email, pass)}>
-        Submit
-      </button>
-      <br />
-      <p>
-        {"Don't have an account? Click"}&nbsp;
+      </InputContainer>
+      <Button
+        type="button"
+        onClick={() => handleSubmit(email, pass)}
+        text="Submit"
+      />
+      <P>
+        {"Don't have an account? Click "}
         <a href="/register">here</a>
-      </p>
-    </div>
+        {'.'}
+      </P>
+    </Container>
   );
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   email: PropTypes.string,
   setEmail: PropTypes.func,
   pass: PropTypes.string,

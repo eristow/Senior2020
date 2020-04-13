@@ -176,6 +176,7 @@ export function DrumMachine({
         onChange={e => onChangeTitle(e)}
         fontSize="1.5em"
         width="auto"
+        transform="uppercase"
       />
       <Transport>
         <ControlContainer>

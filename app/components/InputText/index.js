@@ -15,12 +15,13 @@ const InputText = styled.input.attrs(props => ({
   margin: props.margin || '0.5em 10px',
   width: props.width || '5em',
   fontSize: props.fontSize || '1em',
+  transform: props.transform || 'lowercase',
 }))`
   display: inline;
   background: #ffffffea;
   color: black;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
+  text-transform: ${props => props.transform};
   border: 2px solid deepskyblue;
   border-radius: 3px;
   font-size: ${props => props.fontSize};
@@ -36,6 +37,7 @@ InputText.propTypes = {
   margin: PropTypes.string,
   width: PropTypes.string,
   fontSize: PropTypes.string,
+  transform: PropTypes.string,
 };
 
 export default InputText;

@@ -10,10 +10,14 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import H2 from 'components/H2';
+import P from 'components/P';
+import InputText from 'components/InputText';
+import Button from 'components/Button';
 // import RegisterForm from 'components/RegisterForm';
 import { changeEmail, changePass, register } from './actions';
 import makeSelectRegister, {
@@ -23,43 +27,67 @@ import makeSelectRegister, {
 import reducer from './reducer';
 import saga from './saga';
 
+const Container = styled.div`
+  max-width: 800px;
+  background: #666666;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  color: white;
+`;
+
 export function Register({ email, setEmail, pass, setPass, handleSubmit }) {
   useInjectReducer({ key: 'register', reducer });
   useInjectSaga({ key: 'register', saga });
 
   return (
-    <div>
+    <Container>
       <Helmet>
         <title>Register</title>
         <meta name="description" content="Description of Register" />
       </Helmet>
       <H2>Register</H2>
-      <br />
-      <label>
-        Email:
-        <input
+      <InputContainer>
+        <Label>Email: </Label>
+        <InputText
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          width="15em"
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </InputContainer>
+      <InputContainer>
+        <Label>Password: </Label>
+        <InputText
           type="password"
           value={pass}
           onChange={e => setPass(e.target.value)}
+          width="15em"
         />
-      </label>
-      <button type="button" onClick={() => handleSubmit(email, pass)}>
-        Register
-      </button>
-    </div>
+      </InputContainer>
+      <Button
+        type="button"
+        onClick={() => handleSubmit(email, pass)}
+        text="Submit"
+      />
+    </Container>
   );
 }
 
 Register.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   email: PropTypes.string,
   setEmail: PropTypes.func,
   pass: PropTypes.string,
