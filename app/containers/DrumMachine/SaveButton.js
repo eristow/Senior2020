@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import JWT from 'jsonwebtoken';
+import Modal from 'react-modal';
 
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectDrumMachineState, makeSelectTitle } from './selectors';
@@ -25,10 +26,36 @@ const Save = styled.button`
   min-width: 100px;
 `;
 
+const Error = styled.p`
+  color: #eeeeee;
+`;
+
+const modalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'gray',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'inline-block',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
+
 const key = 'drumMachine';
 
 export function SaveButton({ drumMachineState, title }) {
   useInjectReducer({ key, reducer });
+
+  const [modalString, setModalString] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const ID = process.env.AWS_ID;
   const SECRET = process.env.AWS_SECRET;
@@ -43,16 +70,18 @@ export function SaveButton({ drumMachineState, title }) {
     const jwt = localStorage.getItem('jwtToken');
     // const gen = verify(jwt);
     if (!jwt) {
-      alert('Login before you can save.');
+      setModalString('Login before you can save.');
+      setModalIsOpen(true);
       window.location.href = '/login';
       return;
     }
 
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        alert(
+        setModalString(
           'An error occurred when saving. Please try again, or log out and then back in.',
         );
+        setModalIsOpen(true);
         window.location.href = '/login';
         throw new Error(err);
       }
@@ -80,18 +109,41 @@ export function SaveButton({ drumMachineState, title }) {
         Body: file,
       };
 
-      s3.upload(params, (error, data) => {
+      // s3.upload(params, (error, data) => {
+      s3.upload(params, error => {
         if (error) {
-          alert('Error saving file.');
+          setModalString('Error saving file.');
+          setModalIsOpen(true);
           throw error;
         }
-        console.log(`File uploaded successfully. ${data.Location}`);
-        alert('Project saved.');
+        // console.log(`File uploaded successfully. ${data.Location}`);
+        setModalIsOpen(true);
+        setModalString('Project saved.');
       });
     });
   };
 
-  return <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>;
+  const afterOpenModal = () => {};
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalString('');
+  };
+
+  return (
+    <>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Save Modal"
+      >
+        <Error>{modalString}</Error>
+      </Modal>
+      <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>
+    </>
+  );
 }
 
 // export function* verify(jwt) {
