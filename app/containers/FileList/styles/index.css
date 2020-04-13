@@ -1,0 +1,232 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+	  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+	  sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+	  monospace;
+  }
+
+
+  .waveform {
+	background: none !important;
+	width: 100% !important;
+	margin: 0 !important;
+	height: 100px !important;
+	border: 1px solid #000;
+  }
+
+  .video-js.vjs-wavesurfer .vjs-control.vjs-fullscreen-control {
+	display: none !important;
+  }
+
+  .video-js .vjs-control-bar {
+	background-color: rgb(221, 221, 238, 0.7) !important;
+	color: #000 !important;
+  }
+
+  html
+  {
+	font-size: 10px;
+	font-family: "Open Sans";
+  }
+
+  h1
+  {
+	font-family: "Josefin Sans";
+	text-align: center;
+	font-size: 4rem;
+	font-weight: 100;
+	margin: 2rem 0;
+	letter-spacing: -1px;
+  }
+
+  .file-list
+  {
+	border: none;
+	width: 50%;
+	min-width: 600px;
+	margin: 0 auto;
+	display: grid;
+  }
+
+  .file-listing
+  {
+	float: left;
+	display: flex;
+	height: 30px;
+	background: #dde;
+	width: 100%;
+  }
+
+  .file-listing:hover > .file-button-div
+  {
+	display: block;
+  }
+
+  .file-listing:hover
+  {
+	background: #ccd;
+  }
+
+  .file-name
+  {
+	font-size: 18px;
+	padding: 0;
+	margin: auto 0;
+  }
+
+  #delete-all
+  {
+	height: 40px;
+	display: flex;
+	color: #fdd;
+	font-size: 20px;
+	text-align: center;
+  }
+
+  #export-all
+  {
+	height: 40px;
+	display: flex;
+	font-size: 20px;
+  }
+
+  .file-button
+  {
+	margin: 0;
+	margin-left: 1px;
+	border-radius: 0;
+	display: block;
+	float: left;
+	height: 100%;
+	background: #ccd;
+  }
+
+  .file-button-div
+  {
+	margin-left: auto;
+	margin-right: 0;
+	display: none;
+	height: 100%;
+  }
+
+  button
+  {
+	background: #222;
+	border: none;
+	color: white;
+	padding: 5px;
+	display: block;
+  }
+
+  .button-div
+  {
+	width: 50%;
+	min-width: 600px;
+	margin: auto;
+	display: block;
+  }
+
+  .button-big
+  {
+	display: block;
+	float: left;
+	width: 50%;
+	border: solid white 2px;
+	background-color: #ccd;
+  }
+
+  button:hover
+  {
+	background: #333;
+  }
+
+  .button-text
+  {
+	margin: auto;
+  }
+
+  .info-container
+  {
+	display: none;
+	padding: 5px;
+	background: #f5f5ff;
+  }
+
+  .file-container
+  {
+	margin: 2px;
+	border: 1px solid black;
+  }
+
+  .file-container:hover .info-container
+  {
+	display: block;
+  }
+
+
+  .checkbox-cont {
+
+  display: block;
+  position: relative;
+	height: 30px;
+	width: 30px;
+
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  }
+
+  input[type="checkbox"] {
+	position: absolute;
+  opacity: 0;
+  cursor: pointer
+  }
+
+  .checkbox-cont:hover input ~ .fake-check {
+	background-color: #663675;
+  }
+
+  .checkbox-cont input:checked ~ .fake-check {
+	background-color: #663675;
+  }
+
+  .fake-check {
+	margin: auto;
+	display: block;
+	margin-top: 5px;
+	height: 20px;
+	width: 20px;
+	display: block;
+	background: white;
+	border-radius: 5px;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .fake-check:after {
+  position: absolute;
+  content: "";
+  display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .checkbox-cont input:checked ~ .fake-check:after {
+  display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .checkbox-cont .fake-check:after {
+  margin: 4px;
+  width: 12px;
+  height: 12px;
+  background: #dbb8e6;
+  border-radius: 2px;
+  }
