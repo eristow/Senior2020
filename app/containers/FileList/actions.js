@@ -21,7 +21,6 @@ export function changeBoxSelection(id) {
 }
 
 export function addFiles(files) {
-  console.log(files);
   return {
     type: ADD_FILES,
     files,

@@ -16,8 +16,6 @@ const key = 'fileListing';
 const FileList = ({ files, onRemove }) => {
   useInjectReducer({ key, reducer });
 
-  console.log(files);
-
   return (
     <div>
       <div>

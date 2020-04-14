@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { REMOVE_FILE, CHANGE_BOX, REMOVE_FILES, ADD_FILES } from './constants'; // ADD_FILE, EDIT_FILE, REMOVE_FILES
+import { REMOVE_FILE, CHANGE_BOX, REMOVE_FILES, ADD_FILES } from './constants';
 
 export const initialState = {
   files: [],
@@ -9,7 +9,6 @@ export const initialState = {
 const filesReducer = (state = initialState, action) =>
   // eslint-disable-next-line consistent-return
   produce(state, draft => {
-    console.log(action.type);
     switch (action.type) {
       case REMOVE_FILE: {
         const files = draft.filter(file => file.id !== action.id);
@@ -34,8 +33,6 @@ const filesReducer = (state = initialState, action) =>
         break;
       }
       case ADD_FILES: {
-        console.log(draft.files);
-        console.log(action.files);
         draft.files = action.files;
         break;
       }

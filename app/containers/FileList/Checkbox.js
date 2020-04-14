@@ -24,7 +24,6 @@ Checkbox.propTypes = {
 };
 
 // const mapStateToProps = state => {};
-const mapStateToProps = () => {};
 
 const mapDispatchToProps = dispatch => ({
   onChangeBox: id => {
@@ -33,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const withConnect = connect(
-  mapStateToProps,
+  // mapStateToProps,
   mapDispatchToProps,
 );
 

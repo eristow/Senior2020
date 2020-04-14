@@ -34,14 +34,12 @@ const modalStyles = {
 
 const key = 'fileListing';
 
-const FileListContainer = ({ files }) => {
+const FileListContainer = ({ files, onAdd }) => {
   useInjectReducer({ key, reducer });
   if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
-  // const [files, setFiles] = useState({});
   const [modalString, setModalString] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const email = localStorage.getItem('email');
   const ID = process.env.AWS_ID;
@@ -75,17 +73,11 @@ const FileListContainer = ({ files }) => {
           setIsOpen(true);
           throw error;
         } else {
-          addFiles(data.Contents);
+          onAdd(data.Contents);
         }
       });
     });
   }, []);
-
-  useEffect(() => {
-    if (files === undefined || files.length === 0) {
-      setIsLoading(false);
-    }
-  }, [files]);
 
   const afterOpenModal = () => {};
 
@@ -93,9 +85,6 @@ const FileListContainer = ({ files }) => {
     setIsOpen(false);
     setModalString('');
   };
-
-  console.log(files);
-  console.log(isLoading);
 
   return (
     <>
@@ -109,9 +98,7 @@ const FileListContainer = ({ files }) => {
         {modalString}
       </Modal>
       <React.Suspense fallback={<p>loading</p>}>
-        {!isLoading ? <FileList files={files} /> : <p>{isLoading}</p>}
-        {/* {!isLoading ? <p>not loading</p> : <p>loading</p>} */}
-        {/* {JSON.stringify(files)} */}
+        <FileList files={files} />
       </React.Suspense>
     </>
   );
@@ -119,6 +106,7 @@ const FileListContainer = ({ files }) => {
 
 FileListContainer.propTypes = {
   files: PropTypes.array,
+  onAdd: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
