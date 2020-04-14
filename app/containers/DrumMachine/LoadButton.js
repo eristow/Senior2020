@@ -55,6 +55,24 @@ const File = styled.button`
   }
 `;
 
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
 const Error = styled.p`
   color: #eeeeee;
 `;
@@ -71,7 +89,8 @@ const modalStyles = {
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
-    display: 'inline-block',
+    display: 'flex',
+    flexDirection: 'column',
   },
   overlay: {
     background: 'rgba(0, 0, 0, 0.4)',
@@ -80,6 +99,7 @@ const modalStyles = {
 
 const key = 'drumMachine';
 let modalString = '';
+let needsLogin = false;
 
 export function LoadButton({
   onLoad,
@@ -122,8 +142,9 @@ export function LoadButton({
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
         modalString =
-          'An error occurred when loading. Please try again, or log out and then back in.';
+          'An error occurred when loading.\nPress OK to go to Login.';
         setIsOpen(true);
+        needsLogin = true;
         throw new Error(err);
       }
       const params = {
@@ -149,6 +170,10 @@ export function LoadButton({
 
   const closeModal = () => {
     setIsOpen(false);
+    if (needsLogin) {
+      localStorage.removeItem('jwtToken');
+      window.location.href = '/login';
+    }
     modalString = '';
   };
 
@@ -177,7 +202,10 @@ export function LoadButton({
             return; // eslint-disable-line no-useless-return
           })
         ) : (
-          <Error>{modalString}</Error>
+          <>
+            <Error>{modalString}</Error>
+            <OkButton onClick={closeModal}>OK</OkButton>
+          </>
         )}
       </Modal>
     </Container>
