@@ -11,6 +11,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import Slider from 'components/Slider';
 import Dropdown from 'components/Dropdown';
 import InputText from 'components/InputText';
+import H2 from 'components/H2';
 import {
   makeSelectStepState,
   makeSelectCurrentStep,
@@ -179,8 +180,41 @@ export function DrumMachine({
     }
   }, [playing]);
 
+  const useWindowSize = () => {
+    const isClient = typeof window === 'object';
+
+    const getSize = () => ({
+      width: isClient ? window.innerWidth : undefined,
+      height: isClient ? window.innerHeight : undefined,
+    });
+
+    const [windowSize, setWindowSize] = useState(getSize);
+
+    useEffect(() => {
+      if (!isClient) {
+        return false;
+      }
+      function handleResize() {
+        setWindowSize(getSize());
+      }
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []); // Empty array ensures that effect is only run on mount and unmount
+
+    return windowSize;
+  };
+
+  const size = useWindowSize();
+
   return (
     <Container>
+      {size.width < 500 ? (
+        <H2 margin="10px 10px" textAlign="center">
+          Rotate your device for a better experience.
+        </H2>
+      ) : (
+        <></>
+      )}
       <InputText
         value={title}
         onChange={e => onChangeTitle(e)}
@@ -223,6 +257,7 @@ export function DrumMachine({
           currentStep={currentStepRef.current}
           playing={playing}
           setBuffers={setBuffers}
+          size={size}
         />
       </React.Suspense>
     </Container>

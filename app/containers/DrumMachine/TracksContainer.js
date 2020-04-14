@@ -32,34 +32,10 @@ export default function TracksContainer({
   playing,
   currentStep,
   setBuffers,
+  size,
 }) {
-  const useWindowSize = () => {
-    const isClient = typeof window === 'object';
-
-    const getSize = () => ({
-      width: isClient ? window.innerWidth : undefined,
-      height: isClient ? window.innerHeight : undefined,
-    });
-
-    const [windowSize, setWindowSize] = useState(getSize);
-
-    useEffect(() => {
-      if (!isClient) {
-        return false;
-      }
-      function handleResize() {
-        setWindowSize(getSize());
-      }
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty array ensures that effect is only run on mount and unmount
-
-    return windowSize;
-  };
-
   const trackRef = useRef();
   const [stepWidth, setStepWidth] = useState(0);
-  const size = useWindowSize();
   console.log(stepWidth);
 
   const StepIndicator = styled.div.attrs(propsStep => ({
@@ -106,4 +82,5 @@ TracksContainer.propTypes = {
   playing: PropTypes.bool,
   currentStep: PropTypes.number,
   setBuffers: PropTypes.func,
+  size: PropTypes.object,
 };

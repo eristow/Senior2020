@@ -11,6 +11,10 @@ describe('<TracksContainer />', () => {
     tracks: ['Snare'],
     samples: ['snareSample'],
   };
+  const size = {
+    width: 1920,
+    height: 1080,
+  };
 
   beforeAll(() => {
     store = configureStore();
@@ -23,7 +27,7 @@ describe('<TracksContainer />', () => {
     render(
       <Provider store={store}>
         <React.Suspense fallback={<p>loading</p>}>
-          <TracksContainer dispatch={dispatch} config={config} />
+          <TracksContainer dispatch={dispatch} config={config} size={size} />
         </React.Suspense>
       </Provider>,
     );
@@ -36,7 +40,7 @@ describe('<TracksContainer />', () => {
     } = render(
       <Provider store={store}>
         <React.Suspense fallback={<p>loading</p>}>
-          <TracksContainer config={config} />
+          <TracksContainer config={config} size={size} />
         </React.Suspense>
       </Provider>,
     );
