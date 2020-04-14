@@ -49,7 +49,7 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={DrumMachine} />
         <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
@@ -60,7 +60,7 @@ export default function App() {
           {localStorage.getItem('jwtToken') === null ? (
             <Register />
           ) : (
-            <Redirect to="/fileList" />
+            <Redirect to="/" />
           )}
         </Route>
         <Route exact path="/daw" component={Daw} />

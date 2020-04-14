@@ -13,9 +13,9 @@ import messages from './messages';
 function Header() {
   return (
     <NavBar>
-      <HeaderLink to="/">
+      {/* <HeaderLink to="/">
         <FormattedMessage {...messages.home} />
-      </HeaderLink>
+      </HeaderLink> */}
       <HeaderLink to="/machine">
         <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>

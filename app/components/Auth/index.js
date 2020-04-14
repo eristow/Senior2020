@@ -24,7 +24,7 @@ function Auth() {
           if (err) {
             redirect('/login');
           } else {
-            redirect('/fileList');
+            redirect('/');
           }
         },
       );
