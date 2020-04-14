@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
-  flex: 0 1 auto;
   display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;

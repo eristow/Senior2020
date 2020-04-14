@@ -59,6 +59,7 @@ export function TrackConfig({
         margin="1px"
         fontSize="0.75em"
         width="97%"
+        transform="uppercase"
       />
       <Select type="button" onClick={() => onChangeSelectedTrack(num)}>
         Select
