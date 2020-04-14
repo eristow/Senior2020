@@ -52,6 +52,7 @@ const modalStyles = {
 const key = 'drumMachine';
 
 let body;
+let needsLogin = false;
 
 export function SaveButton({
   drumMachineState,
@@ -75,6 +76,7 @@ export function SaveButton({
     if (!jwt) {
       body = 'Login before you can save.';
       setIsOpenSave(true);
+      needsLogin = true;
       window.location.href = '/login';
       return;
     }
@@ -127,6 +129,10 @@ export function SaveButton({
 
   const closeModal = () => {
     setIsOpenSave(false);
+    if (needsLogin)
+      setTimeout(function() {
+        window.location.href = '/login';
+      }, 2000);
   };
 
   return (

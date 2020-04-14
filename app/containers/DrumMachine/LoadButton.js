@@ -106,6 +106,7 @@ export function LoadButton({
         alert(
           'An error occurred when loading. Please try again, or log out and then back in.',
         );
+        window.location.href = '/signout';
         throw new Error(err);
       }
       const params = {
