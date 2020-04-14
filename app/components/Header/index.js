@@ -22,9 +22,9 @@ function Header() {
       {/* <HeaderLink to="/daw">DAW</HeaderLink> */}
       {localStorage.getItem('jwtToken') ? (
         <>
-          <HeaderLink to="/fileList">
+          {/* <HeaderLink to="/fileList">
             <FormattedMessage {...messages.fileList} />
-          </HeaderLink>
+          </HeaderLink> */}
           <HeaderLink to="/signout" color="red">
             Sign Out
           </HeaderLink>
