@@ -11,16 +11,14 @@ import { changeBpm } from './actions';
 import reducer from './reducer';
 
 const BPM = styled.input`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
   font-size: 18px;
-  background: #eee;
+  background: #ffffff00;
   padding: 10px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  border-radius: 2;
-  margin-left: 20px;
-  margin-right: 20px;
-  align-self: center;
+  border-radius: 4px;
+  width: 5em;
 `;
 
 const key = 'drumMachine';

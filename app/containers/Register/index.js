@@ -8,13 +8,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Modal from 'react-modal';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import H1 from 'components/H1';
+import InputText from 'components/InputText';
+import Button from 'components/Button';
 // import RegisterForm from 'components/RegisterForm';
 import { changeEmail, changePass, changeIsOpen, register } from './actions';
 import makeSelectRegister, {
@@ -24,7 +27,37 @@ import makeSelectRegister, {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
+const Container = styled.div`
+  max-width: 800px;
+  background: #66666600;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TitleContainer = styled.div`
+  width: 50%;
+  background: #555555;
+  border: 2px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+`;
 
 const modalStyles = {
   content: {
@@ -59,7 +92,7 @@ export function Register({
   useInjectSaga({ key: 'register', saga });
 
   const openModal = () => {
-    console.log(email);
+    // console.log(email);
     handleSubmit(email, pass);
     // console.log(body);
     // setIsOpen(true);
@@ -72,7 +105,7 @@ export function Register({
   };
 
   return (
-    <div>
+    <Container>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -85,35 +118,36 @@ export function Register({
       </Modal>
       <Helmet>
         <title>Register</title>
-        <meta name="description" content="Description of Register" />
+        <meta name="description" content="Register Page" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={pass}
-          onChange={e => setPass(e.target.value)}
-        />
-      </label>
-      <button type="button" onClick={openModal}>
-        Register
-      </button>
-    </div>
+      <TitleContainer>
+        <H1>Register</H1>
+        <InputContainer>
+          <Label>Email: </Label>
+          <InputText
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password: </Label>
+          <InputText
+            type="password"
+            value={pass}
+            onChange={e => setPass(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <Button type="button" onClick={openModal} text="Submit" />
+      </TitleContainer>
+    </Container>
   );
 }
 
 Register.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   email: PropTypes.string,
   setEmail: PropTypes.func,
   pass: PropTypes.string,
@@ -149,7 +183,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsOpen: (value, body) => {
       dispatch(changeIsOpen(value, body));
-      console.log(body);
+      // console.log(body);
     },
   };
 }

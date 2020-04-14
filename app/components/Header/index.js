@@ -13,18 +13,18 @@ import messages from './messages';
 function Header() {
   return (
     <NavBar>
-      <HeaderLink to="/">
+      {/* <HeaderLink to="/">
         <FormattedMessage {...messages.home} />
-      </HeaderLink>
+      </HeaderLink> */}
       <HeaderLink to="/machine">
         <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
       {/* <HeaderLink to="/daw">DAW</HeaderLink> */}
       {localStorage.getItem('jwtToken') ? (
         <>
-          <HeaderLink to="/fileList">
+          {/* <HeaderLink to="/fileList">
             <FormattedMessage {...messages.fileList} />
-          </HeaderLink>
+          </HeaderLink> */}
           <HeaderLink to="/signout" color="red">
             Sign Out
           </HeaderLink>

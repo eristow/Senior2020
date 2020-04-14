@@ -21,7 +21,6 @@ import {
 import Header from 'components/Header';
 import Auth from 'components/Auth';
 import SignOut from 'components/SignOut';
-import HomePage from 'containers/HomePage/Loadable';
 import DrumMachine from 'containers/DrumMachine/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
@@ -49,18 +48,18 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={DrumMachine} />
         <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/auth" component={Auth} />
         <Route exact path="/signout" component={SignOut} />
-        <Route exact path="/register" component={Register}>
+        <Route exact path="/register">
           {localStorage.getItem('jwtToken') === null ? (
             <Register />
           ) : (
-            <Redirect to="/fileList" />
+            <Redirect to="/" />
           )}
         </Route>
         <Route exact path="/daw" component={Daw} />

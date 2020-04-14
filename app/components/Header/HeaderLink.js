@@ -6,8 +6,8 @@ const HeaderLink = styled(Link).attrs(props => ({
   color: props.color || 'deepskyblue',
 }))`
   display: inline-flex;
-  padding: 0.25em 2em;
-  margin: 1em 0.5em;
+  padding: 0.5em 1em;
+  margin: 1em 0.4em;
   text-decoration: none;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased;

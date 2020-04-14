@@ -8,14 +8,17 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import Modal from 'react-modal';
+import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import H2 from 'components/H2';
+import H1 from 'components/H1';
+import P from 'components/P';
+import InputText from 'components/InputText';
+import Button from 'components/Button';
 // import LoginForm from 'components/LoginForm';
 import { changeEmail, changePass, changeIsOpen, login } from './actions';
 import makeSelectLogin, {
@@ -25,7 +28,37 @@ import makeSelectLogin, {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
+const Container = styled.div`
+  max-width: 800px;
+  background: #66666600;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TitleContainer = styled.div`
+  width: 50%;
+  background: #555555;
+  border: 2px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+`;
 
 const modalStyles = {
   content: {
@@ -72,7 +105,7 @@ export function Login({
   };
 
   return (
-    <div>
+    <Container>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -85,43 +118,41 @@ export function Login({
       </Modal>
       <Helmet>
         <title>Login</title>
-        <meta name="description" content="Description of Login" />
+        <meta name="description" content="Login Page" />
       </Helmet>
-      <H2>
-        <FormattedMessage {...messages.header} />
-      </H2>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          value={pass}
-          onChange={e => setPass(e.target.value)}
-        />
-      </label>
-      <br />
-      <button type="button" onClick={openModal}>
-        Submit
-      </button>
-      <br />
-      <p>
-        {"Don't have an account? Click"}&nbsp;
-        <a href="/register">here</a>
-      </p>
-    </div>
+      <TitleContainer>
+        <H1>Login</H1>
+        <InputContainer>
+          <Label>Email: </Label>
+          <InputText
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password: </Label>
+          <InputText
+            type="password"
+            value={pass}
+            onChange={e => setPass(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <Button type="button" onClick={openModal} text="Submit" />
+        <P>
+          {"Don't have an account? Click "}
+          <a href="/register">here</a>
+          {'.'}
+        </P>
+      </TitleContainer>
+    </Container>
   );
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   email: PropTypes.string,
   setEmail: PropTypes.func,
   pass: PropTypes.string,
@@ -157,7 +188,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsOpen: (value, body) => {
       dispatch(changeIsOpen(value, body));
-      console.log(body);
+      // console.log(body);
     },
   };
 }

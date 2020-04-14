@@ -15,33 +15,48 @@ import reducer from './reducer';
 
 const Container = styled.div`
   display: flex;
+  margin-right: 0px;
+  max-width: 105px;
 `;
 
 const Load = styled.button`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
-  background: #eee;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
-  margin: 2px 4px;
+  border-radius: 4px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
-  margin-left: auto;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
 `;
 
 const File = styled.button`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
-  background: #eee;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
+  border-radius: 4px;
   margin: 4px 4px;
   align-self: center;
   min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
+const Error = styled.p`
+  color: #eeeeee;
 `;
 
 const modalStyles = {
@@ -52,7 +67,7 @@ const modalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    background: 'gray',
+    background: '#666666',
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
@@ -64,6 +79,7 @@ const modalStyles = {
 };
 
 const key = 'drumMachine';
+let modalString = '';
 
 export function LoadButton({
   onLoad,
@@ -92,7 +108,9 @@ export function LoadButton({
 
     s3.getObject(params, (err, data) => {
       if (err) {
-        console.log(`Error: ${err}`);
+        setIsOpen(false);
+        modalString = `Error: ${err}`;
+        setIsOpen(true);
       } else {
         onLoad(JSON.parse(data.Body));
       }
@@ -103,10 +121,12 @@ export function LoadButton({
     const jwt = localStorage.getItem('jwtToken');
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
-        alert(
-          'An error occurred when loading. Please try again, or log out and then back in.',
-        );
-        window.location.href = '/signout';
+        modalString =
+          'An error occurred when loading. Please try again, or log out and then back in.';
+        setIsOpen(true);
+        setTimeout(function () {
+          window.location.href = '/signout';
+        }, 2000);
         throw new Error(err);
       }
       const params = {
@@ -117,7 +137,8 @@ export function LoadButton({
 
       s3.listObjects(params, (error, data) => {
         if (error) {
-          alert('Error loading file.');
+          modalString = 'Error loading projects.';
+          setIsOpen(true);
           throw error;
         } else {
           setFiles(data.Contents);
@@ -131,6 +152,7 @@ export function LoadButton({
 
   const closeModal = () => {
     setIsOpen(false);
+    modalString = '';
   };
 
   const email = localStorage.getItem('email');
@@ -145,20 +167,21 @@ export function LoadButton({
         style={modalStyles}
         contentLabel="Load Modal"
       >
-        {files.map(f => {
-          if (f.Key !== 'states/') {
-            return (
-              <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
-                {f.Key.replace(`states/${email}/`, '').replace(
-                  '_DrumState.json',
-                  '',
-                )}
-              </File>
-            );
-          }
-          // eslint-disable-next-line consistent-return
-          return; // eslint-disable-line no-useless-return
-        })}
+        {modalString === '' ? (
+          files.map(f => {
+            if (f.Key !== 'states/') {
+              return (
+                <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
+                  {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
+                </File>
+              );
+            }
+            // eslint-disable-next-line consistent-return
+            return; // eslint-disable-line no-useless-return
+          })
+        ) : (
+          <Error>{modalString}</Error>
+        )}
       </Modal>
     </Container>
   );

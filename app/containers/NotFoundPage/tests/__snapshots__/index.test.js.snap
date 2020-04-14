@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NotFoundPage /> should render and match the snapshot 1`] = `
-<h1>
+<h1
+  class="H1-sc-3vkdoq-0 khSwXk"
+>
   <span>
     Page Not Found
   </span>

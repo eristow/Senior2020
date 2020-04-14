@@ -14,7 +14,8 @@ const InputNumber = styled.input.attrs(props => ({
   width: props.width || '5em',
 }))`
   display: block;
-  color: black;
+  color: white;
+  background: #ffffff00;
   border: 2px solid deepskyblue;
   border-radius: 3px;
   font-size: 1em;
