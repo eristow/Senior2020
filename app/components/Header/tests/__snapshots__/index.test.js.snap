@@ -7,15 +7,6 @@ exports[`<Header /> Should render and match the snapshot 1`] = `
   <a
     class="HeaderLink-sc-5k2h0m-0 kRguWb"
     color="deepskyblue"
-    href="/"
-  >
-    <span>
-      Home
-    </span>
-  </a>
-  <a
-    class="HeaderLink-sc-5k2h0m-0 kRguWb"
-    color="deepskyblue"
     href="/machine"
   >
     <span>
