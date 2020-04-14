@@ -40,7 +40,7 @@ export function* loginReq() {
       yield put(loginSuccess(res, state));
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('email', email);
-      yield put(push('/fileList'));
+      yield put(push('/'));
       window.location.reload();
     } else {
       throw new Error('Incorrect login credentials');

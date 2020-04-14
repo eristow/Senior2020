@@ -21,7 +21,6 @@ import {
 import Header from 'components/Header';
 import Auth from 'components/Auth';
 import SignOut from 'components/SignOut';
-import HomePage from 'containers/HomePage/Loadable';
 import DrumMachine from 'containers/DrumMachine/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
