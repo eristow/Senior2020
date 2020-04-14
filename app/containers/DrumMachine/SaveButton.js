@@ -7,10 +7,14 @@ import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import Modal from 'react-modal';
 import JWT from 'jsonwebtoken';
-import Modal from 'react-modal';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectDrumMachineState, makeSelectTitle } from './selectors';
+import { changeIsOpenSave } from './actions';
+import {
+  makeSelectDrumMachineState,
+  makeSelectTitle,
+  makeSelectIsOpenSaveButton,
+} from './selectors';
 import reducer from './reducer';
 
 const Save = styled.button`

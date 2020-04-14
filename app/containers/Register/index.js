@@ -82,7 +82,7 @@ export function Register({
   useInjectSaga({ key: 'register', saga });
 
   const openModal = () => {
-    console.log(email);
+    // console.log(email);
     handleSubmit(email, pass);
     // console.log(body);
     // setIsOpen(true);
@@ -129,11 +129,7 @@ export function Register({
           width="15em"
         />
       </InputContainer>
-      <Button
-        type="button"
-        onClick={openModal}
-        text="Submit"
-      />
+      <Button type="button" onClick={openModal} text="Submit" />
     </Container>
   );
 }
@@ -175,7 +171,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsOpen: (value, body) => {
       dispatch(changeIsOpen(value, body));
-      console.log(body);
+      // console.log(body);
     },
   };
 }

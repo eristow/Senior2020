@@ -129,11 +129,7 @@ export function Login({
           width="15em"
         />
       </InputContainer>
-      <Button
-        type="button"
-        onClick={openModal}
-        text="Submit"
-      />
+      <Button type="button" onClick={openModal} text="Submit" />
       <P>
         {"Don't have an account? Click "}
         <a href="/register">here</a>
@@ -180,7 +176,7 @@ function mapDispatchToProps(dispatch) {
     },
     setIsOpen: (value, body) => {
       dispatch(changeIsOpen(value, body));
-      console.log(body);
+      // console.log(body);
     },
   };
 }
