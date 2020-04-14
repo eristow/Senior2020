@@ -160,8 +160,6 @@ export function SaveButton({
     });
   };
 
-  const afterOpenModal = () => {};
-
   const closeModal = () => {
     setModalIsOpen(false);
     if (needsLogin) window.location.href = '/login';
@@ -172,7 +170,6 @@ export function SaveButton({
     <>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyles}
         contentLabel="Save Modal"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -89,6 +89,25 @@ const modalStyles = {
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
+    display: 'inline-block',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
+
+const errorModalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: '#666666',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -111,6 +130,8 @@ export function LoadButton({
   useInjectReducer({ key, reducer });
   if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+
   const ID = process.env.AWS_ID;
   const SECRET = process.env.AWS_SECRET;
   const BUCKET_NAME = 'web-daw';
@@ -128,9 +149,9 @@ export function LoadButton({
 
     s3.getObject(params, (err, data) => {
       if (err) {
-        setIsOpen(false);
+        setErrorModalOpen(false);
         modalString = `Error: ${err}`;
-        setIsOpen(true);
+        setErrorModalOpen(true);
       } else {
         onLoad(JSON.parse(data.Body));
       }
@@ -143,7 +164,7 @@ export function LoadButton({
       if (err) {
         modalString =
           'An error occurred when loading.\nPress OK to go to Login.';
-        setIsOpen(true);
+        setErrorModalOpen(true);
         needsLogin = true;
         throw new Error(err);
       }
@@ -156,7 +177,7 @@ export function LoadButton({
       s3.listObjects(params, (error, data) => {
         if (error) {
           modalString = 'Error loading projects.';
-          setIsOpen(true);
+          setErrorModalOpen(true);
           throw error;
         } else {
           setFiles(data.Contents);
@@ -166,10 +187,12 @@ export function LoadButton({
     });
   };
 
-  const afterOpenModal = () => {};
-
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const closeErrorModal = () => {
+    setErrorModalOpen(false);
     if (needsLogin) {
       localStorage.removeItem('jwtToken');
       window.location.href = '/login';
@@ -184,29 +207,28 @@ export function LoadButton({
       <Load onClick={openModal}>Load</Load>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyles}
         contentLabel="Load Modal"
       >
-        {modalString === '' ? (
-          files.map(f => {
-            if (f.Key !== 'states/') {
-              return (
-                <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
-                  {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
-                </File>
-              );
-            }
-            // eslint-disable-next-line consistent-return
-            return; // eslint-disable-line no-useless-return
-          })
-        ) : (
-          <>
-            <Error>{modalString}</Error>
-            <OkButton onClick={closeModal}>OK</OkButton>
-          </>
+        {files.map(f =>
+          f.Key !== 'states/' ? (
+            <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
+              {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
+            </File>
+          ) : (
+            <></>
+          ),
         )}
+      </Modal>
+      <Modal
+        isOpen={errorModalOpen}
+        onRequestClose={closeErrorModal}
+        style={errorModalStyles}
+        contentLabel="Load Modal"
+      >
+        <Error>{modalString}</Error>
+        <OkButton onClick={closeErrorModal}>OK</OkButton>
       </Modal>
     </Container>
   );
