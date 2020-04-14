@@ -10,6 +10,7 @@ import {
   LOAD_STATE,
   CHANGE_IS_OPEN,
   CHANGE_FILES,
+  CHANGE_IS_OPEN_SAVE,
 } from './constants';
 
 export function changeConfig(value) {
@@ -78,6 +79,13 @@ export function loadState(value) {
 export function changeIsOpen(value) {
   return {
     type: CHANGE_IS_OPEN,
+    value,
+  };
+}
+
+export function changeIsOpenSave(value) {
+  return {
+    type: CHANGE_IS_OPEN_SAVE,
     value,
   };
 }

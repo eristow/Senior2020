@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import Modal from 'react-modal';
 import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -19,8 +20,12 @@ import P from 'components/P';
 import InputText from 'components/InputText';
 import Button from 'components/Button';
 // import LoginForm from 'components/LoginForm';
-import { changeEmail, changePass, login } from './actions';
-import makeSelectLogin, { makeSelectEmail, makeSelectPass } from './selectors';
+import { changeEmail, changePass, changeIsOpen, login } from './actions';
+import makeSelectLogin, {
+  makeSelectEmail,
+  makeSelectPass,
+  makeSelectIsOpen,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -55,12 +60,62 @@ const Label = styled.label`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
-export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
+const modalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'gray',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'inline-block',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
+
+export function Login({
+  email,
+  setEmail,
+  pass,
+  setPass,
+  body,
+  setIsOpen,
+  modalIsOpen,
+  handleSubmit,
+}) {
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
+  const openModal = () => {
+    handleSubmit(email, pass);
+    // console.log(body);
+    // setIsOpen(true);
+  };
+
+  const afterOpenModal = () => {};
+
+  const closeModal = () => {
+    setIsOpen(false, body);
+  };
+
   return (
     <Container>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Login Modal"
+      >
+        {body}
+        Wrong Email or Password.
+      </Modal>
       <Helmet>
         <title>Login</title>
         <meta name="description" content="Login Page" />
@@ -85,11 +140,7 @@ export function Login({ email, setEmail, pass, setPass, handleSubmit }) {
             width="15em"
           />
         </InputContainer>
-        <Button
-          type="button"
-          onClick={() => handleSubmit(email, pass)}
-          text="Submit"
-        />
+        <Button type="button" onClick={openModal} text="Submit" />
         <P>
           {"Don't have an account? Click "}
           <a href="/register">here</a>
@@ -106,6 +157,9 @@ Login.propTypes = {
   setEmail: PropTypes.func,
   pass: PropTypes.string,
   setPass: PropTypes.func,
+  body: PropTypes.string,
+  setIsOpen: PropTypes.func,
+  modalIsOpen: PropTypes.bool,
   handleSubmit: PropTypes.func,
 };
 
@@ -113,6 +167,7 @@ const mapStateToProps = createStructuredSelector({
   login: makeSelectLogin(),
   email: makeSelectEmail(),
   pass: makeSelectPass(),
+  modalIsOpen: makeSelectIsOpen(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -124,21 +179,16 @@ function mapDispatchToProps(dispatch) {
         pass: currPass,
       };
       dispatch(login(state));
-      //   e.preventDefault();
-      //   dispatch(login(e.target.value))
-      //   // if(this.isValid()) {
-      //   //   this.ListenxingStateChangedEvent({ errors: {}, isLoading: true });
-      //   //   this.props.login(this.state).then(
-      //   //     (res) => this.context.router.push('/'),
-      //   //     (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
-      //   //   );
-      //   // }
     },
     setEmail: e => {
       dispatch(changeEmail(e));
     },
     setPass: e => {
       dispatch(changePass(e));
+    },
+    setIsOpen: (value, body) => {
+      dispatch(changeIsOpen(value, body));
+      // console.log(body);
     },
   };
 }

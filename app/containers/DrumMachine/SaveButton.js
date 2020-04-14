@@ -5,11 +5,16 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
-import JWT from 'jsonwebtoken';
 import Modal from 'react-modal';
+import JWT from 'jsonwebtoken';
 
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectDrumMachineState, makeSelectTitle } from './selectors';
+import { changeIsOpenSave } from './actions';
+import {
+  makeSelectDrumMachineState,
+  makeSelectTitle,
+  makeSelectIsOpenSaveButton,
+} from './selectors';
 import reducer from './reducer';
 
 const Save = styled.button`
@@ -166,10 +171,19 @@ SaveButton.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  modalIsOpenSave: makeSelectIsOpenSaveButton(),
   drumMachineState: makeSelectDrumMachineState(),
   title: makeSelectTitle(),
 });
 
-const withConnect = connect(mapStateToProps);
+const mapDispatchToProps = dispatch => ({
+  setIsOpenSave: value => {
+    dispatch(changeIsOpenSave(value));
+  },
+});
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(withConnect)(SaveButton);

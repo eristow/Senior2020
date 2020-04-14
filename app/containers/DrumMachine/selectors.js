@@ -64,6 +64,12 @@ export const makeSelectIsOpen = () =>
     substate => substate.modalIsOpen,
   );
 
+export const makeSelectIsOpenSaveButton = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.modalIsOpenSave,
+  );
+
 export const makeSelectFiles = () =>
   createSelector(
     selectDrumMachineDomain,

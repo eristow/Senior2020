@@ -20,14 +20,15 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
-  console.log(response);
+  // console.log(response);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
 
   const error = new Error(response.statusText);
   error.response = response;
-  console.log(error);
+  // console.log(error.response.status);
+  // console.log(error);
   throw error;
 }
 

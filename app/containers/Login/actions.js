@@ -10,6 +10,7 @@ import {
   LOGGING_IN,
   LOGGED_IN,
   LOGIN_FAILED,
+  CHANGE_IS_OPEN,
 } from './constants';
 
 // const targetUrl = '/api/auth/login';
@@ -61,5 +62,13 @@ export function changePass(value) {
   return {
     type: CHANGE_PASS,
     value,
+  };
+}
+
+export function changeIsOpen(value, body) {
+  return {
+    type: CHANGE_IS_OPEN,
+    value,
+    body,
   };
 }
