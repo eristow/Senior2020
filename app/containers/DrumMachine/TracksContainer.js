@@ -36,7 +36,6 @@ export default function TracksContainer({
 }) {
   const trackRef = useRef();
   const [stepWidth, setStepWidth] = useState(0);
-  console.log(stepWidth);
 
   const StepIndicator = styled.div.attrs(propsStep => ({
     step: propsStep.step,

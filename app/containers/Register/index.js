@@ -14,7 +14,7 @@ import styled from 'styled-components';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import H2 from 'components/H2';
+import H1 from 'components/H1';
 import InputText from 'components/InputText';
 import Button from 'components/Button';
 // import RegisterForm from 'components/RegisterForm';
@@ -28,13 +28,22 @@ import saga from './saga';
 
 const Container = styled.div`
   max-width: 800px;
-  background: #666666;
-  border: 2px solid black;
-  border-radius: 4px;
-  margin-top: 20px;
+  background: #66666600;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const TitleContainer = styled.div`
+  width: 50%;
+  background: #555555;
+  border: 2px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
 `;
 
 const InputContainer = styled.div`
@@ -45,6 +54,7 @@ const InputContainer = styled.div`
 
 const Label = styled.label`
   color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
 export function Register({ email, setEmail, pass, setPass, handleSubmit }) {
@@ -55,32 +65,34 @@ export function Register({ email, setEmail, pass, setPass, handleSubmit }) {
     <Container>
       <Helmet>
         <title>Register</title>
-        <meta name="description" content="Description of Register" />
+        <meta name="description" content="Register Page" />
       </Helmet>
-      <H2>Register</H2>
-      <InputContainer>
-        <Label>Email: </Label>
-        <InputText
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          width="15em"
+      <TitleContainer>
+        <H1>Register</H1>
+        <InputContainer>
+          <Label>Email: </Label>
+          <InputText
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password: </Label>
+          <InputText
+            type="password"
+            value={pass}
+            onChange={e => setPass(e.target.value)}
+            width="15em"
+          />
+        </InputContainer>
+        <Button
+          type="button"
+          onClick={() => handleSubmit(email, pass)}
+          text="Submit"
         />
-      </InputContainer>
-      <InputContainer>
-        <Label>Password: </Label>
-        <InputText
-          type="password"
-          value={pass}
-          onChange={e => setPass(e.target.value)}
-          width="15em"
-        />
-      </InputContainer>
-      <Button
-        type="button"
-        onClick={() => handleSubmit(email, pass)}
-        text="Submit"
-      />
+      </TitleContainer>
     </Container>
   );
 }
