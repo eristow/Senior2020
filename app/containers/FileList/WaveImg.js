@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import './Wave.css';
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import WaveSurfer from 'wavesurfer.js';

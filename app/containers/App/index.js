@@ -24,7 +24,7 @@ import SignOut from 'components/SignOut';
 import DrumMachine from 'containers/DrumMachine/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
-import FileList from 'containers/FileList/components/FileList';
+import FileList from 'containers/FileList/Loadable';
 import Login from 'containers/Login/Loadable';
 import Register from 'containers/Register/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
