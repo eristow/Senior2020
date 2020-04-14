@@ -35,6 +35,24 @@ const Save = styled.button`
   }
 `;
 
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
 const Error = styled.p`
   color: #eeeeee;
 `;
@@ -51,7 +69,8 @@ const modalStyles = {
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
-    display: 'inline-block',
+    display: 'flex',
+    flexDirection: 'column',
   },
   overlay: {
     background: 'rgba(0, 0, 0, 0.4)',
@@ -60,16 +79,17 @@ const modalStyles = {
 
 const key = 'drumMachine';
 
-let body;
+// let body;
 let needsLogin = false;
 
 export function SaveButton({
   drumMachineState,
-  setIsOpenSave,
-  modalIsOpenSave,
-  title
+  // setIsOpenSave,
+  // modalIsOpenSave,
+  title,
 }) {
   useInjectReducer({ key, reducer });
+  if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
   const [modalString, setModalString] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -87,7 +107,7 @@ export function SaveButton({
     const jwt = localStorage.getItem('jwtToken');
     // const gen = verify(jwt);
     if (!jwt) {
-      setModalString('Login before you can save.');
+      setModalString('Login before you can save.\nPress OK to go to Login.');
       needsLogin = true;
       setModalIsOpen(true);
       return;
@@ -144,10 +164,7 @@ export function SaveButton({
 
   const closeModal = () => {
     setModalIsOpen(false);
-    if (needsLogin)
-      setTimeout(function() {
-        window.location.href = '/login';
-      }, 2000);
+    if (needsLogin) window.location.href = '/login';
     setModalString('');
   };
 
@@ -161,6 +178,7 @@ export function SaveButton({
         contentLabel="Save Modal"
       >
         <Error>{modalString}</Error>
+        <OkButton onClick={closeModal}>OK</OkButton>
       </Modal>
       <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>
     </>
@@ -180,6 +198,8 @@ export function SaveButton({
 SaveButton.propTypes = {
   drumMachineState: PropTypes.object,
   title: PropTypes.string,
+  // setIsOpenSave: PropTypes.func,
+  // modalIsOpenSave: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
