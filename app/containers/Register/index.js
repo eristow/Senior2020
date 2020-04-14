@@ -146,7 +146,7 @@ export function Register({
   );
 }
 
-Register.prop = {
+Register.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   email: PropTypes.string,
   setEmail: PropTypes.func,
