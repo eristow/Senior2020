@@ -20,8 +20,7 @@ const Save = styled.button`
   padding: 10px;
   font-size: 18px;
   border-radius: 4px;
-  margin: 2px 4px;
-  margin-left: 6px;
+  margin: 2px 6px;
   align-self: center;
   min-width: 100px;
 

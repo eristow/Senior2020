@@ -15,6 +15,8 @@ import reducer from './reducer';
 
 const Container = styled.div`
   display: flex;
+  margin-right: 0px;
+  max-width: 105px;
 `;
 
 const Load = styled.button`
@@ -28,8 +30,7 @@ const Load = styled.button`
   margin: 2px 4px;
   align-self: center;
   min-width: 100px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-right: 10px;
 
   &:active {
     background: deepskyblue;

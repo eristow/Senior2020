@@ -56,10 +56,18 @@ const ControlContainer = styled.div`
 const Buttons = styled.div`
   display: flex;
   margin-top: auto;
+  margin-left: auto;
+  margin-right: 20px;
+  @media (max-width: 768px) {
+    display: block;
+  }
+  @media (max-width: 670px) {
+    width: 110px;
+  }
 `;
 
 const ControlText = styled.p`
-  padding: 10px;
+  padding: 5px;
   margin: 0px;
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
