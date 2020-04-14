@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -55,6 +55,24 @@ const File = styled.button`
   }
 `;
 
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
 const Error = styled.p`
   color: #eeeeee;
 `;
@@ -78,8 +96,29 @@ const modalStyles = {
   },
 };
 
+const errorModalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: '#666666',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
+
 const key = 'drumMachine';
 let modalString = '';
+let needsLogin = false;
 
 export function LoadButton({
   onLoad,
@@ -90,6 +129,8 @@ export function LoadButton({
 }) {
   useInjectReducer({ key, reducer });
   if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
+
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const ID = process.env.AWS_ID;
   const SECRET = process.env.AWS_SECRET;
@@ -108,9 +149,9 @@ export function LoadButton({
 
     s3.getObject(params, (err, data) => {
       if (err) {
-        setIsOpen(false);
+        setErrorModalOpen(false);
         modalString = `Error: ${err}`;
-        setIsOpen(true);
+        setErrorModalOpen(true);
       } else {
         onLoad(JSON.parse(data.Body));
       }
@@ -122,8 +163,9 @@ export function LoadButton({
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
         modalString =
-          'An error occurred when loading. Please try again, or log out and then back in.';
-        setIsOpen(true);
+          'An error occurred when loading.\nPress OK to go to Login.';
+        setErrorModalOpen(true);
+        needsLogin = true;
         throw new Error(err);
       }
       const params = {
@@ -135,7 +177,7 @@ export function LoadButton({
       s3.listObjects(params, (error, data) => {
         if (error) {
           modalString = 'Error loading projects.';
-          setIsOpen(true);
+          setErrorModalOpen(true);
           throw error;
         } else {
           setFiles(data.Contents);
@@ -145,10 +187,16 @@ export function LoadButton({
     });
   };
 
-  const afterOpenModal = () => {};
-
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const closeErrorModal = () => {
+    setErrorModalOpen(false);
+    if (needsLogin) {
+      localStorage.removeItem('jwtToken');
+      window.location.href = '/login';
+    }
     modalString = '';
   };
 
@@ -159,26 +207,28 @@ export function LoadButton({
       <Load onClick={openModal}>Load</Load>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyles}
         contentLabel="Load Modal"
       >
-        {modalString === '' ? (
-          files.map(f => {
-            if (f.Key !== 'states/') {
-              return (
-                <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
-                  {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
-                </File>
-              );
-            }
-            // eslint-disable-next-line consistent-return
-            return; // eslint-disable-line no-useless-return
-          })
-        ) : (
-          <Error>{modalString}</Error>
+        {files.map(f =>
+          f.Key !== 'states/' ? (
+            <File onClick={() => onClickLoad(f.Key)} key={f.Key}>
+              {f.Key.replace(`states/${email}/`, '').replace('.json', '')}
+            </File>
+          ) : (
+            <></>
+          ),
         )}
+      </Modal>
+      <Modal
+        isOpen={errorModalOpen}
+        onRequestClose={closeErrorModal}
+        style={errorModalStyles}
+        contentLabel="Load Modal"
+      >
+        <Error>{modalString}</Error>
+        <OkButton onClick={closeErrorModal}>OK</OkButton>
       </Modal>
     </Container>
   );
