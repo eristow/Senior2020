@@ -2,8 +2,9 @@
 
 exports[`<InputText /> Should render and match the snapshot 1`] = `
 <input
-  class="InputText-wtwjzw-0 dKkjZx"
+  class="InputText-wtwjzw-0 cYZMvG"
   font-size="1em"
+  transform="lowercase"
   type="text"
   value=""
   width="5em"

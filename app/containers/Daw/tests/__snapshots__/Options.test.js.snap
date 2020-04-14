@@ -15,7 +15,7 @@ exports[`<Options /> Should render and match the snapshot 1`] = `
         type="button"
       >
         <p
-          class="P-sc-1c3t6r-0 kwQVoN"
+          class="P-sc-1c3t6r-0 kLrecF"
         >
           File
         </p>
@@ -29,7 +29,7 @@ exports[`<Options /> Should render and match the snapshot 1`] = `
         type="button"
       >
         <p
-          class="P-sc-1c3t6r-0 kwQVoN"
+          class="P-sc-1c3t6r-0 kLrecF"
         >
           Edit
         </p>
@@ -43,7 +43,7 @@ exports[`<Options /> Should render and match the snapshot 1`] = `
         type="button"
       >
         <p
-          class="P-sc-1c3t6r-0 kwQVoN"
+          class="P-sc-1c3t6r-0 kLrecF"
         >
           View
         </p>
@@ -57,7 +57,7 @@ exports[`<Options /> Should render and match the snapshot 1`] = `
         type="button"
       >
         <p
-          class="P-sc-1c3t6r-0 kwQVoN"
+          class="P-sc-1c3t6r-0 kLrecF"
         >
           Help
         </p>

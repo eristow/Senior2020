@@ -5,7 +5,7 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
   class="Track__Wrapper-sc-17o6f3r-0 jHwszc"
 >
   <div
-    class="Track__Info-sc-17o6f3r-1 duuJEJ"
+    class="Track__Info-sc-17o6f3r-1 esdpKX"
   >
     <h2
       class="Track__Name-sc-17o6f3r-2 hDbucE"
@@ -17,7 +17,7 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     >
       <div
         class="rc-slider"
-        style="width: 120px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+        style="width: 70px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
       >
         <div
           class="rc-slider-rail"
@@ -46,55 +46,55 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="Steps__Wrapper-t45jos-0 bSAvrd"
+    class="Steps__Wrapper-t45jos-0 fExkOv"
   >
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 epBtBi"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 dVtXYK"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
   </div>
 </div>

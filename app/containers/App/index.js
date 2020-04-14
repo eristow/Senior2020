@@ -56,7 +56,7 @@ export default function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/auth" component={Auth} />
         <Route exact path="/signout" component={SignOut} />
-        <Route exact path="/register" component={Register}>
+        <Route exact path="/register">
           {localStorage.getItem('jwtToken') === null ? (
             <Register />
           ) : (

@@ -13,17 +13,21 @@ import { makeSelectDrumMachineState, makeSelectTitle } from './selectors';
 import reducer from './reducer';
 
 const Save = styled.button`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
-  background: #eee;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
-  margin: 2px 4px;
-  margin-left: 10px;
+  border-radius: 4px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
 `;
 
 const Error = styled.p`

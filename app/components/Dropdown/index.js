@@ -8,17 +8,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Dropdown = styled.select.attrs(props => ({
-  padding: props.padding || '0.5em',
+  padding: props.padding || '10px',
   width: props.width || '10em',
 }))`
-  display: block;
-  background: white;
+  background: #ffffff00;
+  color: white;
   border: 2px solid deepskyblue;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 1em;
   padding: ${props => props.padding};
   width: ${props => props.width};
-  margin-right: 0.75em;
 `;
 
 Dropdown.propTypes = {

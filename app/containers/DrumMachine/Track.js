@@ -19,9 +19,10 @@ const Wrapper = styled.div`
 `;
 
 const Info = styled.div`
-  flex: 0 0 155px;
-  background: linear-gradient(#555, #666);
-  border: 1px solid #555;
+  flex: 0 0 97px;
+  background: #666;
+  border: 2px solid #555;
+  border-radius: 4px;
 `;
 
 const Name = styled.h2`
@@ -66,7 +67,7 @@ export function Track({
           min={-55}
           max={0}
           value={trackVol[name]}
-          width={120}
+          width={70}
         />
       </Info>
       <Steps name={name} />

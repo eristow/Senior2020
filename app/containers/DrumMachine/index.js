@@ -11,6 +11,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import Slider from 'components/Slider';
 import Dropdown from 'components/Dropdown';
 import InputText from 'components/InputText';
+import H2 from 'components/H2';
 import {
   makeSelectStepState,
   makeSelectCurrentStep,
@@ -40,7 +41,7 @@ const key = 'drumMachine';
 
 const Container = styled.div`
   max-width: 800px;
-  background: linear-gradient(to bottom right, #666, #888);
+  background: #666666;
   border: 2px solid black;
   border-radius: 4px;
   margin-top: 20px;
@@ -50,11 +51,27 @@ const Container = styled.div`
 
 const ControlContainer = styled.div`
   text-align: center;
+  width: 130px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  flex: 0 1 auto;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: 18px;
+  @media (max-width: 765px) {
+    margin-top: 10px;
+    margin-left: 18px;
+  }
 `;
 
 const ControlText = styled.p`
-  padding: 10px;
-  margin: 0;
+  padding: 5px;
+  margin: 0px;
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
@@ -163,15 +180,48 @@ export function DrumMachine({
     }
   }, [playing]);
 
+  const useWindowSize = () => {
+    const isClient = typeof window === 'object';
+
+    const getSize = () => ({
+      width: isClient ? window.innerWidth : undefined,
+      height: isClient ? window.innerHeight : undefined,
+    });
+
+    const [windowSize, setWindowSize] = useState(getSize);
+
+    useEffect(() => {
+      if (!isClient) {
+        return false;
+      }
+      function handleResize() {
+        setWindowSize(getSize());
+      }
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []); // Empty array ensures that effect is only run on mount and unmount
+
+    return windowSize;
+  };
+
+  const size = useWindowSize();
+
   return (
     <Container>
+      {size.width < 500 ? (
+        <H2 margin="10px 10px" textAlign="center">
+          Rotate your device for a better experience.
+        </H2>
+      ) : (
+        <></>
+      )}
       <InputText
         value={title}
         onChange={e => onChangeTitle(e)}
         fontSize="1.5em"
         width="auto"
+        transform="uppercase"
       />
-      {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
       <Transport>
         <ControlContainer>
           <ControlText>BPM</ControlText>
@@ -192,13 +242,14 @@ export function DrumMachine({
             min={-60}
             max={0}
             value={vol}
-            width={110}
+            width={80}
           />
         </ControlContainer>
-        <div>
+        <Buttons>
           <PlayButton />
           <SaveButton />
-        </div>
+          {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
+        </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
         <TracksContainer
@@ -206,6 +257,7 @@ export function DrumMachine({
           currentStep={currentStepRef.current}
           playing={playing}
           setBuffers={setBuffers}
+          size={size}
         />
       </React.Suspense>
     </Container>

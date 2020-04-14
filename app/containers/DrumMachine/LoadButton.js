@@ -15,33 +15,44 @@ import reducer from './reducer';
 
 const Container = styled.div`
   display: flex;
+  margin-right: 0px;
+  max-width: 105px;
 `;
 
 const Load = styled.button`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
-  background: #eee;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
-  margin: 2px 4px;
+  border-radius: 4px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
-  margin-left: auto;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
 `;
 
 const File = styled.button`
-  color: #25ccf7;
-  border: 2px solid #25ccf7;
-  background: #eee;
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
+  border-radius: 4px;
   margin: 4px 4px;
   align-self: center;
   min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
 `;
 
 const Error = styled.p`
@@ -56,7 +67,7 @@ const modalStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    background: 'gray',
+    background: '#666666',
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',

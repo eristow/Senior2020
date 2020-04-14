@@ -18,11 +18,15 @@ const Play = styled.button`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   font-size: 18px;
-  border-radius: 2;
-  margin: 2px 4px;
-  margin-left: 10px;
+  border-radius: 4px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
+
+  &:active {
+    color: ${props => (props.on === false ? '#0BA134' : '#FD7272')};
+    background: #666666;
+  }
 `;
 
 const key = 'drumMachine';
