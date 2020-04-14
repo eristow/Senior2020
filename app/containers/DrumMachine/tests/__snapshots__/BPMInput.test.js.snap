@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BPMInput /> Should render and match the snapshot 1`] = `
+<input
+  class="BPMInput__BPM-sc-83ibx4-0 jqkdjn"
+  max="180"
+  min="50"
+  type="number"
+  value=""
+/>
+`;

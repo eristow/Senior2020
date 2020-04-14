@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadButton /> Should render and match the snapshot 1`] = `
+<div
+  class="LoadButton__Container-l3r6np-0 gbukyn"
+>
+  <button
+    class="LoadButton__Load-l3r6np-1 kjXTBW"
+  >
+    Load
+  </button>
+</div>
+`;

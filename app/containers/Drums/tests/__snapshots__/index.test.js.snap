@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Drums /> Should render and match the snapshot 1`] = `
+<div>
+  <h2
+    class="H2-a2hfac-0 kPhhOI"
+  >
+    <span>
+      Drums:
+    </span>
+  </h2>
+  <div
+    class="DrumsContainer-sc-9wrhlb-0 bfTf"
+  >
+    <div>
+      <button
+        class="Pad-sc-1ad3ed0-0 cMOtpk"
+      >
+        Kick
+      </button>
+    </div>
+    <div>
+      <button
+        class="Pad-sc-1ad3ed0-0 cMOtpk"
+      >
+        Snare
+      </button>
+    </div>
+  </div>
+</div>
+`;

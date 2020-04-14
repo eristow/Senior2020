@@ -13,6 +13,10 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'Home',
   },
+  drumMachine: {
+    id: `${scope}.drumMachine`,
+    defaultMessage: 'Drum Machine',
+  },
   timeline: {
     id: `${scope}.timeline`,
     defaultMessage: 'Timeline',
@@ -27,6 +31,10 @@ export default defineMessages({
   },
   fileList: {
     id: `${scope}.fileList`,
-    defaultMessage: 'fileList',
+    defaultMessage: 'Files',
+  },
+  login: {
+    id: `${scope}.login`,
+    defaultMessage: 'Login',
   },
 });

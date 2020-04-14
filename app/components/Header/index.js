@@ -13,21 +13,27 @@ import messages from './messages';
 function Header() {
   return (
     <NavBar>
-      <HeaderLink to="/">
+      {/* <HeaderLink to="/">
         <FormattedMessage {...messages.home} />
+      </HeaderLink> */}
+      <HeaderLink to="/machine">
+        <FormattedMessage {...messages.drumMachine} />
       </HeaderLink>
-      <HeaderLink to="/timeline">
-        <FormattedMessage {...messages.timeline} />
-      </HeaderLink>
-      <HeaderLink to="/piano">
-        <FormattedMessage {...messages.piano} />
-      </HeaderLink>
-      <HeaderLink to="/drums">
-        <FormattedMessage {...messages.drums} />
-      </HeaderLink>
-      <HeaderLink to="/fileList">
-        <FormattedMessage {...messages.fileList} />
-      </HeaderLink>
+      {/* <HeaderLink to="/daw">DAW</HeaderLink> */}
+      {localStorage.getItem('jwtToken') ? (
+        <>
+          {/* <HeaderLink to="/fileList">
+            <FormattedMessage {...messages.fileList} />
+          </HeaderLink> */}
+          <HeaderLink to="/signout" color="red">
+            Sign Out
+          </HeaderLink>
+        </>
+      ) : (
+        <HeaderLink to="/auth">
+          <FormattedMessage {...messages.login} />
+        </HeaderLink>
+      )}
     </NavBar>
   );
 }

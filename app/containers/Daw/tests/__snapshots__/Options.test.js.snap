@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Options /> Should render and match the snapshot 1`] = `
+<div
+  class="Options__BigContainer-sc-1rpgk7v-0 jacXpE"
+>
+  <div
+    class="Options__Menus-sc-1rpgk7v-4 gFdfIM"
+  >
+    <div
+      class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+    >
+      <button
+        class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+        type="button"
+      >
+        <p
+          class="P-sc-1c3t6r-0 kLrecF"
+        >
+          File
+        </p>
+      </button>
+    </div>
+    <div
+      class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+    >
+      <button
+        class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+        type="button"
+      >
+        <p
+          class="P-sc-1c3t6r-0 kLrecF"
+        >
+          Edit
+        </p>
+      </button>
+    </div>
+    <div
+      class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+    >
+      <button
+        class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+        type="button"
+      >
+        <p
+          class="P-sc-1c3t6r-0 kLrecF"
+        >
+          View
+        </p>
+      </button>
+    </div>
+    <div
+      class="Options__MenuContainer-sc-1rpgk7v-5 eQieuA"
+    >
+      <button
+        class="Options__MenuButton-sc-1rpgk7v-6 fzkKGO"
+        type="button"
+      >
+        <p
+          class="P-sc-1c3t6r-0 kLrecF"
+        >
+          Help
+        </p>
+      </button>
+    </div>
+  </div>
+  <div
+    class="Options__Container-sc-1rpgk7v-1 cbcAel"
+  >
+    <div
+      class="Options__MasterVol-sc-1rpgk7v-10 bJKyVe"
+    >
+      <p
+        class="Options__ControlText-sc-1rpgk7v-9 fxlAHD"
+      >
+        Master Volume
+      </p>
+      <div
+        style="display: inline-block;"
+      >
+        <div
+          class="rc-slider"
+          style="width: 110px; height: 5px; margin: 0.5em 0.5em; z-index: 0;"
+        >
+          <div
+            class="rc-slider-rail"
+          />
+          <div
+            class="rc-slider-track"
+            style="left: 0%; width: 100%;"
+          />
+          <div
+            class="rc-slider-step"
+          />
+          <div
+            aria-disabled="false"
+            aria-valuemax="0"
+            aria-valuemin="-60"
+            aria-valuenow="0"
+            class="rc-slider-handle"
+            role="slider"
+            style="left: 100%; transform: translateX(-50%);"
+            tabindex="0"
+          />
+          <div
+            class="rc-slider-mark"
+          />
+        </div>
+      </div>
+    </div>
+    <input
+      class="BPMInput__BPM-krgou6-0 cBwQwD"
+      max="180"
+      min="50"
+      type="number"
+      value="80"
+    />
+    <div
+      class="Options__TransportContainer-sc-1rpgk7v-2 iJGFgJ"
+    >
+      <button
+        class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+        type="button"
+      >
+        <img
+          alt="Play"
+          src="IMAGE_MOCK"
+          style="margin-left: 5px; margin-right: 5px; width: 36px; height: 36px;"
+        />
+      </button>
+      <button
+        class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+        type="button"
+      >
+        <img
+          alt="Stop"
+          src="IMAGE_MOCK"
+          style="margin-left: 5px; margin-right: 5px; width: 36px; height: 36px;"
+        />
+      </button>
+    </div>
+    <div
+      class="Options__IconContainer-sc-1rpgk7v-3 bIMNwp"
+    >
+      <button
+        class="Options__IconButton-sc-1rpgk7v-8 dOrumZ"
+        type="button"
+      >
+        <img
+          alt="User Icon"
+          src="IMAGE_MOCK"
+          style="margin-right: 3px; width: 36px; height: 36px;"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;

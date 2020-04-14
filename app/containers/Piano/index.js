@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -31,15 +31,103 @@ export function Piano() {
   useInjectReducer({ key: 'piano', reducer });
   useInjectSaga({ key: 'piano', saga });
 
-  // TODO: destroy this on unmount of component
-  const synth = new Tone.Synth().toMaster();
+  let synth;
 
-  // TODO: move this to Note?
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'test') {
+      synth = new Tone.Synth().toMaster();
+    }
+    return () => {
+      synth = null;
+    };
+  });
+
   function onClickNote(note) {
     synth.triggerAttackRelease(note, '16n');
   }
 
-  // TODO: put keymaps somewhere else?
+  return (
+    <div>
+      <H2>
+        <FormattedMessage {...messages.piano} />
+      </H2>
+      <Keyboard>
+        {/* TODO: better way to create keys? */}
+        <BlackNotes>
+          <Note name="S" note="C#4" color="black" onClick={onClickNote} />
+          <Note
+            style={{ marginRight: '2.75em' }}
+            name="D"
+            note="D#4"
+            color="black"
+            onClick={onClickNote}
+          />
+          <Note name="G" note="F#4" color="black" onClick={onClickNote} />
+          <Note name="H" note="G#4" color="black" onClick={onClickNote} />
+          <Note
+            style={{ marginRight: '3.25em' }}
+            name="J"
+            note="A#4"
+            color="black"
+            onClick={onClickNote}
+          />
+          <Note name="L 2" note="C#5" color="black" onClick={onClickNote} />
+          <Note
+            style={{ marginRight: '2.75em' }}
+            name="; 3"
+            note="D#5"
+            color="black"
+            onClick={onClickNote}
+          />
+          <Note name="5" note="F#5" color="black" onClick={onClickNote} />
+          <Note name="6" note="G#5" color="black" onClick={onClickNote} />
+          <Note name="7" note="A#5" color="black" onClick={onClickNote} />
+        </BlackNotes>
+        <WhiteNotes>
+          <Note name="Z" note="C4" color="white" onClick={onClickNote} />
+          <Note name="X" note="D4" color="white" onClick={onClickNote} />
+          <Note name="C" note="E4" color="white" onClick={onClickNote} />
+          <Note name="V" note="F4" color="white" onClick={onClickNote} />
+          <Note name="B" note="G4" color="white" onClick={onClickNote} />
+          <Note name="N" note="A4" color="white" onClick={onClickNote} />
+          <Note name="M" note="B4" color="white" onClick={onClickNote} />
+          <Note name=", Q" note="C5" color="white" onClick={onClickNote} />
+          <Note name=". W" note="D5" color="white" onClick={onClickNote} />
+          <Note name="/ E" note="E5" color="white" onClick={onClickNote} />
+          <Note name="R" note="F5" color="white" onClick={onClickNote} />
+          <Note name="T" note="G5" color="white" onClick={onClickNote} />
+          <Note name="Y" note="A5" color="white" onClick={onClickNote} />
+          <Note name="U" note="B5" color="white" onClick={onClickNote} />
+        </WhiteNotes>
+      </Keyboard>
+    </div>
+  );
+}
+
+Piano.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  piano: makeSelectPiano(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(Piano);
+
+// TODO: figure out how to remove all event listeners, then add back
+// TODO: put keymaps somewhere else?
+/*
   document.addEventListener('keydown', e => {
     switch (e.key) {
       case 'z':
@@ -160,82 +248,4 @@ export function Piano() {
       default:
     }
   });
-
-  return (
-    <div>
-      <H2>
-        <FormattedMessage {...messages.piano} />
-      </H2>
-      <Keyboard>
-        {/* TODO: better way to create keys? */}
-        <BlackNotes>
-          <Note name="S" note="C#4" color="black" onClick={onClickNote} />
-          <Note
-            style={{ marginRight: '2.75em' }}
-            name="D"
-            note="D#4"
-            color="black"
-            onClick={onClickNote}
-          />
-          <Note name="G" note="F#4" color="black" onClick={onClickNote} />
-          <Note name="H" note="G#4" color="black" onClick={onClickNote} />
-          <Note
-            style={{ marginRight: '3.25em' }}
-            name="J"
-            note="A#4"
-            color="black"
-            onClick={onClickNote}
-          />
-          <Note name="L 2" note="C#5" color="black" onClick={onClickNote} />
-          <Note
-            style={{ marginRight: '2.75em' }}
-            name="; 3"
-            note="D#5"
-            color="black"
-            onClick={onClickNote}
-          />
-          <Note name="5" note="F#5" color="black" onClick={onClickNote} />
-          <Note name="6" note="G#5" color="black" onClick={onClickNote} />
-          <Note name="7" note="A#5" color="black" onClick={onClickNote} />
-        </BlackNotes>
-        <WhiteNotes>
-          <Note name="Z" note="C4" color="white" onClick={onClickNote} />
-          <Note name="X" note="D4" color="white" onClick={onClickNote} />
-          <Note name="C" note="E4" color="white" onClick={onClickNote} />
-          <Note name="V" note="F4" color="white" onClick={onClickNote} />
-          <Note name="B" note="G4" color="white" onClick={onClickNote} />
-          <Note name="N" note="A4" color="white" onClick={onClickNote} />
-          <Note name="M" note="B4" color="white" onClick={onClickNote} />
-          <Note name=", Q" note="C5" color="white" onClick={onClickNote} />
-          <Note name=". W" note="D5" color="white" onClick={onClickNote} />
-          <Note name="/ E" note="E5" color="white" onClick={onClickNote} />
-          <Note name="R" note="F5" color="white" onClick={onClickNote} />
-          <Note name="T" note="G5" color="white" onClick={onClickNote} />
-          <Note name="Y" note="A5" color="white" onClick={onClickNote} />
-          <Note name="U" note="B5" color="white" onClick={onClickNote} />
-        </WhiteNotes>
-      </Keyboard>
-    </div>
-  );
-}
-
-Piano.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  piano: makeSelectPiano(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(withConnect)(Piano);
+*/

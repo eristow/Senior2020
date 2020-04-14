@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Piano /> Should render and match the snapshot 1`] = `
+<div>
+  <h2
+    class="H2-a2hfac-0 kPhhOI"
+  >
+    <span>
+      Piano: Type letter on key, or click on key to play.
+    </span>
+  </h2>
+  <div
+    class="Keyboard-sc-19aynk1-0 fRPIyk"
+  >
+    <div
+      class="BlackNotes-su4fq7-0 hRdiOw"
+    >
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          S
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+          style="margin-right: 2.75em;"
+        >
+          D
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          G
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          H
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+          style="margin-right: 3.25em;"
+        >
+          J
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          L 2
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+          style="margin-right: 2.75em;"
+        >
+          ; 3
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          5
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          6
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteBlack-jr31tw-0 fQVXRh"
+        >
+          7
+        </button>
+      </div>
+    </div>
+    <div
+      class="WhiteNotes-sc-17lyfax-0 jiFtYc"
+    >
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          Z
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          X
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          C
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          V
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          B
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          N
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          M
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          , Q
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          . W
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          / E
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          R
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          T
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          Y
+        </button>
+      </div>
+      <div>
+        <button
+          class="NoteWhite-sc-1r3889l-0 kHmjbX"
+        >
+          U
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

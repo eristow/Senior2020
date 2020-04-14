@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-export default styled(Link)`
+const HeaderLink = styled(Link).attrs(props => ({
+  color: props.color || 'deepskyblue',
+}))`
   display: inline-flex;
-  padding: 0.25em 2em;
-  margin: 1em;
+  padding: 0.5em 1em;
+  margin: 1em 0.4em;
   text-decoration: none;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased;
@@ -15,11 +18,17 @@ export default styled(Link)`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
-  border: 2px solid #41addd;
-  color: #41addd;
+  border: 2px solid ${props => props.color};
+  color: ${props => props.color};
 
   &:active {
-    background: #41addd;
-    color: #fff;
+    background: ${props => props.color};
+    color: white;
   }
 `;
+
+HeaderLink.propTypes = {
+  color: PropTypes.string,
+};
+
+export default HeaderLink;
