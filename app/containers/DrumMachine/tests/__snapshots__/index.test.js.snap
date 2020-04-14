@@ -13,7 +13,7 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
     width="auto"
   />
   <div
-    class="Transport__Wrapper-sc-16zg5lv-0 gCMBEA"
+    class="Transport__Wrapper-sc-16zg5lv-0 qZwmM"
   >
     <div
       class="DrumMachine__ControlContainer-sc-2d7mbo-1 hLvinp"
@@ -102,15 +102,15 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="DrumMachine__Buttons-sc-2d7mbo-2 ADXmP"
+      class="DrumMachine__Buttons-sc-2d7mbo-2 hnvZrZ"
     >
       <button
-        class="PlayButton__Play-sc-1sbrdge-0 bYFSuW"
+        class="PlayButton__Play-sc-1sbrdge-0 hxrkvA"
       >
         Play
       </button>
       <button
-        class="SaveButton__Save-sc-1uv51v8-0 hiHBFg"
+        class="SaveButton__Save-sc-1uv51v8-0 kUkoVd"
       >
         Save
       </button>

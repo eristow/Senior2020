@@ -11,6 +11,7 @@ import Step from './Step';
 const Wrapper = styled.div`
   display: flex;
   flex: 1;
+  min-width: 0;
 `;
 
 export function Steps({ name, stepState }) {

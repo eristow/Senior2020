@@ -27,10 +27,9 @@ const Load = styled.button`
   padding: 10px;
   font-size: 18px;
   border-radius: 4px;
-  margin: 2px 4px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
-  margin-right: 10px;
 
   &:active {
     background: deepskyblue;

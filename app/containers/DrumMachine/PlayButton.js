@@ -19,7 +19,7 @@ const Play = styled.button`
   padding: 10px;
   font-size: 18px;
   border-radius: 4px;
-  margin: 2px 6px;
+  margin: 2px 2px;
   align-self: center;
   min-width: 100px;
 

@@ -55,14 +55,16 @@ const ControlContainer = styled.div`
 
 const Buttons = styled.div`
   display: flex;
+  flex: 0 1 auto;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-wrap: wrap;
   margin-top: auto;
   margin-left: auto;
-  margin-right: 20px;
-  @media (max-width: 768px) {
-    display: block;
-  }
-  @media (max-width: 670px) {
-    width: 110px;
+  margin-right: 18px;
+  @media (max-width: 765px) {
+    margin-top: 10px;
+    margin-left: 18px;
   }
 `;
 

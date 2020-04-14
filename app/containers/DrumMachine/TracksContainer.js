@@ -75,7 +75,7 @@ export default function TracksContainer({
 
   useEffect(() => {
     if (trackRef.current) {
-      const width = Math.max((trackRef.current.clientWidth - 97) / 16, 19.4);
+      const width = (trackRef.current.clientWidth - 97) / 16;
       setStepWidth(width);
     } else {
       setStepWidth(0);

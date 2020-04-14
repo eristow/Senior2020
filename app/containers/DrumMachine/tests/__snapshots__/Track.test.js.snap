@@ -46,55 +46,55 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="Steps__Wrapper-t45jos-0 bSAvrd"
+    class="Steps__Wrapper-t45jos-0 fExkOv"
   >
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 gQLQpG"
+      class="Step__StepButton-m11x8-0 hKosYH"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 cdWZMG"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
   </div>
 </div>
