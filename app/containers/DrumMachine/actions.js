@@ -11,6 +11,7 @@ import {
   CHANGE_IS_OPEN,
   CHANGE_FILES,
   CHANGE_IS_OPEN_SAVE,
+  CHANGE_EXPORT_IDS,
 } from './constants';
 
 export function changeConfig(value) {
@@ -93,6 +94,13 @@ export function changeIsOpenSave(value) {
 export function changeFiles(value) {
   return {
     type: CHANGE_FILES,
+    value,
+  };
+}
+
+export function changeExportIds(value) {
+  return {
+    type: CHANGE_EXPORT_IDS,
     value,
   };
 }

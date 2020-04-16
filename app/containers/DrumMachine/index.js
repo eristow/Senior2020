@@ -5,7 +5,6 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
-import Modal from 'react-modal';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -21,6 +20,7 @@ import {
   makeSelectVol,
   makeSelectConfig,
   makeSelectTitle,
+  makeSelectExportIds,
 } from './selectors';
 import {
   changeCurrentStep,
@@ -28,6 +28,7 @@ import {
   changeConfig,
   changeTitle,
   loadState,
+  changeExportIds,
 } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -35,6 +36,7 @@ import saga from './saga';
 import BPMInput from './BPMInput';
 import PlayButton from './PlayButton';
 import SaveButton from './SaveButton';
+import ExportButton from './ExportButton';
 // import LoadButton from './LoadButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
@@ -100,66 +102,6 @@ const Option = styled.option`
   color: black;
 `;
 
-const ExportButton = styled.button`
-  color: deepskyblue;
-  border: 2px solid deepskyblue;
-  background: #ffffff00;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 4px;
-  margin: 2px 2px;
-  align-self: center;
-  min-width: 100px;
-
-  &:active {
-    background: deepskyblue;
-    color: white;
-  }
-`;
-
-const OkButton = styled.button`
-  color: deepskyblue;
-  border: 2px solid deepskyblue;
-  background: #ffffff00;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 4px;
-  margin: 2px 2px;
-  align-self: center;
-  min-width: 100px;
-
-  &:active {
-    background: deepskyblue;
-    color: white;
-  }
-`;
-
-const Error = styled.p`
-  color: #eeeeee;
-`;
-
-const modalStyles = {
-  content: {
-    top: '30%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    background: 'gray',
-    width: 'auto',
-    maxWidth: '750px',
-    height: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  overlay: {
-    background: 'rgba(0, 0, 0, 0.4)',
-  },
-};
-
 const configs = {
   config1: {
     tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
@@ -196,6 +138,7 @@ export function DrumMachine({
   onChangeConfig,
   onChangeTitle,
   onLoad,
+  setExportIds,
   stepState,
   currentStep,
   bpm,
@@ -204,15 +147,13 @@ export function DrumMachine({
   config,
   title,
   location,
+  exportIds,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   // Couldn't figure out how to make buffers work in redux
   const [buffers, setBuffers] = useState({});
-  const [exportIds, setExportIds] = useState([]);
-  const [modalString, setModalString] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // I think these are fine here/don't need to be moved to redux
   const buffersRef = useRef(buffers);
@@ -307,94 +248,8 @@ export function DrumMachine({
 
   const size = useWindowSize();
 
-  const exportProject = () => {
-    setModalString('Exporting...');
-    setModalIsOpen(true);
-
-    exportIds.forEach(exportId => {
-      Tone.Transport.clear(exportId);
-    });
-    setExportIds([]);
-
-    if (process.env.NODE_ENV !== 'test') {
-      const actx = Tone.context;
-      const dest = actx.createMediaStreamDestination();
-      const recorder = new MediaRecorder(dest.stream);
-
-      Object.keys(buffersRef.current).forEach(b => {
-        buffersRef.current[b].disconnect(Tone.Master);
-        buffersRef.current[b].connect(dest);
-      });
-
-      const chunks = [];
-      let i = 0;
-
-      const id = Tone.Transport.scheduleRepeat(time => {
-        if (i === 0) {
-          recorder.start();
-        }
-        if (i > 14) {
-          recorder.stop();
-          Tone.Transport.stop();
-        }
-        Object.keys(buffersRef.current).forEach(b => {
-          const targetStep = stepsRef.current[b][i];
-          const targetBuffer = buffersRef.current[b];
-
-          if (targetStep === 1) {
-            targetBuffer.start(time);
-          } else if (targetStep === 2) {
-            targetBuffer.start();
-            targetBuffer.start('+64n');
-            targetBuffer.start('+32n');
-          }
-        });
-
-        // eslint-disable-next-line no-unused-expressions
-        i > 14 ? (i = 0) : (i += 1);
-      }, '16n');
-
-      setExportIds([...exportIds, id]);
-
-      recorder.ondataavailable = evt => chunks.push(evt.data);
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-        const blobUrl = URL.createObjectURL(blob);
-        setModalIsOpen(false);
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = 'test.oga';
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        Object.keys(buffersRef.current).forEach(b => {
-          buffersRef.current[b].disconnect(dest);
-          buffersRef.current[b].connect(Tone.Master);
-        });
-      };
-
-      Tone.Transport.start();
-    }
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setModalString('');
-  };
-
   return (
     <Container>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={modalStyles}
-        contentLabel="Save Modal"
-      >
-        <Error>{modalString}</Error>
-        <OkButton onClick={closeModal}>OK</OkButton>
-      </Modal>
       {size.width < 500 ? (
         <H2 margin="10px 10px" textAlign="center">
           Rotate your device for a better experience.
@@ -442,7 +297,7 @@ export function DrumMachine({
           <PlayButton />
           <SaveButton />
           {/* {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>} */}
-          <ExportButton onClick={() => exportProject()}>Export</ExportButton>
+          <ExportButton buffers={buffersRef.current} steps={stepsRef.current} />
         </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
@@ -464,6 +319,7 @@ DrumMachine.propTypes = {
   onChangeConfig: PropTypes.func,
   onChangeTitle: PropTypes.func,
   onLoad: PropTypes.func,
+  setExportIds: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
@@ -471,7 +327,8 @@ DrumMachine.propTypes = {
   vol: PropTypes.number,
   config: PropTypes.string,
   title: PropTypes.string,
-  location: PropTypes.any,
+  location: PropTypes.object,
+  exportIds: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -482,6 +339,7 @@ const mapStateToProps = createStructuredSelector({
   vol: makeSelectVol(),
   config: makeSelectConfig(),
   title: makeSelectTitle(),
+  exportIds: makeSelectExportIds(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -499,6 +357,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onLoad: value => {
     dispatch(loadState(value));
+  },
+  setExportIds: value => {
+    dispatch(changeExportIds(value));
   },
 });
 

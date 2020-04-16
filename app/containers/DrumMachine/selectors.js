@@ -75,3 +75,9 @@ export const makeSelectFiles = () =>
     selectDrumMachineDomain,
     substate => substate.files,
   );
+
+export const makeSelectExportIds = () =>
+  createSelector(
+    selectDrumMachineDomain,
+    substate => substate.exportIds,
+  );
