@@ -20,6 +20,7 @@ import {
   makeSelectVol,
   makeSelectConfig,
   makeSelectTitle,
+  makeSelectExportIds,
 } from './selectors';
 import {
   changeCurrentStep,
@@ -27,6 +28,7 @@ import {
   changeConfig,
   changeTitle,
   loadState,
+  changeExportIds,
 } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -34,6 +36,7 @@ import saga from './saga';
 import BPMInput from './BPMInput';
 import PlayButton from './PlayButton';
 import SaveButton from './SaveButton';
+import ExportButton from './ExportButton';
 // import LoadButton from './LoadButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
@@ -99,24 +102,6 @@ const Option = styled.option`
   color: black;
 `;
 
-// const ExportButton = styled.button`
-//   color: deepskyblue;
-//   border: 2px solid deepskyblue;
-//   background: #ffffff00;
-//   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-//   padding: 10px;
-//   font-size: 18px;
-//   border-radius: 4px;
-//   margin: 2px 2px;
-//   align-self: center;
-//   min-width: 100px;
-
-//   &:active {
-//     background: deepskyblue;
-//     color: white;
-//   }
-// `;
-
 const configs = {
   config1: {
     tracks: ['Kick', 'Snare', 'HiHat', 'HiHatOpen'],
@@ -153,6 +138,7 @@ export function DrumMachine({
   onChangeConfig,
   onChangeTitle,
   onLoad,
+  setExportIds,
   stepState,
   currentStep,
   bpm,
@@ -161,11 +147,12 @@ export function DrumMachine({
   config,
   title,
   location,
+  exportIds,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  // Couldn't figure out how to make this work in redux
+  // Couldn't figure out how to make buffers work in redux
   const [buffers, setBuffers] = useState({});
 
   // I think these are fine here/don't need to be moved to redux
@@ -204,7 +191,7 @@ export function DrumMachine({
           : setCurrentStepState(currentStepRef.current + 1);
       }, '16n');
     }
-  }, [configs]);
+  }, []);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
@@ -220,6 +207,11 @@ export function DrumMachine({
   }, [vol]);
 
   useEffect(() => {
+    exportIds.forEach(exportId => {
+      Tone.Transport.clear(exportId);
+    });
+    setExportIds([]);
+
     if (process.env.NODE_ENV !== 'test') {
       if (playing) {
         Tone.Transport.start();
@@ -249,59 +241,12 @@ export function DrumMachine({
       }
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty array ensures that effect is only run on mount and unmount
+    }, []);
 
     return windowSize;
   };
 
   const size = useWindowSize();
-
-  // const exportProject = () => {
-  //   if (process.env.NODE_ENV !== 'test') {
-  //     const actx = Tone.context;
-  //     const dest = actx.createMediaStreamDestination();
-  //     const recorder = new MediaRecorder(dest.stream);
-
-  //     // TODO: connect Tone buffer to dest
-
-  //     const chunks = [];
-
-  //     Tone.Transport.scheduleRepeat(time => {
-  //       if (currentStep === 0) recorder.start();
-  //       if (currentStep > 14) {
-  //         recorder.stop();
-  //         Tone.Transport.stop();
-  //       } else {
-  //         Object.keys(buffersRef.current).forEach(b => {
-  //           const targetStep = stepsRef.current[b][currentStepRef.current];
-  //           const targetBuffer = buffersRef.current[b];
-
-  //           if (targetStep === 1) {
-  //             targetBuffer.start(time);
-  //           } else if (targetStep === 2) {
-  //             targetBuffer.start();
-  //             targetBuffer.start('+64n');
-  //             targetBuffer.start('+32n');
-  //           }
-  //         });
-
-  //         // eslint-disable-next-line no-unused-expressions
-  //         currentStepRef.current > 14
-  //           ? setCurrentStepState(0)
-  //           : setCurrentStepState(currentStepRef.current + 1);
-  //       }
-  //     }, '16n');
-
-  //     recorder.ondataavailable = evt => chunks.push(evt);
-  //     recorder.onstop = () => {
-  //       const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-  //       // TODO: download blob
-  //       console.log(blob);
-  //     };
-
-  //     Tone.Transport.start();
-  //   }
-  // };
 
   return (
     <Container>
@@ -352,7 +297,7 @@ export function DrumMachine({
           <PlayButton />
           <SaveButton />
           {/* {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>} */}
-          {/* <ExportButton onClick={() => exportProject()}>Export</ExportButton> */}
+          <ExportButton buffers={buffersRef.current} steps={stepsRef.current} />
         </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
@@ -374,6 +319,7 @@ DrumMachine.propTypes = {
   onChangeConfig: PropTypes.func,
   onChangeTitle: PropTypes.func,
   onLoad: PropTypes.func,
+  setExportIds: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
@@ -381,7 +327,8 @@ DrumMachine.propTypes = {
   vol: PropTypes.number,
   config: PropTypes.string,
   title: PropTypes.string,
-  location: PropTypes.any,
+  location: PropTypes.object,
+  exportIds: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -392,6 +339,7 @@ const mapStateToProps = createStructuredSelector({
   vol: makeSelectVol(),
   config: makeSelectConfig(),
   title: makeSelectTitle(),
+  exportIds: makeSelectExportIds(),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -409,6 +357,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onLoad: value => {
     dispatch(loadState(value));
+  },
+  setExportIds: value => {
+    dispatch(changeExportIds(value));
   },
 });
 

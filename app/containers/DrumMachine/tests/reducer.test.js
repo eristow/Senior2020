@@ -39,6 +39,7 @@ describe('drumMachineReducer', () => {
       currentStep: 0,
       modalIsOpen: false,
       files: [],
+      exportIds: [],
     };
   });
 

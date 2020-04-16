@@ -19,6 +19,8 @@ import { DEFAULT_LOCALE } from '../../../i18n';
 describe('<DrumMachine />', () => {
   let store;
   const location = { store: {} };
+  const exportIds = [];
+  const setExportIds = jest.fn();
 
   beforeAll(() => {
     store = configureStore();
@@ -31,7 +33,12 @@ describe('<DrumMachine />', () => {
     render(
       <Provider store={store}>
         <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine dispatch={dispatch} location={location} />
+          <DrumMachine
+            dispatch={dispatch}
+            location={location}
+            exportIds={exportIds}
+            setExportIds={setExportIds}
+          />
         </IntlProvider>
       </Provider>,
     );
@@ -44,7 +51,11 @@ describe('<DrumMachine />', () => {
     } = render(
       <Provider store={store}>
         <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine location={location} />
+          <DrumMachine
+            location={location}
+            exportIds={exportIds}
+            setExportIds={setExportIds}
+          />
         </IntlProvider>
       </Provider>,
     );
