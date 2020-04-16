@@ -5,28 +5,34 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
   class="DrumMachine__Container-sc-2d7mbo-0 kiPAsn"
 >
   <input
-    class="InputText-wtwjzw-0 kaLsI"
+    class="InputText-wtwjzw-0 kcodug"
     font-size="1.5em"
-    transform="uppercase"
     type="text"
     value=""
     width="auto"
   />
   <div
-    class="Transport__Wrapper-sc-16zg5lv-0 qZwmM"
+    class="DrumMachine__BPMTextContainer-sc-2d7mbo-2 gNmsdV"
+  >
+    <div
+      class="DrumMachine__BPMTextFiller-sc-2d7mbo-4 jNFaCQ"
+    />
+  </div>
+  <div
+    class="Transport__Wrapper-sc-16zg5lv-0 gQbxRj"
   >
     <div
       class="DrumMachine__ControlContainer-sc-2d7mbo-1 hLvinp"
     >
       <p
-        class="DrumMachine__ControlText-sc-2d7mbo-3 iToDKm"
+        class="DrumMachine__ControlText-sc-2d7mbo-6 ihqkel"
       >
         BPM
       </p>
       <input
         class="BPMInput__BPM-sc-83ibx4-0 jqkdjn"
-        max="180"
-        min="50"
+        max="300"
+        min="30"
         type="number"
         value="80"
       />
@@ -35,7 +41,7 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
       class="DrumMachine__ControlContainer-sc-2d7mbo-1 hLvinp"
     >
       <p
-        class="DrumMachine__ControlText-sc-2d7mbo-3 iToDKm"
+        class="DrumMachine__ControlText-sc-2d7mbo-6 ihqkel"
       >
         Kit
       </p>
@@ -44,16 +50,19 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
         width="5em"
       >
         <option
+          class="DrumMachine__Option-sc-2d7mbo-7 jneQAs"
           value="config1"
         >
           EDM
         </option>
         <option
+          class="DrumMachine__Option-sc-2d7mbo-7 jneQAs"
           value="config2"
         >
           Rock
         </option>
         <option
+          class="DrumMachine__Option-sc-2d7mbo-7 jneQAs"
           value="config3"
         >
           Trap
@@ -64,7 +73,7 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
       class="DrumMachine__ControlContainer-sc-2d7mbo-1 hLvinp"
     >
       <p
-        class="DrumMachine__ControlText-sc-2d7mbo-3 iToDKm"
+        class="DrumMachine__ControlText-sc-2d7mbo-6 ihqkel"
       >
         Master Volume
       </p>
@@ -102,7 +111,7 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="DrumMachine__Buttons-sc-2d7mbo-2 hnvZrZ"
+      class="DrumMachine__Buttons-sc-2d7mbo-5 dceMLp"
     >
       <button
         class="PlayButton__Play-sc-1sbrdge-0 hxrkvA"

@@ -25,7 +25,7 @@ const key = 'drumMachine';
 
 export function BPMInput({ bpm, setBpm }) {
   useInjectReducer({ key, reducer });
-  return <BPM type="number" value={bpm} min="50" max="180" onChange={setBpm} />;
+  return <BPM type="number" value={bpm} min="30" max="300" onChange={setBpm} />;
 }
 
 BPMInput.propTypes = {
