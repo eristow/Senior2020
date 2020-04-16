@@ -39,6 +39,7 @@ const Container = styled.div`
   border: 2px solid black;
   border-radius: 4px;
   padding: 10px 10px;
+  align-items: center;
 `;
 
 const key = 'fileListing';
