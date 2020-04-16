@@ -5,6 +5,14 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const videojsPlugin = new webpack.ProvidePlugin({
+  videojs: 'video.js/dist/video.cjs.js',
+});
+const videojsAlias = {
+  videojs: 'video.js',
+  WaveSurfer: 'wavesurfer.js',
+};
+
 module.exports = options => ({
   mode: options.mode,
   entry: options.entry,
@@ -117,11 +125,13 @@ module.exports = options => ({
       AWS_SECRET: null,
       JWT_SECRET: null,
     }),
+    videojsPlugin,
   ]),
   resolve: {
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js'],
     mainFields: ['browser', 'jsnext:main', 'main'],
+    alias: videojsAlias,
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window

@@ -18,6 +18,7 @@ import { DEFAULT_LOCALE } from '../../../i18n';
 
 describe('<DrumMachine />', () => {
   let store;
+  const location = { store: {} };
 
   beforeAll(() => {
     store = configureStore();
@@ -30,7 +31,7 @@ describe('<DrumMachine />', () => {
     render(
       <Provider store={store}>
         <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine dispatch={dispatch} />
+          <DrumMachine dispatch={dispatch} location={location} />
         </IntlProvider>
       </Provider>,
     );
@@ -43,7 +44,7 @@ describe('<DrumMachine />', () => {
     } = render(
       <Provider store={store}>
         <IntlProvider locale={DEFAULT_LOCALE}>
-          <DrumMachine />
+          <DrumMachine location={location} />
         </IntlProvider>
       </Provider>,
     );

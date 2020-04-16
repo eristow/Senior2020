@@ -18,12 +18,15 @@ import {
   // useHistory,
   // useLocation,
 } from 'react-router-dom';
+import JWT from 'jsonwebtoken';
+
 import Header from 'components/Header';
 import Auth from 'components/Auth';
 import SignOut from 'components/SignOut';
 import DrumMachine from 'containers/DrumMachine/Loadable';
 import Piano from 'containers/Piano/Loadable';
 import Drums from 'containers/Drums/Loadable';
+import FileList from 'containers/FileList/Loadable';
 import Login from 'containers/Login/Loadable';
 import Register from 'containers/Register/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -41,6 +44,8 @@ const AppWraper = styled.div`
 `;
 
 export default function App() {
+  const jwt = localStorage.getItem('jwtToken');
+
   return (
     <AppWraper>
       <Helmet titleTemplate="%s - Web DAW" defaultTitle="Web DAW">
@@ -52,15 +57,30 @@ export default function App() {
         <Route exact path="/machine" component={DrumMachine} />
         <Route exact path="/piano" component={Piano} />
         <Route exact path="/drums" component={Drums} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/fileList" component={FileList} />
+        <Route exact path="/login">
+          {JWT.verify(jwt, process.env.JWT_SECRET, err => {
+            if (err) {
+              localStorage.removeItem('email');
+              localStorage.removeItem('jwtToken');
+              return <Login />;
+            }
+
+            return <Redirect to="/" />;
+          })}
+        </Route>
         <Route exact path="/auth" component={Auth} />
         <Route exact path="/signout" component={SignOut} />
         <Route exact path="/register">
-          {localStorage.getItem('jwtToken') === null ? (
-            <Register />
-          ) : (
-            <Redirect to="/" />
-          )}
+          {JWT.verify(jwt, process.env.JWT_SECRET, err => {
+            if (err) {
+              localStorage.removeItem('email');
+              localStorage.removeItem('jwtToken');
+              return <Register />;
+            }
+
+            return <Redirect to="/filelist" />;
+          })}
         </Route>
         <Route exact path="/daw" component={Daw} />
         <Route component={NotFoundPage} />
