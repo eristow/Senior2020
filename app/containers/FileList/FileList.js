@@ -88,8 +88,6 @@ const FileList = ({ files, checkedFiles, changeFilesFlag }) => {
       toDelete.push({ Key: files[i].Key });
     });
 
-    console.log(toDelete);
-
     const params = {
       Bucket: BUCKET_NAME,
       Delete: {

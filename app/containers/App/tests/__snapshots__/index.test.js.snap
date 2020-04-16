@@ -41,10 +41,11 @@ exports[`<App /> should render and match the snapshot 1`] = `
       path="/fileList"
     />
     <Route
-      component={[Function]}
       exact={true}
       path="/login"
-    />
+    >
+      <Unknown />
+    </Route>
     <Route
       component={[Function]}
       exact={true}
