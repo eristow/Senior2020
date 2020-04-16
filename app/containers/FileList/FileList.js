@@ -8,9 +8,10 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 import { useInjectReducer } from 'utils/injectReducer';
 
+import H1 from 'components/H1';
 import ListElement from './ListElement';
 import { makeSelectFiles, makeSelectCheckedFiles } from './selectors';
-import { setFilesFlag } from './actions';
+import { setFilesFlag, changeChecked } from './actions';
 import reducer from './reducer';
 // import '../styles/index.css';
 
@@ -58,7 +59,42 @@ const Error = styled.p`
   color: #eeeeee;
 `;
 
-const FileList = ({ files, checkedFiles, changeFilesFlag }) => {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+`;
+
+const BigButton = styled.button`
+  color: lightcoral;
+  border: 2px solid lightcoral;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 5px;
+  font-size: 22px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: lightcoral;
+    color: white;
+  }
+
+  &:disabled {
+    opacity: 40%;
+  }
+`;
+
+const FileList = ({
+  files,
+  checkedFiles,
+  changeFilesFlag,
+  setCheckedFiles,
+}) => {
   useInjectReducer({ key, reducer });
 
   if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
@@ -83,10 +119,15 @@ const FileList = ({ files, checkedFiles, changeFilesFlag }) => {
 
   const deleteFiles = () => {
     const toDelete = [];
+    let newChecked = Object.assign({}, checkedFiles);
 
     Object.keys(checkedFiles).forEach(i => {
       toDelete.push({ Key: files[i].Key });
+      const { [i]: omit, ...copyChecked } = newChecked;
+      newChecked = copyChecked;
     });
+
+    setCheckedFiles(newChecked);
 
     const params = {
       Bucket: BUCKET_NAME,
@@ -111,7 +152,7 @@ const FileList = ({ files, checkedFiles, changeFilesFlag }) => {
   };
 
   return (
-    <div>
+    <Container>
       <Modal
         isOpen={errorModalOpen}
         onRequestClose={closeErrorModal}
@@ -121,29 +162,29 @@ const FileList = ({ files, checkedFiles, changeFilesFlag }) => {
         <Error>{modalString}</Error>
         <OkButton onClick={closeErrorModal}>OK</OkButton>
       </Modal>
-      <div>
-        <h1>Your Files:</h1>
-      </div>
+      <H1 marginBottom="0px">Your Files:</H1>
       <div className="file-list">
         {files.map((file, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <ListElement file={file} index={index} key={index} />
         ))}
       </div>
-      <div className="button-div">
-        <button
+      <div>
+        <BigButton
           type="button"
-          className="button-big"
-          id="delete-all"
+          disabled={
+            Object.keys(checkedFiles).length === 0 &&
+            checkedFiles.constructor === Object
+          }
           onClick={() => deleteFiles()}
         >
-          <p className="button-text">Deleted Selected</p>
-        </button>
-        <button type="button" className="button-big" id="export-all">
+          <p>Deleted Selected</p>
+        </BigButton>
+        {/* <button type="button" className="button-big" id="export-all">
           <p className="button-text">Export Selected</p>
-        </button>
+        </button> */}
       </div>
-    </div>
+    </Container>
   );
 };
 
@@ -151,6 +192,7 @@ FileList.propTypes = {
   files: PropTypes.array,
   checkedFiles: PropTypes.object,
   changeFilesFlag: PropTypes.func,
+  setCheckedFiles: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -161,6 +203,9 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   changeFilesFlag: value => {
     dispatch(setFilesFlag(value));
+  },
+  setCheckedFiles: value => {
+    dispatch(changeChecked(value));
   },
 });
 

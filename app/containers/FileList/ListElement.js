@@ -11,25 +11,25 @@ import { useInjectReducer } from 'utils/injectReducer';
 import Checkbox from './Checkbox';
 import reducer from './reducer';
 import { setFilesFlag } from './actions';
-import WaveImg from './WaveImg';
+// import WaveImg from './WaveImg';
 
-const videoJsOptions = {
-  controls: true,
-  width: '100%',
-  height: 100,
-  fluid: false,
-  plugins: {
-    wavesurfer: {
-      src: 'hal.wav',
-      msDisplayMax: 10,
-      debug: true,
-      waveColor: '#163b5b',
-      progressColor: 'black',
-      cursorColor: 'black',
-      hideScrollbar: true,
-    },
-  },
-};
+// const videoJsOptions = {
+//   controls: true,
+//   width: '100%',
+//   height: 100,
+//   fluid: false,
+//   plugins: {
+//     wavesurfer: {
+//       src: 'hal.wav',
+//       msDisplayMax: 10,
+//       debug: true,
+//       waveColor: '#163b5b',
+//       progressColor: 'black',
+//       cursorColor: 'black',
+//       hideScrollbar: true,
+//     },
+//   },
+// };
 
 const errorModalStyles = {
   content: {
@@ -71,6 +71,66 @@ const OkButton = styled.button`
 
 const Error = styled.p`
   color: #eeeeee;
+`;
+
+const FileName = styled.p`
+  margin: 0px 10px;
+  color: white;
+`;
+
+const FileContainer = styled.div`
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px 10px;
+  margin: 15px 0px;
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 0px;
+`;
+
+const DeleteButton = styled.button`
+  color: lightcoral;
+  border: 2px solid lightcoral;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: lightcoral;
+    color: white;
+  }
+`;
+
+const EditButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 4px;
+  align-self: center;
+  min-width: 100px;
+  margin: 2px 10px;
+  margin-left: 15px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
 `;
 
 const key = 'fileListing';
@@ -136,7 +196,7 @@ const ListElement = ({ dispatch, file, index, changeFilesFlag }) => {
   };
 
   return (
-    <div className="file-container">
+    <FileContainer>
       {redirect ? (
         <Redirect
           to={{
@@ -155,44 +215,36 @@ const ListElement = ({ dispatch, file, index, changeFilesFlag }) => {
             <Error>{modalString}</Error>
             <OkButton onClick={closeErrorModal}>OK</OkButton>
           </Modal>
-          <div className="file-listing">
+          <ListContainer>
             <Checkbox
               file={file}
               index={index}
               key={file.ETag}
               dispatch={dispatch}
             />
-            <p className="file-name">
+            <FileName>
               {file.Key.replace(`states/${email}/`, '').replace('.json', '')}
-            </p>
-            <div className="file-button-div">
-              <button
-                type="button"
-                className="file-button"
-                onClick={() => editFile(file.Key)}
-              >
+            </FileName>
+            <ButtonContainer>
+              <EditButton type="button" onClick={() => editFile(file.Key)}>
                 Edit
-              </button>
-              <button
-                type="button"
-                className="file-button"
-                onClick={() => deleteFile(file.Key)}
-              >
+              </EditButton>
+              <DeleteButton type="button" onClick={() => deleteFile(file.Key)}>
                 Delete
-              </button>
-              <button type="button" className="file-button">
+              </DeleteButton>
+              {/* <button type="button" className="file-button">
                 Export
-              </button>
-            </div>
-          </div>
-          <div className="info-container">
+              </button> */}
+            </ButtonContainer>
+          </ListContainer>
+          {/* <div className="info-container">
             <b>Duration:</b> <i>{file.length}</i>
             <b> Date-Created:</b> <i>{file.dateCreated}</i>
             <WaveImg {...videoJsOptions} />
-          </div>
+          </div> */}
         </>
       )}
-    </div>
+    </FileContainer>
   );
 };
 

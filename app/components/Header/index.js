@@ -25,7 +25,7 @@ function Header() {
           <HeaderLink to="/fileList">
             <FormattedMessage {...messages.fileList} />
           </HeaderLink>
-          <HeaderLink to="/signout" color="red">
+          <HeaderLink to="/signout" color="lightcoral">
             Sign Out
           </HeaderLink>
         </>

@@ -1,5 +1,10 @@
 import produce from 'immer';
-import { CHANGE_BOX, ADD_FILES, SET_FILES_FLAG } from './constants';
+import {
+  CHANGE_BOX,
+  CHANGE_CHECKED,
+  ADD_FILES,
+  SET_FILES_FLAG,
+} from './constants';
 
 export const initialState = {
   files: [],
@@ -18,6 +23,10 @@ const filesReducer = (state = initialState, action) =>
         } else {
           delete draft.checkedFiles[action.index];
         }
+        break;
+      }
+      case CHANGE_CHECKED: {
+        draft.checkedFiles = action.value;
         break;
       }
       case ADD_FILES: {

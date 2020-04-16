@@ -126,13 +126,13 @@ export function SaveButton({
       if (title === '') {
         setModalString('Cannot save a project with a blank title.');
         setModalIsOpen(true);
-
         return;
       }
 
       if (title.toLowerCase() === 'banger') {
         setModalString('Cannot save a project with a title of "banger"');
         setModalIsOpen(true);
+        return;
       }
 
       const email = localStorage.getItem('email');
