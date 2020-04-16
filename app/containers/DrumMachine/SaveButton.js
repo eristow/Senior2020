@@ -123,6 +123,18 @@ export function SaveButton({
         throw new Error(err);
       }
 
+      if (title === '') {
+        setModalString('Cannot save a project with a blank title.');
+        setModalIsOpen(true);
+
+        return;
+      }
+
+      if (title.toLowerCase() === 'banger') {
+        setModalString('Cannot save a project with a title of "banger"');
+        setModalIsOpen(true);
+      }
+
       const email = localStorage.getItem('email');
 
       const element = document.createElement('a');
@@ -141,8 +153,7 @@ export function SaveButton({
 
       const params = {
         Bucket: BUCKET_NAME,
-        Key: `states/${email}/${title}.json`,
-        // Key: `states/${email}/testing.json`,
+        Key: `states/${email}/${title.trim()}.json`,
         Body: file,
       };
 

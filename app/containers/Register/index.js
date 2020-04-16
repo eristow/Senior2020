@@ -38,7 +38,7 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  width: 50%;
+  width: 80%;
   background: #555555;
   border: 2px solid black;
   border-radius: 4px;
@@ -52,6 +52,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  min-width: 0px;
 `;
 
 const Label = styled.label`
