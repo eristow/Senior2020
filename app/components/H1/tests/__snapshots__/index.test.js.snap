@@ -2,6 +2,6 @@
 
 exports[`<H1 /> Should render and match the snapshot 1`] = `
 <h1
-  class="H1-sc-3vkdoq-0 khSwXk"
+  class="H1-sc-3vkdoq-0 wiAPt"
 />
 `;
