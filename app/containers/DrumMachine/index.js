@@ -34,7 +34,7 @@ import saga from './saga';
 import BPMInput from './BPMInput';
 import PlayButton from './PlayButton';
 import SaveButton from './SaveButton';
-import LoadButton from './LoadButton';
+// import LoadButton from './LoadButton';
 import Transport from './Transport';
 import TracksContainer from './TracksContainer';
 
@@ -257,7 +257,8 @@ export function DrumMachine({
         <Buttons>
           <PlayButton />
           <SaveButton />
-          {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
+          {/* {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>} */}
+          {/* <ExportButton onClick={() => exportProject()}>Export</ExportButton> */}
         </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>

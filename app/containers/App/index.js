@@ -79,7 +79,7 @@ export default function App() {
               return <Register />;
             }
 
-            return <Redirect to="/" />;
+            return <Redirect to="/filelist" />;
           })}
         </Route>
         <Route exact path="/daw" component={Daw} />
