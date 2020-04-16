@@ -9,3 +9,15 @@ export const makeSelectFiles = () =>
     selectFileListingDomain,
     substate => substate.files,
   );
+
+export const makeSelectFilesFlag = () =>
+  createSelector(
+    selectFileListingDomain,
+    substate => substate.filesFlag,
+  );
+
+export const makeSelectCheckedFiles = () =>
+  createSelector(
+    selectFileListingDomain,
+    substate => substate.checkedFiles,
+  );

@@ -26,6 +26,7 @@ import {
   changeVol,
   changeConfig,
   changeTitle,
+  loadState,
 } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -111,6 +112,7 @@ export function DrumMachine({
   onChangeVol,
   onChangeConfig,
   onChangeTitle,
+  onLoad,
   stepState,
   currentStep,
   bpm,
@@ -118,6 +120,7 @@ export function DrumMachine({
   vol,
   config,
   title,
+  location,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -132,6 +135,12 @@ export function DrumMachine({
   stepsRef.current = stepState;
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
+
+  useEffect(() => {
+    if (location.state) {
+      onLoad(location.state.fileData);
+    }
+  }, []);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
@@ -269,6 +278,7 @@ DrumMachine.propTypes = {
   onChangeVol: PropTypes.func,
   onChangeConfig: PropTypes.func,
   onChangeTitle: PropTypes.func,
+  onLoad: PropTypes.func,
   stepState: PropTypes.object,
   currentStep: PropTypes.number,
   bpm: PropTypes.string,
@@ -276,6 +286,7 @@ DrumMachine.propTypes = {
   vol: PropTypes.number,
   config: PropTypes.string,
   title: PropTypes.string,
+  location: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -300,6 +311,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onChangeTitle: evt => {
     dispatch(changeTitle(evt.target.value));
+  },
+  onLoad: value => {
+    dispatch(loadState(value));
   },
 });
 

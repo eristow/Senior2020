@@ -6,11 +6,12 @@ import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import JWT from 'jsonwebtoken';
 import Modal from 'react-modal';
+import styled from 'styled-components';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import FileList from './FileList';
-import { makeSelectFiles } from './selectors';
-import { addFiles } from './actions';
+import { makeSelectFiles, makeSelectFilesFlag } from './selectors';
+import { addFiles, setFilesFlag } from './actions';
 import reducer from './reducer';
 
 const modalStyles = {
@@ -32,9 +33,17 @@ const modalStyles = {
   },
 };
 
+const Container = styled.div`
+  display: flex;
+  background: #555555;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px 10px;
+`;
+
 const key = 'fileListing';
 
-const FileListContainer = ({ files, onAdd }) => {
+const FileListContainer = ({ files, filesFlag, onAdd, changeFilesFlag }) => {
   useInjectReducer({ key, reducer });
   if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
@@ -47,6 +56,8 @@ const FileListContainer = ({ files, onAdd }) => {
   const BUCKET_NAME = 'web-daw';
 
   useEffect(() => {
+    changeFilesFlag(false);
+
     const jwt = localStorage.getItem('jwtToken');
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
       if (err) {
@@ -77,7 +88,7 @@ const FileListContainer = ({ files, onAdd }) => {
         }
       });
     });
-  }, []);
+  }, [filesFlag]);
 
   const afterOpenModal = () => {};
 
@@ -97,25 +108,33 @@ const FileListContainer = ({ files, onAdd }) => {
       >
         {modalString}
       </Modal>
-      <React.Suspense fallback={<p>loading</p>}>
-        <FileList files={files} />
-      </React.Suspense>
+      <Container>
+        <React.Suspense fallback={<p>loading</p>}>
+          <FileList files={files} />
+        </React.Suspense>
+      </Container>
     </>
   );
 };
 
 FileListContainer.propTypes = {
   files: PropTypes.array,
+  filesFlag: PropTypes.bool,
   onAdd: PropTypes.func,
+  changeFilesFlag: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   files: makeSelectFiles(),
+  filesFlag: makeSelectFilesFlag(),
 });
 
 const mapDispatchToProps = dispatch => ({
   onAdd: files => {
     dispatch(addFiles(files));
+  },
+  changeFilesFlag: value => {
+    dispatch(setFilesFlag(value));
   },
 });
 

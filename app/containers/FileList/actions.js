@@ -1,22 +1,10 @@
-import { REMOVE_FILE, REMOVE_FILES, CHANGE_BOX, ADD_FILES } from './constants';
+import { CHANGE_BOX, ADD_FILES, SET_FILES_FLAG } from './constants';
 
-export function removeFileById(id) {
-  return {
-    type: REMOVE_FILE,
-    id,
-  };
-}
-
-export function removeFilesByChecked() {
-  return {
-    type: REMOVE_FILES,
-  };
-}
-
-export function changeBoxSelection(id) {
+export function changeBoxSelection(id, index) {
   return {
     type: CHANGE_BOX,
     id,
+    index,
   };
 }
 
@@ -24,5 +12,12 @@ export function addFiles(files) {
   return {
     type: ADD_FILES,
     files,
+  };
+}
+
+export function setFilesFlag(value) {
+  return {
+    type: SET_FILES_FLAG,
+    value,
   };
 }

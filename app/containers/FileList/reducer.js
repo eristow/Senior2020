@@ -1,8 +1,10 @@
 import produce from 'immer';
-import { REMOVE_FILE, CHANGE_BOX, REMOVE_FILES, ADD_FILES } from './constants';
+import { CHANGE_BOX, ADD_FILES, SET_FILES_FLAG } from './constants';
 
 export const initialState = {
   files: [],
+  checkedFiles: {},
+  filesFlag: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -10,30 +12,20 @@ const filesReducer = (state = initialState, action) =>
   // eslint-disable-next-line consistent-return
   produce(state, draft => {
     switch (action.type) {
-      case REMOVE_FILE: {
-        const files = draft.filter(file => file.id !== action.id);
-        draft.files = files;
-        break;
-      }
-      case REMOVE_FILES: {
-        const files = draft.filter(file => file.checked === false);
-        draft.files = files;
-        break;
-      }
       case CHANGE_BOX: {
-        const files = draft;
-        const file = draft.find(f => f.id === action.id);
-        file.checked = !file.checked;
-        files.forEach((f, index) => {
-          if (f.id === action.id) {
-            files[index] = f;
-          }
-        });
-        draft.files = files;
+        if (!draft.checkedFiles[action.index]) {
+          draft.checkedFiles[action.index] = true;
+        } else {
+          delete draft.checkedFiles[action.index];
+        }
         break;
       }
       case ADD_FILES: {
         draft.files = action.files;
+        break;
+      }
+      case SET_FILES_FLAG: {
+        draft.filesFlag = action.value;
         break;
       }
       default:
