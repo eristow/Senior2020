@@ -123,6 +123,11 @@ exports[`<DrumMachine /> Should render and match the snapshot 1`] = `
       >
         Save
       </button>
+      <button
+        class="ExportButton__Button-sc-38izk-0 ktKkBw"
+      >
+        Export
+      </button>
     </div>
   </div>
   <p>

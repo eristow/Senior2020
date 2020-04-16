@@ -12,6 +12,7 @@ import {
   CHANGE_IS_OPEN,
   CHANGE_FILES,
   CHANGE_IS_OPEN_SAVE,
+  CHANGE_EXPORT_IDS,
 } from './constants';
 
 export const initialState = {
@@ -35,6 +36,7 @@ export const initialState = {
   currentStep: 0,
   modalIsOpen: false,
   files: [],
+  exportIds: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -76,6 +78,9 @@ const drumMachineReducer = (state = initialState, action) =>
         break;
       case CHANGE_IS_OPEN_SAVE:
         draft.modalIsOpenSave = action.value;
+        break;
+      case CHANGE_EXPORT_IDS:
+        draft.exportIds = action.value;
         break;
     }
   });

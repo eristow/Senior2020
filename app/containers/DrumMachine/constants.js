@@ -10,3 +10,4 @@ export const LOAD_STATE = 'app/DrumMachine/LOAD_STATE';
 export const CHANGE_IS_OPEN = 'app/DrumMachine/CHANGE_IS_OPEN';
 export const CHANGE_FILES = 'app/DrumMachine/CHANGE_FILES';
 export const CHANGE_IS_OPEN_SAVE = 'app/DrumMachine/CHANGE_IS_OPEN_SAVE';
+export const CHANGE_EXPORT_IDS = 'app/DrumMachine/CHANGE_EXPORT_IDS';
