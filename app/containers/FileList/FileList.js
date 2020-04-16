@@ -84,7 +84,7 @@ const BigButton = styled.button`
     color: white;
   }
 
-  &: disabled {
+  &:disabled {
     opacity: 40%;
   }
 `;
