@@ -98,23 +98,23 @@ const Option = styled.option`
   color: black;
 `;
 
-const ExportButton = styled.button`
-  color: deepskyblue;
-  border: 2px solid deepskyblue;
-  background: #ffffff00;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 4px;
-  margin: 2px 2px;
-  align-self: center;
-  min-width: 100px;
+// const ExportButton = styled.button`
+//   color: deepskyblue;
+//   border: 2px solid deepskyblue;
+//   background: #ffffff00;
+//   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//   padding: 10px;
+//   font-size: 18px;
+//   border-radius: 4px;
+//   margin: 2px 2px;
+//   align-self: center;
+//   min-width: 100px;
 
-  &:active {
-    background: deepskyblue;
-    color: white;
-  }
-`;
+//   &:active {
+//     background: deepskyblue;
+//     color: white;
+//   }
+// `;
 
 const configs = {
   config1: {
@@ -247,52 +247,52 @@ export function DrumMachine({
 
   const size = useWindowSize();
 
-  const exportProject = () => {
-    if (process.env.NODE_ENV !== 'test') {
-      const actx = Tone.context;
-      const dest = actx.createMediaStreamDestination();
-      const recorder = new MediaRecorder(dest.stream);
+  // const exportProject = () => {
+  //   if (process.env.NODE_ENV !== 'test') {
+  //     const actx = Tone.context;
+  //     const dest = actx.createMediaStreamDestination();
+  //     const recorder = new MediaRecorder(dest.stream);
 
-      // TODO: connect Tone buffer to dest
+  //     // TODO: connect Tone buffer to dest
 
-      const chunks = [];
+  //     const chunks = [];
 
-      Tone.Transport.scheduleRepeat(time => {
-        if (currentStep === 0) recorder.start();
-        if (currentStep > 14) {
-          recorder.stop();
-          Tone.Transport.stop();
-        } else {
-          Object.keys(buffersRef.current).forEach(b => {
-            const targetStep = stepsRef.current[b][currentStepRef.current];
-            const targetBuffer = buffersRef.current[b];
+  //     Tone.Transport.scheduleRepeat(time => {
+  //       if (currentStep === 0) recorder.start();
+  //       if (currentStep > 14) {
+  //         recorder.stop();
+  //         Tone.Transport.stop();
+  //       } else {
+  //         Object.keys(buffersRef.current).forEach(b => {
+  //           const targetStep = stepsRef.current[b][currentStepRef.current];
+  //           const targetBuffer = buffersRef.current[b];
 
-            if (targetStep === 1) {
-              targetBuffer.start(time);
-            } else if (targetStep === 2) {
-              targetBuffer.start();
-              targetBuffer.start('+64n');
-              targetBuffer.start('+32n');
-            }
-          });
+  //           if (targetStep === 1) {
+  //             targetBuffer.start(time);
+  //           } else if (targetStep === 2) {
+  //             targetBuffer.start();
+  //             targetBuffer.start('+64n');
+  //             targetBuffer.start('+32n');
+  //           }
+  //         });
 
-          // eslint-disable-next-line no-unused-expressions
-          currentStepRef.current > 14
-            ? setCurrentStepState(0)
-            : setCurrentStepState(currentStepRef.current + 1);
-        }
-      }, '16n');
+  //         // eslint-disable-next-line no-unused-expressions
+  //         currentStepRef.current > 14
+  //           ? setCurrentStepState(0)
+  //           : setCurrentStepState(currentStepRef.current + 1);
+  //       }
+  //     }, '16n');
 
-      recorder.ondataavailable = evt => chunks.push(evt);
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-        // TODO: download blob
-        console.log(blob);
-      };
+  //     recorder.ondataavailable = evt => chunks.push(evt);
+  //     recorder.onstop = () => {
+  //       const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+  //       // TODO: download blob
+  //       console.log(blob);
+  //     };
 
-      Tone.Transport.start();
-    }
-  };
+  //     Tone.Transport.start();
+  //   }
+  // };
 
   return (
     <Container>

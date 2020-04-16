@@ -49,19 +49,16 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
     class="Steps__Wrapper-t45jos-0 fExkOv"
   >
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
-    />
-    <button
-      class="Step__StepButton-m11x8-0 bfqMni"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
       class="Step__StepButton-m11x8-0 bfqMni"
@@ -73,16 +70,19 @@ exports[`<Track /> Should render and match the snapshot 1`] = `
       class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 bfqMni"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
-      class="Step__StepButton-m11x8-0 hKosYH"
+      class="Step__StepButton-m11x8-0 kleglc"
+    />
+    <button
+      class="Step__StepButton-m11x8-0 kleglc"
     />
     <button
       class="Step__StepButton-m11x8-0 bfqMni"

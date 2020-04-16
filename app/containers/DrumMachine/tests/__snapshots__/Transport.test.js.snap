@@ -2,6 +2,6 @@
 
 exports[`<Transport /> Should render and match the snapshot 1`] = `
 <div
-  class="Transport__Wrapper-sc-16zg5lv-0 qZwmM"
+  class="Transport__Wrapper-sc-16zg5lv-0 gQbxRj"
 />
 `;
