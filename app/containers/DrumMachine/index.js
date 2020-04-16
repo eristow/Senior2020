@@ -167,6 +167,7 @@ export function DrumMachine({
 
   // Couldn't figure out how to make this work in redux
   const [buffers, setBuffers] = useState({});
+  const [scheduleId, setScheduleId] = useState(-1);
 
   // I think these are fine here/don't need to be moved to redux
   const buffersRef = useRef(buffers);
@@ -182,9 +183,21 @@ export function DrumMachine({
     }
   }, []);
 
+  useEffect(
+    () => () => {
+      if (process.env.NODE_ENV !== 'test') {
+        Tone.Transport.stop();
+        setCurrentStepState(0);
+        Tone.Transport.clear(scheduleId);
+        Tone.Transport.cancel();
+      }
+    },
+    [],
+  );
+
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
-      Tone.Transport.scheduleRepeat(time => {
+      const id = Tone.Transport.scheduleRepeat(time => {
         Object.keys(buffersRef.current).forEach(b => {
           const targetStep = stepsRef.current[b][currentStepRef.current];
           const targetBuffer = buffersRef.current[b];
@@ -203,6 +216,8 @@ export function DrumMachine({
           ? setCurrentStepState(0)
           : setCurrentStepState(currentStepRef.current + 1);
       }, '16n');
+
+      setScheduleId(id);
     }
   }, [configs]);
 
