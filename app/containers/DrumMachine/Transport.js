@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
 `;
 
 export default function Transport({ children }) {

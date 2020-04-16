@@ -39,7 +39,7 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  width: 50%;
+  width: 80%;
   background: #555555;
   border: 2px solid black;
   border-radius: 4px;

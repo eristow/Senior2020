@@ -28,7 +28,7 @@ const flashMixin = css`
 const StepButton = styled.button`
   flex: 1;
   min-width: 7px;
-  background: ${props => (props.offsetColor ? '#25CCF7' : '#FD7272')};
+  background: ${props => (props.offsetColor ? '#25CCF7' : '#8725F7')};
   opacity: ${props => (props.on ? 1 : 0.35)};
   border-radius: 4px;
   margin: 2px;

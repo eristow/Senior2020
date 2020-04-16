@@ -54,6 +54,24 @@ const ControlContainer = styled.div`
   width: 130px;
 `;
 
+const BPMTextContainer = styled.div`
+  display: flex;
+  text-align: center;
+`;
+
+const BPMText = styled.p`
+  padding: 5px;
+  margin: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #25ccf7;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+`;
+
+const BPMTextFiller = styled.div`
+  margin: 17px 0px;
+`;
+
 const Buttons = styled.div`
   display: flex;
   flex: 0 1 auto;
@@ -75,6 +93,28 @@ const ControlText = styled.p`
   color: #25ccf7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
+
+const Option = styled.option`
+  color: black;
+`;
+
+// const ExportButton = styled.button`
+//   color: deepskyblue;
+//   border: 2px solid deepskyblue;
+//   background: #ffffff00;
+//   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//   padding: 10px;
+//   font-size: 18px;
+//   border-radius: 4px;
+//   margin: 2px 2px;
+//   align-self: center;
+//   min-width: 100px;
+
+//   &:active {
+//     background: deepskyblue;
+//     color: white;
+//   }
+// `;
 
 const configs = {
   config1: {
@@ -159,7 +199,8 @@ export function DrumMachine({
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
-      Tone.Transport.bpm.value = bpm;
+      if (parseInt(bpm, 10) >= 30 && parseInt(bpm, 10) <= 300)
+        Tone.Transport.bpm.value = bpm;
     }
   }, [bpm]);
 
@@ -206,6 +247,53 @@ export function DrumMachine({
 
   const size = useWindowSize();
 
+  // const exportProject = () => {
+  //   if (process.env.NODE_ENV !== 'test') {
+  //     const actx = Tone.context;
+  //     const dest = actx.createMediaStreamDestination();
+  //     const recorder = new MediaRecorder(dest.stream);
+
+  //     // TODO: connect Tone buffer to dest
+
+  //     const chunks = [];
+
+  //     Tone.Transport.scheduleRepeat(time => {
+  //       if (currentStep === 0) recorder.start();
+  //       if (currentStep > 14) {
+  //         recorder.stop();
+  //         Tone.Transport.stop();
+  //       } else {
+  //         Object.keys(buffersRef.current).forEach(b => {
+  //           const targetStep = stepsRef.current[b][currentStepRef.current];
+  //           const targetBuffer = buffersRef.current[b];
+
+  //           if (targetStep === 1) {
+  //             targetBuffer.start(time);
+  //           } else if (targetStep === 2) {
+  //             targetBuffer.start();
+  //             targetBuffer.start('+64n');
+  //             targetBuffer.start('+32n');
+  //           }
+  //         });
+
+  //         // eslint-disable-next-line no-unused-expressions
+  //         currentStepRef.current > 14
+  //           ? setCurrentStepState(0)
+  //           : setCurrentStepState(currentStepRef.current + 1);
+  //       }
+  //     }, '16n');
+
+  //     recorder.ondataavailable = evt => chunks.push(evt);
+  //     recorder.onstop = () => {
+  //       const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+  //       // TODO: download blob
+  //       console.log(blob);
+  //     };
+
+  //     Tone.Transport.start();
+  //   }
+  // };
+
   return (
     <Container>
       {size.width < 500 ? (
@@ -220,8 +308,14 @@ export function DrumMachine({
         onChange={e => onChangeTitle(e)}
         fontSize="1.5em"
         width="auto"
-        transform="uppercase"
       />
+      <BPMTextContainer>
+        {parseInt(bpm, 10) < 30 || parseInt(bpm, 10) > '300' ? (
+          <BPMText>BPM must be between 30 and 300.</BPMText>
+        ) : (
+          <BPMTextFiller />
+        )}
+      </BPMTextContainer>
       <Transport>
         <ControlContainer>
           <ControlText>BPM</ControlText>
@@ -230,9 +324,9 @@ export function DrumMachine({
         <ControlContainer>
           <ControlText>Kit</ControlText>
           <Dropdown width="5em" value={config} onChange={onChangeConfig}>
-            <option value="config1">EDM</option>
-            <option value="config2">Rock</option>
-            <option value="config3">Trap</option>
+            <Option value="config1">EDM</Option>
+            <Option value="config2">Rock</Option>
+            <Option value="config3">Trap</Option>
           </Dropdown>
         </ControlContainer>
         <ControlContainer>
@@ -249,6 +343,7 @@ export function DrumMachine({
           <PlayButton />
           <SaveButton />
           {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>}
+          {/* <ExportButton onClick={() => exportProject()}>Export</ExportButton> */}
         </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
