@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
+import Modal from 'react-modal';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -99,23 +100,65 @@ const Option = styled.option`
   color: black;
 `;
 
-// const ExportButton = styled.button`
-//   color: deepskyblue;
-//   border: 2px solid deepskyblue;
-//   background: #ffffff00;
-//   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-//   padding: 10px;
-//   font-size: 18px;
-//   border-radius: 4px;
-//   margin: 2px 2px;
-//   align-self: center;
-//   min-width: 100px;
+const ExportButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
 
-//   &:active {
-//     background: deepskyblue;
-//     color: white;
-//   }
-// `;
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
+const Error = styled.p`
+  color: #eeeeee;
+`;
+
+const modalStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'gray',
+    width: 'auto',
+    maxWidth: '750px',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  overlay: {
+    background: 'rgba(0, 0, 0, 0.4)',
+  },
+};
 
 const configs = {
   config1: {
@@ -165,8 +208,11 @@ export function DrumMachine({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
-  // Couldn't figure out how to make this work in redux
+  // Couldn't figure out how to make buffers work in redux
   const [buffers, setBuffers] = useState({});
+  const [exportIds, setExportIds] = useState([]);
+  const [modalString, setModalString] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // I think these are fine here/don't need to be moved to redux
   const buffersRef = useRef(buffers);
@@ -204,7 +250,7 @@ export function DrumMachine({
           : setCurrentStepState(currentStepRef.current + 1);
       }, '16n');
     }
-  }, [configs]);
+  }, []);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'test') {
@@ -220,6 +266,11 @@ export function DrumMachine({
   }, [vol]);
 
   useEffect(() => {
+    exportIds.forEach(exportId => {
+      Tone.Transport.clear(exportId);
+    });
+    setExportIds([]);
+
     if (process.env.NODE_ENV !== 'test') {
       if (playing) {
         Tone.Transport.start();
@@ -249,62 +300,101 @@ export function DrumMachine({
       }
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
-    }, []); // Empty array ensures that effect is only run on mount and unmount
+    }, []);
 
     return windowSize;
   };
 
   const size = useWindowSize();
 
-  // const exportProject = () => {
-  //   if (process.env.NODE_ENV !== 'test') {
-  //     const actx = Tone.context;
-  //     const dest = actx.createMediaStreamDestination();
-  //     const recorder = new MediaRecorder(dest.stream);
+  const exportProject = () => {
+    setModalString('Exporting...');
+    setModalIsOpen(true);
 
-  //     // TODO: connect Tone buffer to dest
+    exportIds.forEach(exportId => {
+      Tone.Transport.clear(exportId);
+    });
+    setExportIds([]);
 
-  //     const chunks = [];
+    if (process.env.NODE_ENV !== 'test') {
+      const actx = Tone.context;
+      const dest = actx.createMediaStreamDestination();
+      const recorder = new MediaRecorder(dest.stream);
 
-  //     Tone.Transport.scheduleRepeat(time => {
-  //       if (currentStep === 0) recorder.start();
-  //       if (currentStep > 14) {
-  //         recorder.stop();
-  //         Tone.Transport.stop();
-  //       } else {
-  //         Object.keys(buffersRef.current).forEach(b => {
-  //           const targetStep = stepsRef.current[b][currentStepRef.current];
-  //           const targetBuffer = buffersRef.current[b];
+      Object.keys(buffersRef.current).forEach(b => {
+        buffersRef.current[b].disconnect(Tone.Master);
+        buffersRef.current[b].connect(dest);
+      });
 
-  //           if (targetStep === 1) {
-  //             targetBuffer.start(time);
-  //           } else if (targetStep === 2) {
-  //             targetBuffer.start();
-  //             targetBuffer.start('+64n');
-  //             targetBuffer.start('+32n');
-  //           }
-  //         });
+      const chunks = [];
+      let i = 0;
 
-  //         // eslint-disable-next-line no-unused-expressions
-  //         currentStepRef.current > 14
-  //           ? setCurrentStepState(0)
-  //           : setCurrentStepState(currentStepRef.current + 1);
-  //       }
-  //     }, '16n');
+      const id = Tone.Transport.scheduleRepeat(time => {
+        if (i === 0) {
+          recorder.start();
+        }
+        if (i > 14) {
+          recorder.stop();
+          Tone.Transport.stop();
+        }
+        Object.keys(buffersRef.current).forEach(b => {
+          const targetStep = stepsRef.current[b][i];
+          const targetBuffer = buffersRef.current[b];
 
-  //     recorder.ondataavailable = evt => chunks.push(evt);
-  //     recorder.onstop = () => {
-  //       const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-  //       // TODO: download blob
-  //       console.log(blob);
-  //     };
+          if (targetStep === 1) {
+            targetBuffer.start(time);
+          } else if (targetStep === 2) {
+            targetBuffer.start();
+            targetBuffer.start('+64n');
+            targetBuffer.start('+32n');
+          }
+        });
 
-  //     Tone.Transport.start();
-  //   }
-  // };
+        // eslint-disable-next-line no-unused-expressions
+        i > 14 ? (i = 0) : (i += 1);
+      }, '16n');
+
+      setExportIds([...exportIds, id]);
+
+      recorder.ondataavailable = evt => chunks.push(evt.data);
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+        const blobUrl = URL.createObjectURL(blob);
+        setModalIsOpen(false);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = 'test.oga';
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        Object.keys(buffersRef.current).forEach(b => {
+          buffersRef.current[b].disconnect(dest);
+          buffersRef.current[b].connect(Tone.Master);
+        });
+      };
+
+      Tone.Transport.start();
+    }
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalString('');
+  };
 
   return (
     <Container>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Save Modal"
+      >
+        <Error>{modalString}</Error>
+        <OkButton onClick={closeModal}>OK</OkButton>
+      </Modal>
       {size.width < 500 ? (
         <H2 margin="10px 10px" textAlign="center">
           Rotate your device for a better experience.
@@ -352,7 +442,7 @@ export function DrumMachine({
           <PlayButton />
           <SaveButton />
           {/* {localStorage.getItem('jwtToken') ? <LoadButton /> : <></>} */}
-          {/* <ExportButton onClick={() => exportProject()}>Export</ExportButton> */}
+          <ExportButton onClick={() => exportProject()}>Export</ExportButton>
         </Buttons>
       </Transport>
       <React.Suspense fallback={<p>loading</p>}>
