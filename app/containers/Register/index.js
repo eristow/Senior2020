@@ -60,6 +60,24 @@ const Label = styled.label`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
 const modalStyles = {
   content: {
     top: '30%',
@@ -72,7 +90,8 @@ const modalStyles = {
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
-    display: 'inline-block',
+    display: 'flex',
+    flexDirection: 'column',
   },
   overlay: {
     background: 'rgba(0, 0, 0, 0.4)',
@@ -92,11 +111,10 @@ export function Register({
   useInjectReducer({ key: 'register', reducer });
   useInjectSaga({ key: 'register', saga });
 
+  if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
+
   const openModal = () => {
-    // console.log(email);
     handleSubmit(email, pass);
-    // console.log(body);
-    // setIsOpen(true);
   };
 
   const afterOpenModal = () => {};
@@ -116,6 +134,7 @@ export function Register({
       >
         {body}
         Email is already registered.
+        <OkButton onClick={closeModal}>OK</OkButton>
       </Modal>
       <Helmet>
         <title>Register</title>

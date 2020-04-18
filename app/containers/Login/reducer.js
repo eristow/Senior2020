@@ -4,9 +4,19 @@
  *
  */
 import produce from 'immer';
-import { CHANGE_EMAIL, CHANGE_PASS, CHANGE_IS_OPEN } from './constants';
+import {
+  CHANGE_EMAIL,
+  CHANGE_PASS,
+  CHANGE_IS_OPEN,
+  CHANGE_SHOW_OK,
+} from './constants';
 
-export const initialState = { email: '', pass: '' };
+export const initialState = {
+  email: '',
+  pass: '',
+  body: '',
+  showOk: false,
+};
 
 /* eslint-disable default-case, no-param-reassign */
 const loginReducer = (state = initialState, action) =>
@@ -20,6 +30,10 @@ const loginReducer = (state = initialState, action) =>
         break;
       case CHANGE_IS_OPEN:
         draft.modalIsOpen = action.value;
+        draft.body = action.body;
+        break;
+      case CHANGE_SHOW_OK:
+        draft.showOk = action.value;
         break;
     }
   });

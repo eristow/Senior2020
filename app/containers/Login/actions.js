@@ -11,6 +11,7 @@ import {
   LOGGED_IN,
   LOGIN_FAILED,
   CHANGE_IS_OPEN,
+  CHANGE_SHOW_OK,
 } from './constants';
 
 // const targetUrl = '/api/auth/login';
@@ -70,5 +71,12 @@ export function changeIsOpen(value, body) {
     type: CHANGE_IS_OPEN,
     value,
     body,
+  };
+}
+
+export function changeShowOk(value) {
+  return {
+    type: CHANGE_SHOW_OK,
+    value,
   };
 }

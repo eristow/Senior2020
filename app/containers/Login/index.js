@@ -20,11 +20,19 @@ import P from 'components/P';
 import InputText from 'components/InputText';
 import Button from 'components/Button';
 // import LoginForm from 'components/LoginForm';
-import { changeEmail, changePass, changeIsOpen, login } from './actions';
+import {
+  changeEmail,
+  changePass,
+  changeIsOpen,
+  login,
+  changeShowOk,
+} from './actions';
 import makeSelectLogin, {
   makeSelectEmail,
   makeSelectPass,
   makeSelectIsOpen,
+  makeSelectBody,
+  makeSelectShowOk,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -60,6 +68,24 @@ const Label = styled.label`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
+const OkButton = styled.button`
+  color: deepskyblue;
+  border: 2px solid deepskyblue;
+  background: #ffffff00;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 4px;
+  margin: 2px 2px;
+  align-self: center;
+  min-width: 100px;
+
+  &:active {
+    background: deepskyblue;
+    color: white;
+  }
+`;
+
 const modalStyles = {
   content: {
     top: '30%',
@@ -72,7 +98,8 @@ const modalStyles = {
     width: 'auto',
     maxWidth: '750px',
     height: 'auto',
-    display: 'inline-block',
+    display: 'flex',
+    flexDirection: 'column',
   },
   overlay: {
     background: 'rgba(0, 0, 0, 0.4)',
@@ -85,6 +112,8 @@ export function Login({
   pass,
   setPass,
   body,
+  showOk,
+  setShowOk,
   setIsOpen,
   modalIsOpen,
   handleSubmit,
@@ -92,16 +121,18 @@ export function Login({
   useInjectReducer({ key: 'login', reducer });
   useInjectSaga({ key: 'login', saga });
 
+  if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
+
   const openModal = () => {
+    setShowOk(false);
+    setIsOpen(true, 'Logging in.');
     handleSubmit(email, pass);
-    // console.log(body);
-    // setIsOpen(true);
   };
 
   const afterOpenModal = () => {};
 
   const closeModal = () => {
-    setIsOpen(false, body);
+    setIsOpen(false, '');
   };
 
   return (
@@ -113,8 +144,8 @@ export function Login({
         style={modalStyles}
         contentLabel="Login Modal"
       >
-        {body}
-        Wrong Email or Password.
+        <p>{body}</p>
+        {showOk ? <OkButton onClick={closeModal}>OK</OkButton> : <></>}
       </Modal>
       <Helmet>
         <title>Login</title>
@@ -161,6 +192,8 @@ Login.propTypes = {
   setIsOpen: PropTypes.func,
   modalIsOpen: PropTypes.bool,
   handleSubmit: PropTypes.func,
+  showOk: PropTypes.bool,
+  setShowOk: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -168,6 +201,8 @@ const mapStateToProps = createStructuredSelector({
   email: makeSelectEmail(),
   pass: makeSelectPass(),
   modalIsOpen: makeSelectIsOpen(),
+  body: makeSelectBody(),
+  showOk: makeSelectShowOk(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -188,7 +223,9 @@ function mapDispatchToProps(dispatch) {
     },
     setIsOpen: (value, body) => {
       dispatch(changeIsOpen(value, body));
-      // console.log(body);
+    },
+    setShowOk: value => {
+      dispatch(changeShowOk(value));
     },
   };
 }

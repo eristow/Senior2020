@@ -50,6 +50,7 @@ const FileListContainer = ({ files, filesFlag, onAdd, changeFilesFlag }) => {
 
   const [modalString, setModalString] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const email = localStorage.getItem('email');
   const ID = process.env.AWS_ID;
@@ -58,6 +59,7 @@ const FileListContainer = ({ files, filesFlag, onAdd, changeFilesFlag }) => {
 
   useEffect(() => {
     changeFilesFlag(false);
+    setIsLoading(true);
 
     const jwt = localStorage.getItem('jwtToken');
     JWT.verify(jwt, process.env.JWT_SECRET, err => {
@@ -86,6 +88,7 @@ const FileListContainer = ({ files, filesFlag, onAdd, changeFilesFlag }) => {
           throw error;
         } else {
           onAdd(data.Contents);
+          setIsLoading(false);
         }
       });
     });
@@ -110,9 +113,7 @@ const FileListContainer = ({ files, filesFlag, onAdd, changeFilesFlag }) => {
         {modalString}
       </Modal>
       <Container>
-        <React.Suspense fallback={<p>loading</p>}>
-          <FileList files={files} />
-        </React.Suspense>
+        {isLoading ? <p>loading...</p> : <FileList files={files} />}
       </Container>
     </>
   );

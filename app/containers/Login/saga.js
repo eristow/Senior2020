@@ -1,15 +1,16 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { LOGGING_IN } from 'containers/Login/constants';
+import { push } from 'connected-react-router';
+
+import request from 'utils/request';
+import { baseURL, comparePass } from 'utils/helpers';
+import { LOGGING_IN } from './constants';
 import {
   loginSuccess,
   loginError,
   changeIsOpen,
-} from 'containers/Login/actions';
-
-import request from 'utils/request';
-import { makeSelectEmail, makeSelectPass } from 'containers/Login/selectors';
-import { push } from 'connected-react-router';
-import { baseURL, comparePass } from 'utils/helpers';
+  changeShowOk,
+} from './actions';
+import { makeSelectEmail, makeSelectPass } from './selectors';
 
 /**
  * Backend login request/response handler
@@ -52,12 +53,15 @@ export function* loginReq() {
   } catch (err) {
     // console.log(typeof err.response);
     if (typeof err.response === 'undefined' || err.response.status !== 500) {
+      yield put(changeShowOk(true));
       yield put(changeIsOpen(true, 'Wrong Email or Password.'));
-    } else
+    } else {
+      yield put(changeShowOk(true));
       yield put(changeIsOpen(true, 'Communication error. Please try again.'));
-    // console.log(err.response.status);
-    // alert(err);
-    yield put(loginError(err));
+      // console.log(err.response.status);
+      // alert(err);
+      yield put(loginError(err));
+    }
   }
 }
 
