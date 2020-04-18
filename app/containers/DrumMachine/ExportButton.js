@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
 import Modal from 'react-modal';
+import ffmpeg from 'ffmpeg.js';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import reducer from './reducer';
@@ -121,6 +122,25 @@ export const ExportButton = ({
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
         const blobUrl = URL.createObjectURL(blob);
+
+        let stdout = '';
+        let stderr = '';
+
+        ffmpeg({
+          arguments: ['-version'],
+          print(data) {
+            stdout += `${data}\n`;
+          },
+          printErr: data => {
+            stderr += `${data}\n`;
+          },
+          onExit: code => {
+            console.log(`Process exited with code ${code}`);
+            console.log(stdout);
+            console.log(stderr);
+          },
+        });
+
         setModalIsOpen(false);
         const link = document.createElement('a');
         link.href = blobUrl;

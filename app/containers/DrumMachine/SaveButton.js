@@ -93,6 +93,7 @@ export function SaveButton({
 
   const [modalString, setModalString] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showOk, setShowOk] = useState(false);
 
   const ID = process.env.AWS_ID;
   const SECRET = process.env.AWS_SECRET;
@@ -104,11 +105,16 @@ export function SaveButton({
   });
 
   const onClickSave = state => {
+    setModalString('Saving.');
+    setShowOk(false);
+    setModalIsOpen(true);
+
     const jwt = localStorage.getItem('jwtToken');
     // const gen = verify(jwt);
     if (!jwt) {
       setModalString('Login before you can save.\nPress OK to go to Login.');
       needsLogin = true;
+      setShowOk(true);
       setModalIsOpen(true);
       return;
     }
@@ -118,6 +124,7 @@ export function SaveButton({
         setModalString(
           'An error occurred when saving. Please try again, or log out and then back in.',
         );
+        setShowOk(true);
         setModalIsOpen(true);
         window.location.href = '/login';
         throw new Error(err);
@@ -125,12 +132,14 @@ export function SaveButton({
 
       if (title === '') {
         setModalString('Cannot save a project with a blank title.');
+        setShowOk(true);
         setModalIsOpen(true);
         return;
       }
 
       if (title.toLowerCase() === 'banger') {
         setModalString('Cannot save a project with a title of "banger"');
+        setShowOk(true);
         setModalIsOpen(true);
         return;
       }
@@ -161,11 +170,13 @@ export function SaveButton({
       s3.upload(params, error => {
         if (error) {
           setModalString('Error saving file.');
+          setShowOk(true);
           setModalIsOpen(true);
           throw error;
         }
         // console.log(`File uploaded successfully. ${data.Location}`);
         setModalIsOpen(true);
+        setShowOk(true);
         setModalString('Project saved.');
       });
     });
@@ -186,7 +197,7 @@ export function SaveButton({
         contentLabel="Save Modal"
       >
         <Error>{modalString}</Error>
-        <OkButton onClick={closeModal}>OK</OkButton>
+        {showOk ? <OkButton onClick={closeModal}>OK</OkButton> : <></>}
       </Modal>
       <Save onClick={() => onClickSave(drumMachineState)}>Save</Save>
     </>
