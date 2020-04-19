@@ -10,6 +10,8 @@ describe('loginReducer', () => {
       // default state params here
       email: '',
       pass: '',
+      body: '',
+      showOk: false,
     };
   });
 

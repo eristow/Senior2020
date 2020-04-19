@@ -39,5 +39,24 @@ const makeSelectIsOpen = () =>
     substate => substate.modalIsOpen,
   );
 
+const makeSelectBody = () =>
+  createSelector(
+    selectLoginDomain,
+    substate => substate.body,
+  );
+
+const makeSelectShowOk = () =>
+  createSelector(
+    selectLoginDomain,
+    substate => substate.showOk,
+  );
+
 export default makeSelectLogin;
-export { selectLoginDomain, makeSelectEmail, makeSelectPass, makeSelectIsOpen };
+export {
+  selectLoginDomain,
+  makeSelectEmail,
+  makeSelectPass,
+  makeSelectIsOpen,
+  makeSelectBody,
+  makeSelectShowOk,
+};

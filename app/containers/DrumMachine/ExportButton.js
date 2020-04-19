@@ -121,6 +121,7 @@ export const ExportButton = ({
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
         const blobUrl = URL.createObjectURL(blob);
+
         setModalIsOpen(false);
         const link = document.createElement('a');
         link.href = blobUrl;
