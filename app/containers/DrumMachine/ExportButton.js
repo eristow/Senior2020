@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Tone from 'tone';
 import Modal from 'react-modal';
-import ffmpeg from 'ffmpeg.js';
+import lame from 'lamejs';
+import Recorder from 'recorder-js';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import reducer from './reducer';
@@ -81,23 +82,68 @@ export const ExportButton = ({
     if (process.env.NODE_ENV !== 'test') {
       const actx = Tone.context;
       const dest = actx.createMediaStreamDestination();
-      const recorder = new MediaRecorder(dest.stream);
+      const recorder = new Recorder(dest.stream);
 
       Object.keys(buffers).forEach(b => {
         buffers[b].disconnect(Tone.Master);
         buffers[b].connect(dest);
       });
 
-      const chunks = [];
       let i = 0;
 
       const id = Tone.Transport.scheduleRepeat(time => {
         if (i === 0) {
+          console.log('start');
           recorder.start();
         }
         if (i > 14) {
-          recorder.stop();
+          console.log('stop');
+          recorder.stop().then(blob => {
+            console.log(blob);
+          });
           Tone.Transport.stop();
+
+          console.log(recorder);
+
+          // recorder.exportWAV(wav => {
+          //   const fileReader = new FileReader();
+          //   console.log(wav);
+
+          //   fileReader.onload = () => {
+          //     console.log(fileReader.result);
+          //     const mp3Data = [];
+          //     const samples = new Int16Array(fileReader.result);
+          //     console.log(samples);
+          //     const mp3encoder = new lame.Mp3Encoder(1, 44100, 128);
+
+          //     let mp3Buffer = mp3encoder.encodeBuffer(samples);
+          //     mp3Data.push(mp3Buffer);
+          //     mp3Buffer = mp3encoder.flush();
+          //     mp3Data.push(mp3Buffer);
+
+          //     const blob = new Blob(mp3Data, { type: 'audio/mp3' });
+          //     console.log(blob);
+
+          //     const blobUrl = URL.createObjectURL(blob);
+
+          //     const link = document.createElement('a');
+          //     link.href = blobUrl;
+          //     link.download = `${title}.mp3`;
+          //     link.style.display = 'none';
+          //     document.body.appendChild(link);
+          //     setModalIsOpen(false);
+          //     link.click();
+          //     document.body.removeChild(link);
+          //   };
+
+          //   fileReader.readAsArrayBuffer(new Blob(wav, { type: 'audio/webm' }));
+          //   console.log('after');
+
+          //   Object.keys(buffers).forEach(b => {
+          //     buffers[b].disconnect(dest);
+          //     buffers[b].connect(Tone.Master);
+          //   });
+          // });
         }
         Object.keys(buffers).forEach(b => {
           const targetStep = steps[b][i];
@@ -117,44 +163,6 @@ export const ExportButton = ({
       }, '16n');
 
       setExportIds([...exportIds, id]);
-
-      recorder.ondataavailable = evt => chunks.push(evt.data);
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-        const blobUrl = URL.createObjectURL(blob);
-
-        let stdout = '';
-        let stderr = '';
-
-        ffmpeg({
-          arguments: ['-version'],
-          print(data) {
-            stdout += `${data}\n`;
-          },
-          printErr: data => {
-            stderr += `${data}\n`;
-          },
-          onExit: code => {
-            console.log(`Process exited with code ${code}`);
-            console.log(stdout);
-            console.log(stderr);
-          },
-        });
-
-        setModalIsOpen(false);
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = `${title}.oga`;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        Object.keys(buffers).forEach(b => {
-          buffers[b].disconnect(dest);
-          buffers[b].connect(Tone.Master);
-        });
-      };
 
       Tone.Transport.start();
     }
